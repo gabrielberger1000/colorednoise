@@ -24,6 +24,10 @@ class NoiseProcessor extends AudioWorkletProcessor {
         // Blue/Violet state (high-pass filtering) - per channel
         this.lastWhite = [0, 0];
         this.lastBlue = [0, 0];
+        
+        // Sample rate reduction state - per channel
+        this.sampleHoldCounter = [0, 0];
+        this.sampleHoldValue = [0, 0];
     }
     
     static get parameterDescriptors() {
@@ -31,7 +35,9 @@ class NoiseProcessor extends AudioWorkletProcessor {
             { name: 'color', defaultValue: 3, minValue: 0, maxValue: 4 },
             { name: 'color2', defaultValue: 3, minValue: 0, maxValue: 4 },
             { name: 'colorBlend', defaultValue: 0, minValue: 0, maxValue: 1 },
-            { name: 'texture', defaultValue: 0, minValue: 0, maxValue: 1 }
+            { name: 'texture', defaultValue: 0, minValue: 0, maxValue: 1 },
+            { name: 'bitDepth', defaultValue: 16, minValue: 2, maxValue: 16 },
+            { name: 'sampleRateReduction', defaultValue: 1, minValue: 1, maxValue: 32 }
         ];
     }
     
@@ -57,6 +63,8 @@ class NoiseProcessor extends AudioWorkletProcessor {
         const color2Param = parameters['color2'];
         const blendParam = parameters['colorBlend'];
         const texParam = parameters['texture'];
+        const bitDepthParam = parameters['bitDepth'];
+        const srrParam = parameters['sampleRateReduction'];
         
         for (let ch = 0; ch < output.length; ch++) {
             const outData = output[ch];
@@ -64,12 +72,16 @@ class NoiseProcessor extends AudioWorkletProcessor {
             const isColor2Const = color2Param.length === 1;
             const isBlendConst = blendParam.length === 1;
             const isTexConst = texParam.length === 1;
+            const isBitConst = bitDepthParam.length === 1;
+            const isSrrConst = srrParam.length === 1;
             
             for (let i = 0; i < outData.length; i++) {
                 const alpha = isColorConst ? colorParam[0] : colorParam[i];
                 const alpha2 = isColor2Const ? color2Param[0] : color2Param[i];
                 const blend = isBlendConst ? blendParam[0] : blendParam[i];
                 const texture = isTexConst ? texParam[0] : texParam[i];
+                const bitDepth = isBitConst ? bitDepthParam[0] : bitDepthParam[i];
+                const srr = isSrrConst ? srrParam[0] : srrParam[i];
                 
                 // Generate white noise base
                 let white = 0;
@@ -111,7 +123,26 @@ class NoiseProcessor extends AudioWorkletProcessor {
                 const noise2 = this.getNoiseForAlpha(alpha2, white, violet, blue, pink, brown);
                 
                 // Blend the two colors
-                outData[i] = (1 - blend) * noise1 + blend * noise2;
+                let sample = (1 - blend) * noise1 + blend * noise2;
+                
+                // === BITCRUSHING ===
+                // Bit depth reduction (quantize to fewer bits)
+                if (bitDepth < 16) {
+                    const steps = Math.pow(2, bitDepth - 1); // -1 because we need signed range
+                    sample = Math.round(sample * steps) / steps;
+                }
+                
+                // Sample rate reduction (sample & hold)
+                if (srr > 1) {
+                    this.sampleHoldCounter[ch]++;
+                    if (this.sampleHoldCounter[ch] >= srr) {
+                        this.sampleHoldCounter[ch] = 0;
+                        this.sampleHoldValue[ch] = sample;
+                    }
+                    sample = this.sampleHoldValue[ch];
+                }
+                
+                outData[i] = sample;
             }
         }
         return true;

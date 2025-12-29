@@ -41,6 +41,11 @@ export class AudioEngine {
         this.panLFO = null;
         this.panLFOGain = null;
         
+        // Saturation/distortion
+        this.waveshaper = null;
+        this.saturationMix = null;
+        this.saturationDry = null;
+        
         // State
         this.initialized = false;
         this.isPlaying = false;
@@ -156,6 +161,18 @@ export class AudioEngine {
         this.panLFO.connect(this.panLFOGain);
         this.panLFOGain.connect(this.panner.pan);
         
+        // Saturation/distortion waveshaper
+        this.waveshaper = this.ctx.createWaveShaper();
+        this.waveshaper.oversample = '2x';
+        this.saturationCurves = this.createSaturationCurves();
+        this.waveshaper.curve = this.saturationCurves.soft;
+        
+        this.saturationMix = this.ctx.createGain();
+        this.saturationMix.gain.value = 0; // wet
+        
+        this.saturationDry = this.ctx.createGain();
+        this.saturationDry.gain.value = 1; // dry
+        
         // Master gain
         this.gainNode = this.ctx.createGain();
         this.gainNode.gain.value = 0.5;
@@ -179,17 +196,59 @@ export class AudioEngine {
         this.combDelay.connect(this.combMix);
         this.combMix.connect(this.wetMix);
         
-        // Mix -> Grey EQ -> Envelope -> Panner -> Analyser -> Master -> Output
+        // Mix -> Grey EQ -> Saturation (parallel dry/wet) -> Envelope -> Panner -> Analyser -> Master -> Output
         this.dryGain.connect(this.greyLow);
         this.wetMix.connect(this.greyLow);
         this.greyLow.connect(this.greyHigh);
-        this.greyHigh.connect(this.envelopeGain);
+        
+        // Saturation: split into dry and wet paths, then merge
+        this.greyHigh.connect(this.saturationDry);
+        this.greyHigh.connect(this.waveshaper);
+        this.waveshaper.connect(this.saturationMix);
+        this.saturationDry.connect(this.envelopeGain);
+        this.saturationMix.connect(this.envelopeGain);
+        
         this.envelopeGain.connect(this.panner);
         this.panner.connect(this.analyser);
         this.analyser.connect(this.gainNode);
         this.gainNode.connect(this.ctx.destination);
         
         this.initialized = true;
+    }
+    
+    /**
+     * Create saturation curve lookup tables
+     */
+    createSaturationCurves() {
+        const samples = 44100;
+        const curves = {};
+        
+        // Soft clip (tanh-like, warm)
+        curves.soft = new Float32Array(samples);
+        for (let i = 0; i < samples; i++) {
+            const x = (i * 2) / samples - 1;
+            curves.soft[i] = Math.tanh(x * 2);
+        }
+        
+        // Hard clip (aggressive)
+        curves.hard = new Float32Array(samples);
+        for (let i = 0; i < samples; i++) {
+            const x = (i * 2) / samples - 1;
+            curves.hard[i] = Math.max(-0.8, Math.min(0.8, x * 1.5));
+        }
+        
+        // Warm (tube-like, asymmetric)
+        curves.warm = new Float32Array(samples);
+        for (let i = 0; i < samples; i++) {
+            const x = (i * 2) / samples - 1;
+            if (x >= 0) {
+                curves.warm[i] = Math.tanh(x * 1.5);
+            } else {
+                curves.warm[i] = Math.tanh(x * 2);
+            }
+        }
+        
+        return curves;
     }
     
     /**
@@ -230,6 +289,16 @@ export class AudioEngine {
         // Texture
         const texParam = this.noiseNode.parameters.get('texture');
         texParam.setValueAtTime(settings.dist, now);
+        
+        // Bitcrushing (use setValueAtTime since these are discrete values)
+        const bitDepthParam = this.noiseNode.parameters.get('bitDepth');
+        const srrParam = this.noiseNode.parameters.get('sampleRateReduction');
+        if (bitDepthParam && srrParam) {
+            const bitDepth = settings.bitDepth ?? 16;
+            const srr = settings.sampleRateReduction ?? 1;
+            bitDepthParam.setValueAtTime(bitDepth, now);
+            srrParam.setValueAtTime(srr, now);
+        }
         
         // Pulse/LFO
         if (settings.pulse > 0) {
@@ -301,6 +370,25 @@ export class AudioEngine {
             this.panLFOGain.gain.setTargetAtTime(settings.panDepth, now, tc);
         } else {
             this.panLFOGain.gain.setTargetAtTime(0, now, tc);
+        }
+        
+        // Saturation/distortion
+        if (settings.saturation && settings.saturation > 0) {
+            // Select curve type
+            const curveType = settings.saturationMode || 'soft';
+            if (this.saturationCurves[curveType]) {
+                this.waveshaper.curve = this.saturationCurves[curveType];
+            }
+            
+            // Mix: saturation amount controls wet/dry balance
+            const wet = settings.saturation;
+            const dry = 1 - (wet * 0.5); // Keep some dry signal even at max
+            
+            this.saturationMix.gain.setTargetAtTime(wet, now, tc);
+            this.saturationDry.gain.setTargetAtTime(dry, now, tc);
+        } else {
+            this.saturationMix.gain.setTargetAtTime(0, now, tc);
+            this.saturationDry.gain.setTargetAtTime(1, now, tc);
         }
     }
     

@@ -72,6 +72,13 @@ export function initUI() {
         sliderColorBlend: document.getElementById('sliderColorBlend'),
         valColor2: document.getElementById('valColor2'),
         valColorBlend: document.getElementById('valColorBlend'),
+        sliderSaturation: document.getElementById('sliderSaturation'),
+        selSaturationMode: document.getElementById('selSaturationMode'),
+        valSaturation: document.getElementById('valSaturation'),
+        sliderBitDepth: document.getElementById('sliderBitDepth'),
+        sliderDownsample: document.getElementById('sliderDownsample'),
+        valBitDepth: document.getElementById('valBitDepth'),
+        valDownsample: document.getElementById('valDownsample'),
         
         timerDisplay: document.getElementById('timerDisplay'),
         timerCancel: document.getElementById('timerCancel'),
@@ -276,6 +283,14 @@ function syncControlsToSettings() {
     elements.sliderColor2.value = currentSettings.alpha2 ?? 3;
     elements.sliderColorBlend.value = currentSettings.colorBlend ?? 0;
     
+    // Advanced - saturation
+    elements.sliderSaturation.value = currentSettings.saturation ?? 0;
+    elements.selSaturationMode.value = currentSettings.saturationMode ?? 'soft';
+    
+    // Advanced - bitcrushing
+    elements.sliderBitDepth.value = currentSettings.bitDepth ?? 16;
+    elements.sliderDownsample.value = currentSettings.sampleRateReduction ?? 1;
+    
     updateLabels();
 }
 
@@ -329,6 +344,17 @@ function updateLabels() {
     
     const colorBlend = parseFloat(elements.sliderColorBlend.value);
     elements.valColorBlend.textContent = Math.round(colorBlend * 100) + "%";
+    
+    // Saturation label
+    const saturation = parseFloat(elements.sliderSaturation.value);
+    elements.valSaturation.textContent = Math.round(saturation * 100) + "%";
+    
+    // Bitcrushing labels
+    const bitDepth = parseInt(elements.sliderBitDepth.value);
+    elements.valBitDepth.textContent = bitDepth + "-bit";
+    
+    const downsample = parseInt(elements.sliderDownsample.value);
+    elements.valDownsample.textContent = downsample + "x";
 }
 
 /**
@@ -358,6 +384,12 @@ function syncSettingsFromControls() {
         // Advanced - color layering
         alpha2: parseFloat(elements.sliderColor2.value),
         colorBlend: parseFloat(elements.sliderColorBlend.value),
+        // Advanced - saturation
+        saturation: parseFloat(elements.sliderSaturation.value),
+        saturationMode: elements.selSaturationMode.value,
+        // Advanced - bitcrushing
+        bitDepth: parseInt(elements.sliderBitDepth.value),
+        sampleRateReduction: parseInt(elements.sliderDownsample.value),
         // Preserve texture filters from preset
         resonant: currentSettings.resonant,
         comb: currentSettings.comb
@@ -406,7 +438,9 @@ function setupEventListeners() {
      elements.sliderAttack, elements.sliderDecay, elements.sliderSustain,
      elements.sliderRelease, elements.sliderDuration,
      elements.sliderPanRate, elements.sliderPanDepth,
-     elements.sliderColor2, elements.sliderColorBlend].forEach(el => {
+     elements.sliderColor2, elements.sliderColorBlend,
+     elements.sliderSaturation, elements.selSaturationMode,
+     elements.sliderBitDepth, elements.sliderDownsample].forEach(el => {
         el.addEventListener('input', syncSettingsFromControls);
     });
     

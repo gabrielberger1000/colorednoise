@@ -180,7 +180,11 @@ export const builtInPresets = [
     { name: "Drifting", category: "textured", alpha: 3.5, pulse: 0, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10,
       attack: 5, loop: false, panRate: 0.08, panDepth: 0.7 },
     { name: "Layered Depths", category: "textured", alpha: 4, alpha2: 1.5, colorBlend: 0.4, pulse: 0, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10,
-      attack: 5, loop: false }
+      attack: 5, loop: false },
+    { name: "Warm Hiss", category: "textured", alpha: 2.5, pulse: 0, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10,
+      attack: 2, loop: false, saturation: 0.6, saturationMode: 'warm' },
+    { name: "Lo-Fi Crunch", category: "textured", alpha: 3, pulse: 0, pulseShape: "sine", grey: false, dist: 1, binaural: false, binauralFreq: 10,
+      attack: 2, loop: false, bitDepth: 6, sampleRateReduction: 8 }
 ];
 
 /**
@@ -207,6 +211,12 @@ export const defaultSettings = {
     // Color layering
     alpha2: 3,
     colorBlend: 0,
+    // Saturation
+    saturation: 0,
+    saturationMode: 'soft',
+    // Bitcrushing
+    bitDepth: 16,
+    sampleRateReduction: 1,
     // Texture filters
     resonant: null,
     comb: null
