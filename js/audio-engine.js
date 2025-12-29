@@ -290,7 +290,7 @@ export class AudioEngine {
         const texParam = this.noiseNode.parameters.get('texture');
         texParam.setValueAtTime(settings.dist, now);
         
-        // Bitcrushing (use setValueAtTime since these are discrete values)
+        // Bitcrushing
         const bitDepthParam = this.noiseNode.parameters.get('bitDepth');
         const srrParam = this.noiseNode.parameters.get('sampleRateReduction');
         if (bitDepthParam && srrParam) {

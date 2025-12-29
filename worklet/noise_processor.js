@@ -128,7 +128,7 @@ class NoiseProcessor extends AudioWorkletProcessor {
                 // === BITCRUSHING ===
                 // Bit depth reduction (quantize to fewer bits)
                 if (bitDepth < 16) {
-                    const steps = Math.pow(2, bitDepth - 1); // -1 because we need signed range
+                    const steps = Math.pow(2, bitDepth - 1);
                     sample = Math.round(sample * steps) / steps;
                 }
                 
