@@ -263,22 +263,83 @@
                     </div>
                 </div>
                 
-                <!-- Fade Controls -->
+                <!-- Envelope Controls -->
                 <div class="control-panel">
                     <div class="panel-header">
-                        <span>Fade Settings</span>
+                        <span>Envelope (ADSR)</span>
+                        <label class="switch loop-switch">
+                            <input type="checkbox" id="checkLoop" aria-label="Toggle envelope looping">
+                            <span class="slider-toggle"></span>
+                        </label>
+                        <span class="loop-label">Loop</span>
                     </div>
-                    <div class="fade-row">
+                    <div class="adsr-row">
                         <div class="control-group">
-                            <label>Fade In <span id="valFadeIn">1s</span></label>
-                            <input type="range" id="sliderFadeIn" min="0" max="60" step="1" value="1" aria-label="Fade in duration">
+                            <label>Attack <span id="valAttack">0.5s</span></label>
+                            <input type="range" id="sliderAttack" min="0" max="10" step="0.1" value="0.5" aria-label="Attack time">
                         </div>
                         <div class="control-group">
-                            <label>Fade Out <span id="valFadeOut">2s</span></label>
-                            <input type="range" id="sliderFadeOut" min="0" max="60" step="1" value="2" aria-label="Fade out duration">
+                            <label>Decay <span id="valDecay">0s</span></label>
+                            <input type="range" id="sliderDecay" min="0" max="10" step="0.1" value="0" aria-label="Decay time">
                         </div>
+                    </div>
+                    <div class="adsr-row">
+                        <div class="control-group">
+                            <label>Sustain <span id="valSustain">100%</span></label>
+                            <input type="range" id="sliderSustain" min="0" max="1" step="0.01" value="1" aria-label="Sustain level">
+                        </div>
+                        <div class="control-group">
+                            <label>Release <span id="valRelease">0.5s</span></label>
+                            <input type="range" id="sliderRelease" min="0" max="10" step="0.1" value="0.5" aria-label="Release time">
+                        </div>
+                    </div>
+                    <div class="control-group" id="durationGroup">
+                        <label>Duration <span id="valDuration">2s</span></label>
+                        <input type="range" id="sliderDuration" min="0.1" max="30" step="0.1" value="2" aria-label="Sustain duration before release">
                     </div>
                 </div>
+                
+                <!-- Advanced Controls -->
+                <details class="control-panel advanced-panel">
+                    <summary class="panel-header">
+                        <span>Advanced</span>
+                    </summary>
+                    <div class="advanced-content">
+                        <div class="advanced-section-label">Stereo Movement</div>
+                        <div class="adsr-row">
+                            <div class="control-group">
+                                <label>Pan Rate <span id="valPanRate">Off</span></label>
+                                <input type="range" id="sliderPanRate" min="0" max="2" step="0.01" value="0" aria-label="Stereo pan LFO rate">
+                            </div>
+                            <div class="control-group">
+                                <label>Pan Depth <span id="valPanDepth">0%</span></label>
+                                <input type="range" id="sliderPanDepth" min="0" max="1" step="0.01" value="0" aria-label="Stereo pan depth">
+                            </div>
+                        </div>
+                        
+                        <div class="advanced-section-label">Color Layering</div>
+                        <div class="control-group">
+                            <label>Second Color <span id="valColor2">Pink</span></label>
+                            <input type="range" id="sliderColor2" min="0" max="4" step="0.01" value="3" aria-label="Second noise color">
+                            <div class="slider-labels">
+                                <span>Violet</span>
+                                <span>Blue</span>
+                                <span>White</span>
+                                <span>Pink</span>
+                                <span>Brown</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label>Blend <span id="valColorBlend">0%</span></label>
+                            <input type="range" id="sliderColorBlend" min="0" max="1" step="0.01" value="0" aria-label="Color blend amount">
+                            <div class="slider-labels">
+                                <span>Color 1</span>
+                                <span>Mix</span>
+                                <span>Color 2</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
                 
                 <!-- Timer -->
                 <div class="timer-panel">

@@ -36,8 +36,15 @@ export function initUI() {
         sliderPulse: document.getElementById('sliderPulse'),
         sliderVol: document.getElementById('sliderVol'),
         sliderBinaural: document.getElementById('sliderBinaural'),
-        sliderFadeIn: document.getElementById('sliderFadeIn'),
-        sliderFadeOut: document.getElementById('sliderFadeOut'),
+        
+        // ADSR controls
+        sliderAttack: document.getElementById('sliderAttack'),
+        sliderDecay: document.getElementById('sliderDecay'),
+        sliderSustain: document.getElementById('sliderSustain'),
+        sliderRelease: document.getElementById('sliderRelease'),
+        sliderDuration: document.getElementById('sliderDuration'),
+        checkLoop: document.getElementById('checkLoop'),
+        durationGroup: document.getElementById('durationGroup'),
         
         selDist: document.getElementById('selDist'),
         selPulseShape: document.getElementById('selPulseShape'),
@@ -50,8 +57,21 @@ export function initUI() {
         valPulse: document.getElementById('valPulse'),
         valVol: document.getElementById('valVol'),
         valBinaural: document.getElementById('valBinaural'),
-        valFadeIn: document.getElementById('valFadeIn'),
-        valFadeOut: document.getElementById('valFadeOut'),
+        valAttack: document.getElementById('valAttack'),
+        valDecay: document.getElementById('valDecay'),
+        valSustain: document.getElementById('valSustain'),
+        valRelease: document.getElementById('valRelease'),
+        valDuration: document.getElementById('valDuration'),
+        
+        // Advanced controls
+        sliderPanRate: document.getElementById('sliderPanRate'),
+        sliderPanDepth: document.getElementById('sliderPanDepth'),
+        valPanRate: document.getElementById('valPanRate'),
+        valPanDepth: document.getElementById('valPanDepth'),
+        sliderColor2: document.getElementById('sliderColor2'),
+        sliderColorBlend: document.getElementById('sliderColorBlend'),
+        valColor2: document.getElementById('valColor2'),
+        valColorBlend: document.getElementById('valColorBlend'),
         
         timerDisplay: document.getElementById('timerDisplay'),
         timerCancel: document.getElementById('timerCancel'),
@@ -116,8 +136,21 @@ function createPresetButton(preset, idx) {
     btn.setAttribute('role', 'option');
     btn.setAttribute('aria-selected', 'false');
     
-    const fadeInfo = `${preset.fadeIn}s/${preset.fadeOut}s`;
-    btn.innerHTML = `<span class="preset-name">${preset.name}</span><span class="preset-meta">${fadeInfo}</span>`;
+    let metaInfo;
+    if (preset.loop) {
+        // Looping: show A/D/S/R
+        const a = preset.attack ?? 0.5;
+        const d = preset.decay ?? 0;
+        const s = Math.round((preset.sustain ?? 1) * 100);
+        const r = preset.release ?? 0.5;
+        metaInfo = `↻ ${a}/${d}/${s}%/${r}s`;
+    } else {
+        // Non-looping: show just attack
+        const a = preset.attack ?? 0.5;
+        metaInfo = `${a}s fade in`;
+    }
+    
+    btn.innerHTML = `<span class="preset-name">${preset.name}</span><span class="preset-meta">${metaInfo}</span>`;
     
     btn.onclick = () => activatePreset(preset, btn);
     
@@ -187,18 +220,28 @@ async function activatePreset(preset, btnElem) {
     
     // Start playing if not already
     if (!audioEngine.isPlaying) {
-        const adsr = {
-            attack: currentSettings.fadeIn || 0.5,
-            decay: 0,
-            sustain: 1,
-            release: currentSettings.fadeOut || 0.5
-        };
+        const adsr = getADSRFromSettings(currentSettings);
         audioEngine.start(adsr);
         updatePlayingUI(true);
         startVisualizer();
     }
     
     elements.statusDisplay.textContent = "Playing: " + preset.name;
+}
+
+/**
+ * Convert settings to ADSR object
+ * Supports both old fadeIn/fadeOut and new ADSR fields
+ */
+function getADSRFromSettings(settings) {
+    return {
+        attack: settings.attack ?? settings.fadeIn ?? 0.5,
+        decay: settings.decay ?? 0,
+        sustain: settings.sustain ?? 1,
+        release: settings.release ?? settings.fadeOut ?? 0.5,
+        duration: settings.duration ?? null,
+        loop: settings.loop ?? false
+    };
 }
 
 /**
@@ -212,9 +255,26 @@ function syncControlsToSettings() {
     elements.checkGrey.checked = currentSettings.grey;
     elements.checkBinaural.checked = currentSettings.binaural || false;
     elements.sliderBinaural.value = currentSettings.binauralFreq || 10;
-    elements.sliderFadeIn.value = currentSettings.fadeIn || 1;
-    elements.sliderFadeOut.value = currentSettings.fadeOut || 2;
+    
+    // ADSR - support both old fadeIn/fadeOut and new ADSR fields
+    elements.sliderAttack.value = currentSettings.attack ?? currentSettings.fadeIn ?? 0.5;
+    elements.sliderDecay.value = currentSettings.decay ?? 0;
+    elements.sliderSustain.value = currentSettings.sustain ?? 1;
+    elements.sliderRelease.value = currentSettings.release ?? currentSettings.fadeOut ?? 0.5;
+    elements.sliderDuration.value = currentSettings.duration ?? 2;
+    elements.checkLoop.checked = currentSettings.loop ?? false;
+    
     elements.binauralFreqGroup.style.display = currentSettings.binaural ? 'block' : 'none';
+    // Show duration only when looping
+    elements.durationGroup.style.display = currentSettings.loop ? 'block' : 'none';
+    
+    // Advanced - pan
+    elements.sliderPanRate.value = currentSettings.panRate ?? 0;
+    elements.sliderPanDepth.value = currentSettings.panDepth ?? 0;
+    
+    // Advanced - color layering
+    elements.sliderColor2.value = currentSettings.alpha2 ?? 3;
+    elements.sliderColorBlend.value = currentSettings.colorBlend ?? 0;
     
     updateLabels();
 }
@@ -236,17 +296,47 @@ function updateLabels() {
     elements.valVol.textContent = Math.round(elements.sliderVol.value * 100) + "%";
     elements.valBinaural.textContent = elements.sliderBinaural.value + " Hz";
     
-    const fi = parseInt(elements.sliderFadeIn.value);
-    elements.valFadeIn.textContent = fi === 0 ? "Instant" : fi + "s";
+    // ADSR labels
+    const attack = parseFloat(elements.sliderAttack.value);
+    elements.valAttack.textContent = attack === 0 ? "Instant" : attack.toFixed(1) + "s";
     
-    const fo = parseInt(elements.sliderFadeOut.value);
-    elements.valFadeOut.textContent = fo === 0 ? "Instant" : fo + "s";
+    const decay = parseFloat(elements.sliderDecay.value);
+    elements.valDecay.textContent = decay === 0 ? "None" : decay.toFixed(1) + "s";
+    
+    const sustain = parseFloat(elements.sliderSustain.value);
+    elements.valSustain.textContent = Math.round(sustain * 100) + "%";
+    
+    const release = parseFloat(elements.sliderRelease.value);
+    elements.valRelease.textContent = release === 0 ? "Instant" : release.toFixed(1) + "s";
+    
+    const duration = parseFloat(elements.sliderDuration.value);
+    elements.valDuration.textContent = duration.toFixed(1) + "s";
+    
+    // Pan labels
+    const panRate = parseFloat(elements.sliderPanRate.value);
+    elements.valPanRate.textContent = panRate === 0 ? "Off" : panRate.toFixed(2) + " Hz";
+    
+    const panDepth = parseFloat(elements.sliderPanDepth.value);
+    elements.valPanDepth.textContent = Math.round(panDepth * 100) + "%";
+    
+    // Color 2 label
+    const c2 = parseFloat(elements.sliderColor2.value);
+    if (c2 < 0.5) elements.valColor2.textContent = "Violet";
+    else if (c2 < 1.5) elements.valColor2.textContent = "Blue";
+    else if (c2 < 2.5) elements.valColor2.textContent = "White";
+    else if (c2 < 3.5) elements.valColor2.textContent = "Pink";
+    else elements.valColor2.textContent = "Brown";
+    
+    const colorBlend = parseFloat(elements.sliderColorBlend.value);
+    elements.valColorBlend.textContent = Math.round(colorBlend * 100) + "%";
 }
 
 /**
  * Sync settings from control values
  */
 function syncSettingsFromControls() {
+    const isLooping = elements.checkLoop.checked;
+    
     currentSettings = {
         alpha: parseFloat(elements.sliderColor.value),
         pulse: parseFloat(elements.sliderPulse.value),
@@ -255,11 +345,26 @@ function syncSettingsFromControls() {
         dist: parseInt(elements.selDist.value),
         binaural: elements.checkBinaural.checked,
         binauralFreq: parseFloat(elements.sliderBinaural.value),
-        fadeIn: parseInt(elements.sliderFadeIn.value),
-        fadeOut: parseInt(elements.sliderFadeOut.value),
+        // ADSR
+        attack: parseFloat(elements.sliderAttack.value),
+        decay: parseFloat(elements.sliderDecay.value),
+        sustain: parseFloat(elements.sliderSustain.value),
+        release: parseFloat(elements.sliderRelease.value),
+        duration: isLooping ? parseFloat(elements.sliderDuration.value) : null,
+        loop: isLooping,
+        // Advanced - pan
+        panRate: parseFloat(elements.sliderPanRate.value),
+        panDepth: parseFloat(elements.sliderPanDepth.value),
+        // Advanced - color layering
+        alpha2: parseFloat(elements.sliderColor2.value),
+        colorBlend: parseFloat(elements.sliderColorBlend.value),
+        // Preserve texture filters from preset
         resonant: currentSettings.resonant,
         comb: currentSettings.comb
     };
+    
+    // Show/hide duration based on loop
+    elements.durationGroup.style.display = isLooping ? 'block' : 'none';
     
     // Deselect preset when manually adjusting
     if (activePresetBtn) {
@@ -273,6 +378,12 @@ function syncSettingsFromControls() {
     
     if (audioEngine.initialized) {
         audioEngine.applySettings(currentSettings, false);
+        
+        // If playing and looping was just enabled/changed, restart with new envelope
+        if (audioEngine.isPlaying && isLooping) {
+            const adsr = getADSRFromSettings(currentSettings);
+            audioEngine.start(adsr);
+        }
     }
     
     updateURL();
@@ -291,10 +402,16 @@ function setupEventListeners() {
     
     // Control sliders
     [elements.sliderColor, elements.sliderPulse, elements.selPulseShape, 
-     elements.selDist, elements.checkGrey, elements.sliderFadeIn, 
-     elements.sliderFadeOut].forEach(el => {
+     elements.selDist, elements.checkGrey,
+     elements.sliderAttack, elements.sliderDecay, elements.sliderSustain,
+     elements.sliderRelease, elements.sliderDuration,
+     elements.sliderPanRate, elements.sliderPanDepth,
+     elements.sliderColor2, elements.sliderColorBlend].forEach(el => {
         el.addEventListener('input', syncSettingsFromControls);
     });
+    
+    // Loop toggle
+    elements.checkLoop.addEventListener('change', syncSettingsFromControls);
     
     // Binaural toggle
     elements.checkBinaural.addEventListener('change', () => {
@@ -373,7 +490,7 @@ async function togglePower() {
     }
     
     if (audioEngine.isPlaying) {
-        // Stop immediately (short release)
+        // Stop immediately (short release, ignore preset's release time)
         audioEngine.stop(0.1, () => {
             audioEngine.suspend();
         });
@@ -381,14 +498,9 @@ async function togglePower() {
         stopVisualizer();
         elements.statusDisplay.textContent = "System Standby";
     } else {
-        // Start with preset's attack time
+        // Start with preset's ADSR
         audioEngine.applySettings(currentSettings, true);
-        const adsr = {
-            attack: currentSettings.fadeIn || 0.5,
-            decay: 0,
-            sustain: 1,
-            release: currentSettings.fadeOut || 0.5
-        };
+        const adsr = getADSRFromSettings(currentSettings);
         audioEngine.start(adsr);
         updatePlayingUI(true);
         startVisualizer();
@@ -499,7 +611,8 @@ function startTimer(minutes) {
 
 function updateTimerDisplay() {
     const remaining = timerEndTime - Date.now();
-    const fadeOutDuration = (currentSettings.fadeOut || 2) * 1000;
+    const adsr = getADSRFromSettings(currentSettings);
+    const fadeOutDuration = adsr.release * 1000;
     
     // Start fade early
     if (remaining <= fadeOutDuration && !timerFadeStarted && audioEngine.isPlaying) {
@@ -507,8 +620,8 @@ function updateTimerDisplay() {
         elements.timerDisplay.classList.add('fading');
         elements.timerDisplay.classList.remove('active');
         
-        // Use the preset's fadeOut for a gradual wind-down
-        audioEngine.stop(currentSettings.fadeOut || 2, () => {
+        // Use the preset's release for a gradual wind-down
+        audioEngine.stop(adsr.release, () => {
             audioEngine.suspend();
         });
         updatePlayingUI(false);
@@ -640,8 +753,15 @@ function updateURL() {
     params.set('d', currentSettings.dist);
     params.set('b', currentSettings.binaural ? '1' : '0');
     params.set('bf', currentSettings.binauralFreq);
-    params.set('fi', currentSettings.fadeIn);
-    params.set('fo', currentSettings.fadeOut);
+    // ADSR
+    params.set('a', currentSettings.attack ?? 0.5);
+    params.set('dc', currentSettings.decay ?? 0);
+    params.set('s', currentSettings.sustain ?? 1);
+    params.set('r', currentSettings.release ?? 0.5);
+    if (currentSettings.loop) {
+        params.set('dur', currentSettings.duration ?? 2);
+        params.set('loop', '1');
+    }
     params.set('v', elements.sliderVol.value);
     
     const newUrl = `${window.location.pathname}?${params.toString()}`;
@@ -658,8 +778,15 @@ function loadFromURL() {
     if (params.has('d')) currentSettings.dist = parseInt(params.get('d'));
     if (params.has('b')) currentSettings.binaural = params.get('b') === '1';
     if (params.has('bf')) currentSettings.binauralFreq = parseFloat(params.get('bf'));
-    if (params.has('fi')) currentSettings.fadeIn = parseInt(params.get('fi'));
-    if (params.has('fo')) currentSettings.fadeOut = parseInt(params.get('fo'));
+    // ADSR - support old format too
+    if (params.has('a')) currentSettings.attack = parseFloat(params.get('a'));
+    else if (params.has('fi')) currentSettings.attack = parseInt(params.get('fi'));
+    if (params.has('dc')) currentSettings.decay = parseFloat(params.get('dc'));
+    if (params.has('s')) currentSettings.sustain = parseFloat(params.get('s'));
+    if (params.has('r')) currentSettings.release = parseFloat(params.get('r'));
+    else if (params.has('fo')) currentSettings.release = parseInt(params.get('fo'));
+    if (params.has('dur')) currentSettings.duration = parseFloat(params.get('dur'));
+    if (params.has('loop')) currentSettings.loop = params.get('loop') === '1';
     if (params.has('v')) elements.sliderVol.value = parseFloat(params.get('v'));
     
     syncControlsToSettings();

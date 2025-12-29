@@ -36,6 +36,11 @@ export class AudioEngine {
         this.dryGain = null;
         this.wetMix = null;
         
+        // Stereo panning
+        this.panner = null;
+        this.panLFO = null;
+        this.panLFOGain = null;
+        
         // State
         this.initialized = false;
         this.isPlaying = false;
@@ -44,6 +49,9 @@ export class AudioEngine {
         // ADSR state
         this.envelopeGain = null;
         this.adsrTimeout = null;
+        this.loopTimeout = null;
+        this.currentADSR = null;
+        this.isLooping = false;
     }
     
     /**
@@ -133,6 +141,21 @@ export class AudioEngine {
         this.envelopeGain = this.ctx.createGain();
         this.envelopeGain.gain.value = 0;
         
+        // Stereo panner with LFO
+        this.panner = this.ctx.createStereoPanner();
+        this.panner.pan.value = 0;
+        
+        this.panLFO = this.ctx.createOscillator();
+        this.panLFO.type = 'sine';
+        this.panLFO.frequency.value = 0.1;
+        this.panLFO.start();
+        
+        this.panLFOGain = this.ctx.createGain();
+        this.panLFOGain.gain.value = 0; // 0 = no panning, 1 = full L/R sweep
+        
+        this.panLFO.connect(this.panLFOGain);
+        this.panLFOGain.connect(this.panner.pan);
+        
         // Master gain
         this.gainNode = this.ctx.createGain();
         this.gainNode.gain.value = 0.5;
@@ -156,12 +179,13 @@ export class AudioEngine {
         this.combDelay.connect(this.combMix);
         this.combMix.connect(this.wetMix);
         
-        // Mix -> Grey EQ -> Envelope -> Analyser -> Master -> Output
+        // Mix -> Grey EQ -> Envelope -> Panner -> Analyser -> Master -> Output
         this.dryGain.connect(this.greyLow);
         this.wetMix.connect(this.greyLow);
         this.greyLow.connect(this.greyHigh);
         this.greyHigh.connect(this.envelopeGain);
-        this.envelopeGain.connect(this.analyser);
+        this.envelopeGain.connect(this.panner);
+        this.panner.connect(this.analyser);
         this.analyser.connect(this.gainNode);
         this.gainNode.connect(this.ctx.destination);
         
@@ -184,6 +208,23 @@ export class AudioEngine {
             colorParam.setValueAtTime(settings.alpha, now);
         } else {
             colorParam.setTargetAtTime(settings.alpha, now, tc);
+        }
+        
+        // Second noise color and blend
+        const color2Param = this.noiseNode.parameters.get('color2');
+        const blendParam = this.noiseNode.parameters.get('colorBlend');
+        if (color2Param && blendParam) {
+            if (settings.alpha2 !== undefined && settings.colorBlend !== undefined && settings.colorBlend > 0) {
+                if (instant) {
+                    color2Param.setValueAtTime(settings.alpha2, now);
+                    blendParam.setValueAtTime(settings.colorBlend, now);
+                } else {
+                    color2Param.setTargetAtTime(settings.alpha2, now, tc);
+                    blendParam.setTargetAtTime(settings.colorBlend, now, tc);
+                }
+            } else {
+                blendParam.setTargetAtTime(0, now, tc);
+            }
         }
         
         // Texture
@@ -253,6 +294,14 @@ export class AudioEngine {
             this.combFeedback.gain.setTargetAtTime(0, now, tc);
             this.combMix.gain.setTargetAtTime(0, now, tc);
         }
+        
+        // Stereo panning LFO
+        if (settings.panRate && settings.panRate > 0 && settings.panDepth && settings.panDepth > 0) {
+            this.panLFO.frequency.setTargetAtTime(settings.panRate, now, tc);
+            this.panLFOGain.gain.setTargetAtTime(settings.panDepth, now, tc);
+        } else {
+            this.panLFOGain.gain.setTargetAtTime(0, now, tc);
+        }
     }
     
     /**
@@ -265,9 +314,15 @@ export class AudioEngine {
     
     /**
      * Start playing with ADSR envelope
-     * @param {Object} adsr - { attack, decay, sustain, release } in seconds, sustain is 0-1
+     * @param {Object} adsr - { attack, decay, sustain, release, duration, loop }
+     *   - attack: seconds to ramp from 0 to 1
+     *   - decay: seconds to ramp from 1 to sustain level
+     *   - sustain: level to hold (0-1)
+     *   - release: seconds to ramp from sustain to 0
+     *   - duration: seconds to hold sustain before release (null = infinite/manual)
+     *   - loop: boolean - restart after release completes
      */
-    start(adsr = { attack: 0.1, decay: 0, sustain: 1, release: 0.1 }) {
+    start(adsr = { attack: 0.1, decay: 0, sustain: 1, release: 0.1, duration: null, loop: false }) {
         if (!this.initialized) return;
         
         // Resume context if suspended (browser autoplay policy)
@@ -275,37 +330,87 @@ export class AudioEngine {
             this.ctx.resume();
         }
         
-        // Clear any pending release
-        if (this.adsrTimeout) {
-            clearTimeout(this.adsrTimeout);
-            this.adsrTimeout = null;
-        }
+        // Clear any pending timers
+        this.clearTimers();
+        
+        this.currentADSR = adsr;
+        this.isLooping = adsr.loop || false;
         
         const now = this.ctx.currentTime;
         const env = this.envelopeGain.gain;
         
         // Cancel any scheduled changes
         env.cancelScheduledValues(now);
-        env.setValueAtTime(env.value, now);
+        env.setValueAtTime(0, now);
         
         // Attack: ramp to 1
-        env.linearRampToValueAtTime(1, now + adsr.attack);
+        const attackEnd = now + adsr.attack;
+        env.linearRampToValueAtTime(1, attackEnd);
         
         // Decay: ramp to sustain level
+        const decayEnd = attackEnd + (adsr.decay || 0);
         if (adsr.decay > 0) {
-            env.linearRampToValueAtTime(adsr.sustain, now + adsr.attack + adsr.decay);
+            env.linearRampToValueAtTime(adsr.sustain, decayEnd);
+        } else {
+            env.setValueAtTime(adsr.sustain, attackEnd);
         }
         
         this.isPlaying = true;
+        
+        // If duration is set, schedule release
+        if (adsr.duration !== null && adsr.duration > 0) {
+            const releaseStartTime = (adsr.attack + (adsr.decay || 0) + adsr.duration) * 1000;
+            
+            this.adsrTimeout = setTimeout(() => {
+                this.triggerRelease();
+            }, releaseStartTime);
+        }
+    }
+    
+    /**
+     * Trigger the release phase (called automatically if duration set, or manually)
+     */
+    triggerRelease() {
+        if (!this.initialized || !this.isPlaying) return;
+        
+        const adsr = this.currentADSR;
+        if (!adsr) return;
+        
+        const now = this.ctx.currentTime;
+        const env = this.envelopeGain.gain;
+        
+        // Cancel any scheduled changes and release from current value
+        env.cancelScheduledValues(now);
+        env.setValueAtTime(env.value, now);
+        env.linearRampToValueAtTime(0, now + adsr.release);
+        
+        // Handle loop or complete
+        const releaseMs = adsr.release * 1000 + 50;
+        
+        if (this.isLooping) {
+            this.loopTimeout = setTimeout(() => {
+                if (this.isLooping && this.isPlaying) {
+                    this.start(this.currentADSR);
+                }
+            }, releaseMs);
+        } else {
+            this.adsrTimeout = setTimeout(() => {
+                this.isPlaying = false;
+            }, releaseMs);
+        }
     }
     
     /**
      * Stop playing with release envelope
-     * @param {number} release - Release time in seconds
+     * @param {number} release - Release time in seconds (overrides preset)
      * @param {Function} onComplete - Callback when release completes
      */
     stop(release = 0.1, onComplete = null) {
         if (!this.initialized) return;
+        
+        // Stop looping
+        this.isLooping = false;
+        this.clearTimers();
         
         const now = this.ctx.currentTime;
         const env = this.envelopeGain.gain;
@@ -321,7 +426,6 @@ export class AudioEngine {
         if (onComplete) {
             this.adsrTimeout = setTimeout(() => {
                 onComplete();
-                this.adsrTimeout = null;
             }, release * 1000 + 50);
         }
     }
@@ -331,6 +435,20 @@ export class AudioEngine {
      */
     stopImmediate() {
         this.stop(0.05);
+    }
+    
+    /**
+     * Clear all pending timers
+     */
+    clearTimers() {
+        if (this.adsrTimeout) {
+            clearTimeout(this.adsrTimeout);
+            this.adsrTimeout = null;
+        }
+        if (this.loopTimeout) {
+            clearTimeout(this.loopTimeout);
+            this.loopTimeout = null;
+        }
     }
     
     /**

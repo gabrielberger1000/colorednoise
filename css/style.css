@@ -1,4 +1,4 @@
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;700&display=swap');
         
         :root {
             --bg: #0a0a0f;
@@ -626,6 +626,78 @@
         
         .fade-row .control-group {
             margin-bottom: 0;
+        }
+        
+        .adsr-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .adsr-row .control-group {
+            margin-bottom: 0;
+        }
+        
+        #durationGroup {
+            margin-bottom: 0;
+        }
+        
+        .loop-switch {
+            margin-left: auto;
+            margin-right: 8px;
+        }
+        
+        .loop-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        
+        .panel-header {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Advanced panel */
+        .advanced-panel {
+            cursor: pointer;
+        }
+        
+        .advanced-panel summary {
+            list-style: none;
+            user-select: none;
+        }
+        
+        .advanced-panel summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        .advanced-panel summary::after {
+            content: '▶';
+            font-size: 0.6rem;
+            margin-left: auto;
+            transition: transform 0.2s;
+        }
+        
+        .advanced-panel[open] summary::after {
+            transform: rotate(90deg);
+        }
+        
+        .advanced-content {
+            padding-top: 1rem;
+        }
+        
+        .advanced-section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .advanced-section-label:first-child {
+            margin-top: 0;
         }
         
         /* Footer */
