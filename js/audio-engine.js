@@ -46,6 +46,14 @@ export class AudioEngine {
         this.saturationMix = null;
         this.saturationDry = null;
         
+        // Reverb
+        this.reverbDelays = [];
+        this.reverbGains = [];
+        this.reverbFeedback = null;
+        this.reverbMix = null;
+        this.reverbDry = null;
+        this.reverbFilter = null;
+        
         // State
         this.initialized = false;
         this.isPlaying = false;
@@ -173,6 +181,38 @@ export class AudioEngine {
         this.saturationDry = this.ctx.createGain();
         this.saturationDry.gain.value = 1; // dry
         
+        // Reverb (multi-tap delay network)
+        // Using prime-number-based delay times for a diffuse sound
+        const delayTimes = [0.029, 0.037, 0.043, 0.053, 0.067, 0.079];
+        this.reverbDelays = [];
+        this.reverbGains = [];
+        
+        for (let i = 0; i < delayTimes.length; i++) {
+            const delay = this.ctx.createDelay(0.1);
+            delay.delayTime.value = delayTimes[i];
+            this.reverbDelays.push(delay);
+            
+            const gain = this.ctx.createGain();
+            gain.gain.value = 0.4; // Increased from 0.15
+            this.reverbGains.push(gain);
+        }
+        
+        // Feedback for reverb tail
+        this.reverbFeedback = this.ctx.createGain();
+        this.reverbFeedback.gain.value = 0.5; // Increased from 0.3
+        
+        // Low-pass filter to darken the reverb tail
+        this.reverbFilter = this.ctx.createBiquadFilter();
+        this.reverbFilter.type = 'lowpass';
+        this.reverbFilter.frequency.value = 4000;
+        
+        // Reverb wet/dry mix
+        this.reverbMix = this.ctx.createGain();
+        this.reverbMix.gain.value = 0;
+        
+        this.reverbDry = this.ctx.createGain();
+        this.reverbDry.gain.value = 1;
+        
         // Master gain
         this.gainNode = this.ctx.createGain();
         this.gainNode.gain.value = 0.5;
@@ -196,7 +236,7 @@ export class AudioEngine {
         this.combDelay.connect(this.combMix);
         this.combMix.connect(this.wetMix);
         
-        // Mix -> Grey EQ -> Saturation (parallel dry/wet) -> Envelope -> Panner -> Analyser -> Master -> Output
+        // Mix -> Grey EQ -> Saturation (parallel dry/wet) -> Reverb (parallel dry/wet) -> Envelope -> Panner -> Analyser -> Master -> Output
         this.dryGain.connect(this.greyLow);
         this.wetMix.connect(this.greyLow);
         this.greyLow.connect(this.greyHigh);
@@ -205,8 +245,33 @@ export class AudioEngine {
         this.greyHigh.connect(this.saturationDry);
         this.greyHigh.connect(this.waveshaper);
         this.waveshaper.connect(this.saturationMix);
-        this.saturationDry.connect(this.envelopeGain);
-        this.saturationMix.connect(this.envelopeGain);
+        
+        // Merge saturation into a single node before reverb
+        const postSaturation = this.ctx.createGain();
+        postSaturation.gain.value = 1;
+        this.saturationDry.connect(postSaturation);
+        this.saturationMix.connect(postSaturation);
+        
+        // Reverb: split into dry and wet paths
+        postSaturation.connect(this.reverbDry);
+        
+        // Reverb wet path: multi-tap delays with feedback
+        for (let i = 0; i < this.reverbDelays.length; i++) {
+            postSaturation.connect(this.reverbDelays[i]);
+            this.reverbDelays[i].connect(this.reverbGains[i]);
+            this.reverbGains[i].connect(this.reverbFilter);
+        }
+        
+        // Feedback loop through filter
+        this.reverbFilter.connect(this.reverbFeedback);
+        this.reverbFeedback.connect(this.reverbDelays[0]); // Feed back to first delay
+        
+        // Reverb output
+        this.reverbFilter.connect(this.reverbMix);
+        
+        // Merge reverb dry/wet into envelope
+        this.reverbDry.connect(this.envelopeGain);
+        this.reverbMix.connect(this.envelopeGain);
         
         this.envelopeGain.connect(this.panner);
         this.panner.connect(this.analyser);
@@ -389,6 +454,37 @@ export class AudioEngine {
         } else {
             this.saturationMix.gain.setTargetAtTime(0, now, tc);
             this.saturationDry.gain.setTargetAtTime(1, now, tc);
+        }
+        
+        // Reverb
+        if (settings.reverbMix && settings.reverbMix > 0) {
+            const mix = settings.reverbMix;
+            const size = settings.reverbSize || 'medium';
+            
+            // Adjust feedback and filter based on size
+            let feedback, filterFreq;
+            switch (size) {
+                case 'small':
+                    feedback = 0.2;
+                    filterFreq = 6000;
+                    break;
+                case 'large':
+                    feedback = 0.5;
+                    filterFreq = 2500;
+                    break;
+                case 'medium':
+                default:
+                    feedback = 0.35;
+                    filterFreq = 4000;
+            }
+            
+            this.reverbFeedback.gain.setTargetAtTime(feedback, now, tc);
+            this.reverbFilter.frequency.setTargetAtTime(filterFreq, now, tc);
+            this.reverbMix.gain.setTargetAtTime(mix, now, tc);
+            this.reverbDry.gain.setTargetAtTime(1 - (mix * 0.3), now, tc);
+        } else {
+            this.reverbMix.gain.setTargetAtTime(0, now, tc);
+            this.reverbDry.gain.setTargetAtTime(1, now, tc);
         }
     }
     

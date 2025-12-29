@@ -184,7 +184,9 @@ export const builtInPresets = [
     { name: "Warm Hiss", category: "textured", alpha: 2.5, pulse: 0, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10,
       attack: 2, loop: false, saturation: 0.6, saturationMode: 'warm' },
     { name: "Lo-Fi Crunch", category: "textured", alpha: 3, pulse: 0, pulseShape: "sine", grey: false, dist: 1, binaural: false, binauralFreq: 10,
-      attack: 2, loop: false, bitDepth: 6, sampleRateReduction: 8 }
+      attack: 2, loop: false, bitDepth: 6, sampleRateReduction: 8 },
+    { name: "Cathedral Air", category: "textured", alpha: 3.5, pulse: 0, pulseShape: "sine", grey: true, dist: 0, binaural: false, binauralFreq: 10,
+      attack: 8, loop: false, reverbMix: 0.7, reverbSize: 'large' }
 ];
 
 /**
@@ -217,6 +219,9 @@ export const defaultSettings = {
     // Bitcrushing
     bitDepth: 16,
     sampleRateReduction: 1,
+    // Reverb
+    reverbMix: 0,
+    reverbSize: 'medium',
     // Texture filters
     resonant: null,
     comb: null

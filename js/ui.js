@@ -79,6 +79,9 @@ export function initUI() {
         sliderDownsample: document.getElementById('sliderDownsample'),
         valBitDepth: document.getElementById('valBitDepth'),
         valDownsample: document.getElementById('valDownsample'),
+        sliderReverbMix: document.getElementById('sliderReverbMix'),
+        selReverbSize: document.getElementById('selReverbSize'),
+        valReverbMix: document.getElementById('valReverbMix'),
         
         timerDisplay: document.getElementById('timerDisplay'),
         timerCancel: document.getElementById('timerCancel'),
@@ -291,6 +294,10 @@ function syncControlsToSettings() {
     elements.sliderBitDepth.value = currentSettings.bitDepth ?? 16;
     elements.sliderDownsample.value = currentSettings.sampleRateReduction ?? 1;
     
+    // Advanced - reverb
+    elements.sliderReverbMix.value = currentSettings.reverbMix ?? 0;
+    elements.selReverbSize.value = currentSettings.reverbSize ?? 'medium';
+    
     updateLabels();
 }
 
@@ -355,6 +362,10 @@ function updateLabels() {
     
     const downsample = parseInt(elements.sliderDownsample.value);
     elements.valDownsample.textContent = downsample + "x";
+    
+    // Reverb label
+    const reverbMix = parseFloat(elements.sliderReverbMix.value);
+    elements.valReverbMix.textContent = Math.round(reverbMix * 100) + "%";
 }
 
 /**
@@ -390,6 +401,9 @@ function syncSettingsFromControls() {
         // Advanced - bitcrushing
         bitDepth: parseInt(elements.sliderBitDepth.value),
         sampleRateReduction: parseInt(elements.sliderDownsample.value),
+        // Advanced - reverb
+        reverbMix: parseFloat(elements.sliderReverbMix.value),
+        reverbSize: elements.selReverbSize.value,
         // Preserve texture filters from preset
         resonant: currentSettings.resonant,
         comb: currentSettings.comb
@@ -440,7 +454,8 @@ function setupEventListeners() {
      elements.sliderPanRate, elements.sliderPanDepth,
      elements.sliderColor2, elements.sliderColorBlend,
      elements.sliderSaturation, elements.selSaturationMode,
-     elements.sliderBitDepth, elements.sliderDownsample].forEach(el => {
+     elements.sliderBitDepth, elements.sliderDownsample,
+     elements.sliderReverbMix, elements.selReverbSize].forEach(el => {
         el.addEventListener('input', syncSettingsFromControls);
     });
     
