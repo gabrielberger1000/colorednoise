@@ -194,23 +194,89 @@
                     </div>
                 </div>
                 
-                <!-- Sound Controls -->
-                <div class="control-panel">
-                    <div class="panel-header">
-                        <span>Sound Settings</span>
-                        <button class="reset-btn" id="resetBtn">Reset</button>
+                <!-- Voice Tabs -->
+                <div class="control-panel voice-panel">
+                    <div class="voice-tabs">
+                        <button class="voice-tab active" data-voice="0">Voice 1</button>
+                        <button class="voice-tab" data-voice="1">Voice 2</button>
+                        <button class="voice-tab" data-voice="2">Voice 3</button>
+                        <button class="voice-tab" data-voice="3">Voice 4</button>
                     </div>
                     
-                    <div class="control-group">
-                        <label>Noise Color <span id="valColor">Pink</span></label>
-                        <input type="range" id="sliderColor" min="0" max="4" step="0.01" value="3" aria-label="Noise color">
-                        <div class="slider-labels">
-                            <span>Violet</span>
-                            <span>Blue</span>
-                            <span>White</span>
-                            <span>Pink</span>
-                            <span>Brown</span>
+                    <div class="voice-content">
+                        <!-- Voice enable toggle (hidden for voice 1) -->
+                        <div class="toggle-row voice-enable-row" id="voiceEnableRow" style="display: none;">
+                            <span>Enable Voice</span>
+                            <label class="switch">
+                                <input type="checkbox" id="checkVoiceEnabled" aria-label="Enable this voice">
+                                <span class="slider-toggle"></span>
+                            </label>
                         </div>
+                        
+                        <div class="control-group">
+                            <label>Noise Color <span id="valVoiceColor">Pink</span></label>
+                            <input type="range" id="sliderVoiceColor" min="0" max="4" step="0.01" value="3" aria-label="Voice noise color">
+                            <div class="slider-labels">
+                                <span>Violet</span>
+                                <span>Blue</span>
+                                <span>White</span>
+                                <span>Pink</span>
+                                <span>Brown</span>
+                            </div>
+                        </div>
+                        
+                        <div class="adsr-row">
+                            <div class="control-group">
+                                <label>Volume <span id="valVoiceVolume">80%</span></label>
+                                <input type="range" id="sliderVoiceVolume" min="0" max="1" step="0.01" value="0.8" aria-label="Voice volume">
+                            </div>
+                            <div class="control-group">
+                                <label>Pan <span id="valVoicePan">Center</span></label>
+                                <input type="range" id="sliderVoicePan" min="-1" max="1" step="0.01" value="0" aria-label="Voice pan position">
+                            </div>
+                        </div>
+                        
+                        <!-- Voice ADSR -->
+                        <div class="panel-subheader">
+                            <span>Envelope</span>
+                            <label class="switch loop-switch">
+                                <input type="checkbox" id="checkVoiceLoop" aria-label="Toggle voice envelope looping">
+                                <span class="slider-toggle"></span>
+                            </label>
+                            <span class="loop-label">Loop</span>
+                        </div>
+                        <div class="adsr-row">
+                            <div class="control-group">
+                                <label>Attack <span id="valVoiceAttack">0.5s</span></label>
+                                <input type="range" id="sliderVoiceAttack" min="0" max="10" step="0.1" value="0.5" aria-label="Voice attack time">
+                            </div>
+                            <div class="control-group">
+                                <label>Decay <span id="valVoiceDecay">0s</span></label>
+                                <input type="range" id="sliderVoiceDecay" min="0" max="10" step="0.1" value="0" aria-label="Voice decay time">
+                            </div>
+                        </div>
+                        <div class="adsr-row">
+                            <div class="control-group">
+                                <label>Sustain <span id="valVoiceSustain">100%</span></label>
+                                <input type="range" id="sliderVoiceSustain" min="0" max="1" step="0.01" value="1" aria-label="Voice sustain level">
+                            </div>
+                            <div class="control-group">
+                                <label>Release <span id="valVoiceRelease">0.5s</span></label>
+                                <input type="range" id="sliderVoiceRelease" min="0" max="10" step="0.1" value="0.5" aria-label="Voice release time">
+                            </div>
+                        </div>
+                        <div class="control-group" id="voiceDurationGroup">
+                            <label>Duration <span id="valVoiceDuration">2s</span></label>
+                            <input type="range" id="sliderVoiceDuration" min="0.1" max="30" step="0.1" value="2" aria-label="Voice sustain duration">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Global Sound Controls -->
+                <div class="control-panel">
+                    <div class="panel-header">
+                        <span>Global Settings</span>
+                        <button class="reset-btn" id="resetBtn">Reset</button>
                     </div>
                     
                     <div class="control-group">
@@ -260,42 +326,6 @@
                             <span>Alpha</span>
                             <span>Beta</span>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Envelope Controls -->
-                <div class="control-panel">
-                    <div class="panel-header">
-                        <span>Envelope (ADSR)</span>
-                        <label class="switch loop-switch">
-                            <input type="checkbox" id="checkLoop" aria-label="Toggle envelope looping">
-                            <span class="slider-toggle"></span>
-                        </label>
-                        <span class="loop-label">Loop</span>
-                    </div>
-                    <div class="adsr-row">
-                        <div class="control-group">
-                            <label>Attack <span id="valAttack">0.5s</span></label>
-                            <input type="range" id="sliderAttack" min="0" max="10" step="0.1" value="0.5" aria-label="Attack time">
-                        </div>
-                        <div class="control-group">
-                            <label>Decay <span id="valDecay">0s</span></label>
-                            <input type="range" id="sliderDecay" min="0" max="10" step="0.1" value="0" aria-label="Decay time">
-                        </div>
-                    </div>
-                    <div class="adsr-row">
-                        <div class="control-group">
-                            <label>Sustain <span id="valSustain">100%</span></label>
-                            <input type="range" id="sliderSustain" min="0" max="1" step="0.01" value="1" aria-label="Sustain level">
-                        </div>
-                        <div class="control-group">
-                            <label>Release <span id="valRelease">0.5s</span></label>
-                            <input type="range" id="sliderRelease" min="0" max="10" step="0.1" value="0.5" aria-label="Release time">
-                        </div>
-                    </div>
-                    <div class="control-group" id="durationGroup">
-                        <label>Duration <span id="valDuration">2s</span></label>
-                        <input type="range" id="sliderDuration" min="0.1" max="30" step="0.1" value="2" aria-label="Sustain duration before release">
                     </div>
                 </div>
                 

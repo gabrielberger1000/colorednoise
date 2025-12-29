@@ -186,7 +186,41 @@ export const builtInPresets = [
     { name: "Lo-Fi Crunch", category: "textured", alpha: 3, pulse: 0, pulseShape: "sine", grey: false, dist: 1, binaural: false, binauralFreq: 10,
       attack: 2, loop: false, bitDepth: 6, sampleRateReduction: 8 },
     { name: "Cathedral Air", category: "textured", alpha: 3.5, pulse: 0, pulseShape: "sine", grey: true, dist: 0, binaural: false, binauralFreq: 10,
-      attack: 8, loop: false, reverbMix: 0.7, reverbSize: 'large' }
+      attack: 8, loop: false, reverbMix: 0.7, reverbSize: 'large' },
+    
+    // === MULTI-VOICE POLYRHYTHM PRESETS ===
+    { name: "Ocean Drift", category: "textured", pulse: 0, grey: false, dist: 0, reverbMix: 0.3, reverbSize: 'large',
+      voices: [
+        { color: 3.8, volume: 0.7, pan: -0.3, attack: 3, decay: 0.5, sustain: 0.7, release: 4, duration: 5, loop: true, enabled: true },
+        { color: 4, volume: 0.5, pan: 0.4, attack: 4, decay: 1, sustain: 0.5, release: 5, duration: 7, loop: true, enabled: true },
+        { color: 3.5, volume: 0.4, pan: 0, attack: 2, decay: 0.3, sustain: 0.8, release: 3, duration: 3, loop: true, enabled: true },
+        { color: 3, volume: 0, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false }
+      ]
+    },
+    { name: "Breathing Room", category: "textured", pulse: 0, grey: true, dist: 0, reverbMix: 0.2, reverbSize: 'medium',
+      voices: [
+        { color: 3, volume: 0.8, pan: 0, attack: 2, decay: 0, sustain: 1, release: 2.5, duration: 1.5, loop: true, enabled: true },
+        { color: 3.5, volume: 0.5, pan: -0.5, attack: 3, decay: 0.5, sustain: 0.7, release: 3, duration: 2.5, loop: true, enabled: true },
+        { color: 2.5, volume: 0.5, pan: 0.5, attack: 2.5, decay: 0.3, sustain: 0.8, release: 2, duration: 2, loop: true, enabled: true },
+        { color: 3, volume: 0, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false }
+      ]
+    },
+    { name: "Machine Rhythm", category: "experimental", pulse: 0, grey: false, dist: 1, bitDepth: 10, sampleRateReduction: 2,
+      voices: [
+        { color: 2, volume: 0.7, pan: -0.6, attack: 0.05, decay: 0.1, sustain: 0.6, release: 0.2, duration: 0.3, loop: true, enabled: true },
+        { color: 2.5, volume: 0.6, pan: 0.6, attack: 0.08, decay: 0.15, sustain: 0.5, release: 0.25, duration: 0.5, loop: true, enabled: true },
+        { color: 4, volume: 0.4, pan: 0, attack: 0.3, decay: 0.2, sustain: 0.4, release: 0.5, duration: 1.2, loop: true, enabled: true },
+        { color: 1, volume: 0.3, pan: 0, attack: 0.02, decay: 0.05, sustain: 0.3, release: 0.1, duration: 0.2, loop: true, enabled: true }
+      ]
+    },
+    { name: "Stereo Clouds", category: "textured", pulse: 0, grey: false, dist: 0, reverbMix: 0.5, reverbSize: 'large', panRate: 0.05, panDepth: 0.3,
+      voices: [
+        { color: 3, volume: 0.6, pan: -0.8, attack: 5, decay: 1, sustain: 0.6, release: 6, duration: 4, loop: true, enabled: true },
+        { color: 3.2, volume: 0.6, pan: 0.8, attack: 6, decay: 1.5, sustain: 0.5, release: 7, duration: 5, loop: true, enabled: true },
+        { color: 3, volume: 0, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false },
+        { color: 3, volume: 0, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false }
+      ]
+    }
 ];
 
 /**

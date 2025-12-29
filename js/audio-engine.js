@@ -1,33 +1,286 @@
 /**
  * AudioEngine - Core audio processing for Colored Noise
  * 
- * Handles:
- * - AudioContext and worklet initialization
- * - Noise generation via AudioWorklet
- * - Filter chains (grey EQ, resonant, comb)
+ * Supports up to 4 independent voices, each with:
+ * - Independent noise color
+ * - Independent ADSR envelope with looping
+ * - Independent pan position
+ * - Independent volume
+ * 
+ * Global effects (applied to mixed output):
+ * - Grey noise EQ
  * - Pulse/LFO modulation
- * - ADSR envelope control
- * - Volume and mixing
+ * - Resonant and comb filters
+ * - Saturation/distortion
+ * - Bitcrushing (in worklet)
+ * - Reverb
  */
+
+const MAX_VOICES = 4;
+
+/**
+ * Represents a single voice with its own noise source and envelope
+ */
+class Voice {
+    constructor(ctx, workletPath, index) {
+        this.ctx = ctx;
+        this.index = index;
+        this.enabled = index === 0; // Voice 1 always enabled
+        this.initialized = false;
+        
+        // Nodes
+        this.noiseNode = null;
+        this.envelopeGain = null;
+        this.voiceGain = null;
+        this.panner = null;
+        
+        // ADSR state
+        this.adsrTimeout = null;
+        this.loopTimeout = null;
+        this.currentADSR = null;
+        this.isLooping = false;
+        this.isPlaying = false;
+        
+        // Settings
+        this.settings = {
+            color: 3,
+            volume: 0.8,
+            pan: 0,
+            attack: 0.5,
+            decay: 0,
+            sustain: 1,
+            release: 0.5,
+            duration: null,
+            loop: false
+        };
+    }
+    
+    async init(workletReady) {
+        if (this.initialized) return;
+        
+        // Create noise source - worklet should already be loaded
+        this.noiseNode = new AudioWorkletNode(this.ctx, 'noise-processor', {
+            numberOfInputs: 0,
+            numberOfOutputs: 1,
+            outputChannelCount: [2]
+        });
+        
+        // Envelope gain (for ADSR)
+        this.envelopeGain = this.ctx.createGain();
+        this.envelopeGain.gain.value = 0;
+        
+        // Voice volume
+        this.voiceGain = this.ctx.createGain();
+        this.voiceGain.gain.value = this.settings.volume;
+        
+        // Pan position
+        this.panner = this.ctx.createStereoPanner();
+        this.panner.pan.value = this.settings.pan;
+        
+        // Connect: noise -> envelope -> volume -> panner -> (output returned)
+        this.noiseNode.connect(this.envelopeGain);
+        this.envelopeGain.connect(this.voiceGain);
+        this.voiceGain.connect(this.panner);
+        
+        this.initialized = true;
+    }
+    
+    getOutput() {
+        return this.panner;
+    }
+    
+    applySettings(settings, globalSettings, instant = false) {
+        if (!this.initialized) return;
+        
+        this.settings = { ...this.settings, ...settings };
+        const now = this.ctx.currentTime;
+        const tc = instant ? 0 : 0.15;
+        
+        // Noise color
+        const colorParam = this.noiseNode.parameters.get('color');
+        if (colorParam) {
+            if (instant) {
+                colorParam.setValueAtTime(this.settings.color, now);
+            } else {
+                colorParam.setTargetAtTime(this.settings.color, now, tc);
+            }
+        }
+        
+        // Apply global settings to this voice's worklet (texture, bitcrushing, color2/blend)
+        if (globalSettings) {
+            const texParam = this.noiseNode.parameters.get('texture');
+            if (texParam) texParam.setValueAtTime(globalSettings.dist || 0, now);
+            
+            const color2Param = this.noiseNode.parameters.get('color2');
+            const blendParam = this.noiseNode.parameters.get('colorBlend');
+            if (color2Param && blendParam) {
+                if (globalSettings.colorBlend && globalSettings.colorBlend > 0) {
+                    color2Param.setValueAtTime(globalSettings.alpha2 || 3, now);
+                    blendParam.setValueAtTime(globalSettings.colorBlend, now);
+                } else {
+                    blendParam.setValueAtTime(0, now);
+                }
+            }
+            
+            const bitDepthParam = this.noiseNode.parameters.get('bitDepth');
+            const srrParam = this.noiseNode.parameters.get('sampleRateReduction');
+            if (bitDepthParam && srrParam) {
+                bitDepthParam.setValueAtTime(globalSettings.bitDepth || 16, now);
+                srrParam.setValueAtTime(globalSettings.sampleRateReduction || 1, now);
+            }
+        }
+        
+        // Volume
+        this.voiceGain.gain.setTargetAtTime(this.settings.volume, now, tc);
+        
+        // Pan
+        this.panner.pan.setTargetAtTime(this.settings.pan, now, tc);
+    }
+    
+    start() {
+        if (!this.initialized || !this.enabled) return;
+        
+        this.clearTimers();
+        
+        const adsr = {
+            attack: this.settings.attack,
+            decay: this.settings.decay || 0,
+            sustain: this.settings.sustain ?? 1,
+            release: this.settings.release,
+            duration: this.settings.duration,
+            loop: this.settings.loop
+        };
+        
+        this.currentADSR = adsr;
+        this.isLooping = adsr.loop || false;
+        
+        const now = this.ctx.currentTime;
+        const env = this.envelopeGain.gain;
+        
+        env.cancelScheduledValues(now);
+        env.setValueAtTime(0, now);
+        
+        // Attack
+        const attackEnd = now + adsr.attack;
+        env.linearRampToValueAtTime(1, attackEnd);
+        
+        // Decay
+        const decayEnd = attackEnd + (adsr.decay || 0);
+        if (adsr.decay > 0) {
+            env.linearRampToValueAtTime(adsr.sustain, decayEnd);
+        } else {
+            env.setValueAtTime(adsr.sustain, attackEnd);
+        }
+        
+        this.isPlaying = true;
+        
+        // Schedule release if duration is set
+        if (adsr.duration !== null && adsr.duration > 0) {
+            const releaseStartTime = (adsr.attack + (adsr.decay || 0) + adsr.duration) * 1000;
+            this.adsrTimeout = setTimeout(() => {
+                this.triggerRelease();
+            }, releaseStartTime);
+        }
+    }
+    
+    triggerRelease() {
+        if (!this.initialized || !this.isPlaying) return;
+        
+        const adsr = this.currentADSR;
+        if (!adsr) return;
+        
+        const now = this.ctx.currentTime;
+        const env = this.envelopeGain.gain;
+        
+        env.cancelScheduledValues(now);
+        env.setValueAtTime(env.value, now);
+        env.linearRampToValueAtTime(0, now + adsr.release);
+        
+        const releaseMs = adsr.release * 1000 + 50;
+        
+        if (this.isLooping) {
+            this.loopTimeout = setTimeout(() => {
+                if (this.isLooping && this.isPlaying && this.enabled) {
+                    this.start();
+                }
+            }, releaseMs);
+        } else {
+            this.adsrTimeout = setTimeout(() => {
+                this.isPlaying = false;
+            }, releaseMs);
+        }
+    }
+    
+    stop(release = 0.1) {
+        if (!this.initialized) return;
+        
+        this.isLooping = false;
+        this.clearTimers();
+        
+        const now = this.ctx.currentTime;
+        const env = this.envelopeGain.gain;
+        
+        env.cancelScheduledValues(now);
+        env.setValueAtTime(env.value, now);
+        env.linearRampToValueAtTime(0, now + release);
+        
+        this.isPlaying = false;
+    }
+    
+    clearTimers() {
+        if (this.adsrTimeout) {
+            clearTimeout(this.adsrTimeout);
+            this.adsrTimeout = null;
+        }
+        if (this.loopTimeout) {
+            clearTimeout(this.loopTimeout);
+            this.loopTimeout = null;
+        }
+    }
+    
+    setEnabled(enabled) {
+        if (this.index === 0) return; // Voice 1 always enabled
+        
+        this.enabled = enabled;
+        if (!enabled && this.isPlaying) {
+            this.stop(0.05);
+        }
+    }
+    
+    destroy() {
+        this.clearTimers();
+        if (this.noiseNode) {
+            this.noiseNode.disconnect();
+            this.noiseNode = null;
+        }
+        if (this.envelopeGain) {
+            this.envelopeGain.disconnect();
+            this.envelopeGain = null;
+        }
+        if (this.voiceGain) {
+            this.voiceGain.disconnect();
+            this.voiceGain = null;
+        }
+        if (this.panner) {
+            this.panner.disconnect();
+            this.panner = null;
+        }
+        this.initialized = false;
+    }
+}
 
 export class AudioEngine {
     constructor() {
-        // Audio context and nodes
         this.ctx = null;
-        this.noiseNode = null;
-        this.gainNode = null;
-        this.analyser = null;
+        this.voices = [];
+        this.voiceMerger = null; // Gain node to merge all voices
         
-        // Pulse/LFO
+        // Global nodes (after voice merge)
         this.pulseOsc = null;
         this.pulseGain = null;
         this.depthNode = null;
-        
-        // Grey noise EQ
         this.greyLow = null;
         this.greyHigh = null;
-        
-        // Texture filters
         this.resonantFilters = [];
         this.resonantGains = [];
         this.combDelay = null;
@@ -35,55 +288,53 @@ export class AudioEngine {
         this.combMix = null;
         this.dryGain = null;
         this.wetMix = null;
-        
-        // Stereo panning
-        this.panner = null;
         this.panLFO = null;
         this.panLFOGain = null;
-        
-        // Saturation/distortion
+        this.globalPanner = null;
         this.waveshaper = null;
         this.saturationMix = null;
         this.saturationDry = null;
-        
-        // Reverb
+        this.saturationCurves = null;
         this.reverbDelays = [];
         this.reverbGains = [];
         this.reverbFeedback = null;
         this.reverbMix = null;
         this.reverbDry = null;
         this.reverbFilter = null;
+        this.analyser = null;
+        this.gainNode = null;
         
         // State
         this.initialized = false;
         this.isPlaying = false;
         this.currentSettings = null;
-        
-        // ADSR state
-        this.envelopeGain = null;
-        this.adsrTimeout = null;
-        this.loopTimeout = null;
-        this.currentADSR = null;
-        this.isLooping = false;
+        this.workletReady = false;
     }
     
-    /**
-     * Initialize the audio context and all nodes
-     */
     async init() {
         if (this.initialized) return;
         
         this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Load the noise processor worklet
+        // Load worklet once
         await this.ctx.audioWorklet.addModule('worklet/noise-processor.js');
+        this.workletReady = true;
         
-        // Create noise source
-        this.noiseNode = new AudioWorkletNode(this.ctx, 'noise-processor', {
-            numberOfInputs: 0,
-            numberOfOutputs: 1,
-            outputChannelCount: [2]
-        });
+        // Create voice merger
+        this.voiceMerger = this.ctx.createGain();
+        this.voiceMerger.gain.value = 1;
+        
+        // Create voices (but only initialize voice 1)
+        for (let i = 0; i < MAX_VOICES; i++) {
+            const voice = new Voice(this.ctx, 'worklet/noise-processor.js', i);
+            this.voices.push(voice);
+        }
+        
+        // Initialize voice 1 (always enabled)
+        await this.voices[0].init();
+        this.voices[0].getOutput().connect(this.voiceMerger);
+        
+        // === GLOBAL SIGNAL CHAIN ===
         
         // Grey noise EQ filters
         this.greyLow = this.ctx.createBiquadFilter();
@@ -111,17 +362,21 @@ export class AudioEngine {
             this.resonantGains.push(gain);
         }
         
-        // Comb filter (delay + feedback)
+        // Comb filter
         this.combDelay = this.ctx.createDelay(0.1);
         this.combDelay.delayTime.value = 0.005;
         this.combFeedback = this.ctx.createGain();
         this.combFeedback.gain.value = 0;
         this.combMix = this.ctx.createGain();
         this.combMix.gain.value = 0;
-        
-        // Comb feedback loop
         this.combDelay.connect(this.combFeedback);
         this.combFeedback.connect(this.combDelay);
+        
+        // Dry/wet for texture filters
+        this.dryGain = this.ctx.createGain();
+        this.dryGain.gain.value = 1;
+        this.wetMix = this.ctx.createGain();
+        this.wetMix.gain.value = 0;
         
         // Pulse/LFO
         this.pulseGain = this.ctx.createGain();
@@ -138,25 +393,9 @@ export class AudioEngine {
         this.pulseOsc.connect(this.depthNode);
         this.depthNode.connect(this.pulseGain.gain);
         
-        // Analyser for visualization
-        this.analyser = this.ctx.createAnalyser();
-        this.analyser.fftSize = 256;
-        this.analyser.smoothingTimeConstant = 0.8;
-        
-        // Dry/wet mixing
-        this.dryGain = this.ctx.createGain();
-        this.dryGain.gain.value = 1;
-        
-        this.wetMix = this.ctx.createGain();
-        this.wetMix.gain.value = 0;
-        
-        // ADSR envelope gain
-        this.envelopeGain = this.ctx.createGain();
-        this.envelopeGain.gain.value = 0;
-        
-        // Stereo panner with LFO
-        this.panner = this.ctx.createStereoPanner();
-        this.panner.pan.value = 0;
+        // Global stereo panner with LFO
+        this.globalPanner = this.ctx.createStereoPanner();
+        this.globalPanner.pan.value = 0;
         
         this.panLFO = this.ctx.createOscillator();
         this.panLFO.type = 'sine';
@@ -164,25 +403,23 @@ export class AudioEngine {
         this.panLFO.start();
         
         this.panLFOGain = this.ctx.createGain();
-        this.panLFOGain.gain.value = 0; // 0 = no panning, 1 = full L/R sweep
+        this.panLFOGain.gain.value = 0;
         
         this.panLFO.connect(this.panLFOGain);
-        this.panLFOGain.connect(this.panner.pan);
+        this.panLFOGain.connect(this.globalPanner.pan);
         
-        // Saturation/distortion waveshaper
+        // Saturation
         this.waveshaper = this.ctx.createWaveShaper();
         this.waveshaper.oversample = '2x';
         this.saturationCurves = this.createSaturationCurves();
         this.waveshaper.curve = this.saturationCurves.soft;
         
         this.saturationMix = this.ctx.createGain();
-        this.saturationMix.gain.value = 0; // wet
-        
+        this.saturationMix.gain.value = 0;
         this.saturationDry = this.ctx.createGain();
-        this.saturationDry.gain.value = 1; // dry
+        this.saturationDry.gain.value = 1;
         
-        // Reverb (multi-tap delay network)
-        // Using prime-number-based delay times for a diffuse sound
+        // Reverb
         const delayTimes = [0.029, 0.037, 0.043, 0.053, 0.067, 0.079];
         this.reverbDelays = [];
         this.reverbGains = [];
@@ -193,38 +430,37 @@ export class AudioEngine {
             this.reverbDelays.push(delay);
             
             const gain = this.ctx.createGain();
-            gain.gain.value = 0.4; // Increased from 0.15
+            gain.gain.value = 0.4;
             this.reverbGains.push(gain);
         }
         
-        // Feedback for reverb tail
         this.reverbFeedback = this.ctx.createGain();
-        this.reverbFeedback.gain.value = 0.5; // Increased from 0.3
+        this.reverbFeedback.gain.value = 0.5;
         
-        // Low-pass filter to darken the reverb tail
         this.reverbFilter = this.ctx.createBiquadFilter();
         this.reverbFilter.type = 'lowpass';
         this.reverbFilter.frequency.value = 4000;
         
-        // Reverb wet/dry mix
         this.reverbMix = this.ctx.createGain();
         this.reverbMix.gain.value = 0;
-        
         this.reverbDry = this.ctx.createGain();
         this.reverbDry.gain.value = 1;
+        
+        // Analyser
+        this.analyser = this.ctx.createAnalyser();
+        this.analyser.fftSize = 256;
+        this.analyser.smoothingTimeConstant = 0.8;
         
         // Master gain
         this.gainNode = this.ctx.createGain();
         this.gainNode.gain.value = 0.5;
         
         // === ROUTING ===
-        // Noise -> Pulse modulation
-        this.noiseNode.connect(this.pulseGain);
-        
-        // Dry path
+        // Voice merger -> Pulse -> Dry/wet split
+        this.voiceMerger.connect(this.pulseGain);
         this.pulseGain.connect(this.dryGain);
         
-        // Resonant filter paths (parallel)
+        // Resonant filter paths
         for (let i = 0; i < 3; i++) {
             this.pulseGain.connect(this.resonantFilters[i]);
             this.resonantFilters[i].connect(this.resonantGains[i]);
@@ -236,73 +472,57 @@ export class AudioEngine {
         this.combDelay.connect(this.combMix);
         this.combMix.connect(this.wetMix);
         
-        // Mix -> Grey EQ -> Saturation (parallel dry/wet) -> Reverb (parallel dry/wet) -> Envelope -> Panner -> Analyser -> Master -> Output
+        // Mix -> Grey EQ
         this.dryGain.connect(this.greyLow);
         this.wetMix.connect(this.greyLow);
         this.greyLow.connect(this.greyHigh);
         
-        // Saturation: split into dry and wet paths, then merge
+        // Saturation
+        const postSaturation = this.ctx.createGain();
+        postSaturation.gain.value = 1;
         this.greyHigh.connect(this.saturationDry);
         this.greyHigh.connect(this.waveshaper);
         this.waveshaper.connect(this.saturationMix);
-        
-        // Merge saturation into a single node before reverb
-        const postSaturation = this.ctx.createGain();
-        postSaturation.gain.value = 1;
         this.saturationDry.connect(postSaturation);
         this.saturationMix.connect(postSaturation);
         
-        // Reverb: split into dry and wet paths
+        // Reverb
         postSaturation.connect(this.reverbDry);
-        
-        // Reverb wet path: multi-tap delays with feedback
         for (let i = 0; i < this.reverbDelays.length; i++) {
             postSaturation.connect(this.reverbDelays[i]);
             this.reverbDelays[i].connect(this.reverbGains[i]);
             this.reverbGains[i].connect(this.reverbFilter);
         }
-        
-        // Feedback loop through filter
         this.reverbFilter.connect(this.reverbFeedback);
-        this.reverbFeedback.connect(this.reverbDelays[0]); // Feed back to first delay
-        
-        // Reverb output
+        this.reverbFeedback.connect(this.reverbDelays[0]);
         this.reverbFilter.connect(this.reverbMix);
         
-        // Merge reverb dry/wet into envelope
-        this.reverbDry.connect(this.envelopeGain);
-        this.reverbMix.connect(this.envelopeGain);
-        
-        this.envelopeGain.connect(this.panner);
-        this.panner.connect(this.analyser);
+        // Final output
+        this.reverbDry.connect(this.globalPanner);
+        this.reverbMix.connect(this.globalPanner);
+        this.globalPanner.connect(this.analyser);
         this.analyser.connect(this.gainNode);
         this.gainNode.connect(this.ctx.destination);
         
         this.initialized = true;
     }
     
-    /**
-     * Create saturation curve lookup tables
-     */
     createSaturationCurves() {
         const samples = 44100;
         const curves = {};
         
-        // Soft clip (tanh-like, warm)
         curves.soft = new Float32Array(samples);
         for (let i = 0; i < samples; i++) {
             const x = (i * 2) / samples - 1;
             curves.soft[i] = Math.tanh(x * 2);
         }
         
-        // Hard clip (aggressive)
         curves.hard = new Float32Array(samples);
         for (let i = 0; i < samples; i++) {
             const x = (i * 2) / samples - 1;
             curves.hard[i] = Math.max(-0.8, Math.min(0.8, x * 1.5));
         }
         
-        // Warm (tube-like, asymmetric)
         curves.warm = new Float32Array(samples);
         for (let i = 0; i < samples; i++) {
             const x = (i * 2) / samples - 1;
@@ -316,53 +536,60 @@ export class AudioEngine {
         return curves;
     }
     
-    /**
-     * Apply settings to all audio parameters
-     */
-    applySettings(settings, instant = false) {
+    async enableVoice(index) {
+        if (index < 0 || index >= MAX_VOICES) return;
+        if (index === 0) return; // Voice 1 always enabled
+        
+        const voice = this.voices[index];
+        if (!voice.initialized) {
+            await voice.init();
+            voice.getOutput().connect(this.voiceMerger);
+        }
+        voice.setEnabled(true);
+        
+        // Start the voice if we're currently playing
+        if (this.isPlaying) {
+            voice.start();
+        }
+    }
+    
+    disableVoice(index) {
+        if (index < 0 || index >= MAX_VOICES) return;
+        if (index === 0) return; // Voice 1 always enabled
+        
+        const voice = this.voices[index];
+        voice.setEnabled(false);
+    }
+    
+    isVoiceEnabled(index) {
+        if (index < 0 || index >= MAX_VOICES) return false;
+        return this.voices[index].enabled;
+    }
+    
+    getVoiceSettings(index) {
+        if (index < 0 || index >= MAX_VOICES) return null;
+        return { ...this.voices[index].settings };
+    }
+    
+    applyVoiceSettings(index, settings, instant = false) {
+        if (index < 0 || index >= MAX_VOICES) return;
+        if (!this.initialized) return;
+        
+        this.voices[index].applySettings(settings, this.currentSettings, instant);
+    }
+    
+    applyGlobalSettings(settings, instant = false) {
         if (!this.initialized) return;
         
         this.currentSettings = settings;
         const now = this.ctx.currentTime;
-        const tc = instant ? 0 : 0.15; // time constant for smoothing
+        const tc = instant ? 0 : 0.15;
         
-        // Noise color
-        const colorParam = this.noiseNode.parameters.get('color');
-        if (instant) {
-            colorParam.setValueAtTime(settings.alpha, now);
-        } else {
-            colorParam.setTargetAtTime(settings.alpha, now, tc);
-        }
-        
-        // Second noise color and blend
-        const color2Param = this.noiseNode.parameters.get('color2');
-        const blendParam = this.noiseNode.parameters.get('colorBlend');
-        if (color2Param && blendParam) {
-            if (settings.alpha2 !== undefined && settings.colorBlend !== undefined && settings.colorBlend > 0) {
-                if (instant) {
-                    color2Param.setValueAtTime(settings.alpha2, now);
-                    blendParam.setValueAtTime(settings.colorBlend, now);
-                } else {
-                    color2Param.setTargetAtTime(settings.alpha2, now, tc);
-                    blendParam.setTargetAtTime(settings.colorBlend, now, tc);
-                }
-            } else {
-                blendParam.setTargetAtTime(0, now, tc);
+        // Apply global worklet settings to all enabled voices
+        for (const voice of this.voices) {
+            if (voice.initialized) {
+                voice.applySettings({}, settings, instant);
             }
-        }
-        
-        // Texture
-        const texParam = this.noiseNode.parameters.get('texture');
-        texParam.setValueAtTime(settings.dist, now);
-        
-        // Bitcrushing
-        const bitDepthParam = this.noiseNode.parameters.get('bitDepth');
-        const srrParam = this.noiseNode.parameters.get('sampleRateReduction');
-        if (bitDepthParam && srrParam) {
-            const bitDepth = settings.bitDepth ?? 16;
-            const srr = settings.sampleRateReduction ?? 1;
-            bitDepthParam.setValueAtTime(bitDepth, now);
-            srrParam.setValueAtTime(srr, now);
         }
         
         // Pulse/LFO
@@ -429,7 +656,7 @@ export class AudioEngine {
             this.combMix.gain.setTargetAtTime(0, now, tc);
         }
         
-        // Stereo panning LFO
+        // Global stereo panning LFO
         if (settings.panRate && settings.panRate > 0 && settings.panDepth && settings.panDepth > 0) {
             this.panLFO.frequency.setTargetAtTime(settings.panRate, now, tc);
             this.panLFOGain.gain.setTargetAtTime(settings.panDepth, now, tc);
@@ -437,18 +664,14 @@ export class AudioEngine {
             this.panLFOGain.gain.setTargetAtTime(0, now, tc);
         }
         
-        // Saturation/distortion
+        // Saturation
         if (settings.saturation && settings.saturation > 0) {
-            // Select curve type
             const curveType = settings.saturationMode || 'soft';
             if (this.saturationCurves[curveType]) {
                 this.waveshaper.curve = this.saturationCurves[curveType];
             }
-            
-            // Mix: saturation amount controls wet/dry balance
             const wet = settings.saturation;
-            const dry = 1 - (wet * 0.5); // Keep some dry signal even at max
-            
+            const dry = 1 - (wet * 0.5);
             this.saturationMix.gain.setTargetAtTime(wet, now, tc);
             this.saturationDry.gain.setTargetAtTime(dry, now, tc);
         } else {
@@ -461,7 +684,6 @@ export class AudioEngine {
             const mix = settings.reverbMix;
             const size = settings.reverbSize || 'medium';
             
-            // Adjust feedback and filter based on size
             let feedback, filterFreq;
             switch (size) {
                 case 'small':
@@ -488,198 +710,104 @@ export class AudioEngine {
         }
     }
     
-    /**
-     * Set master volume (0-1)
-     */
+    // Backward compatibility: applySettings applies to voice 1 + global
+    applySettings(settings, instant = false) {
+        this.applyGlobalSettings(settings, instant);
+        
+        // If there are voice-specific settings in the preset, apply them
+        if (settings.voices && Array.isArray(settings.voices)) {
+            for (let i = 0; i < settings.voices.length && i < MAX_VOICES; i++) {
+                const voiceSettings = settings.voices[i];
+                if (voiceSettings) {
+                    if (i > 0 && voiceSettings.enabled) {
+                        this.enableVoice(i);
+                    } else if (i > 0) {
+                        this.disableVoice(i);
+                    }
+                    this.applyVoiceSettings(i, voiceSettings, instant);
+                }
+            }
+        } else {
+            // Single voice mode - apply to voice 1
+            this.applyVoiceSettings(0, {
+                color: settings.alpha,
+                attack: settings.attack,
+                decay: settings.decay,
+                sustain: settings.sustain,
+                release: settings.release,
+                duration: settings.duration,
+                loop: settings.loop,
+                volume: 0.8,
+                pan: 0
+            }, instant);
+            
+            // Disable other voices
+            for (let i = 1; i < MAX_VOICES; i++) {
+                this.disableVoice(i);
+            }
+        }
+    }
+    
     setVolume(value) {
         if (!this.initialized) return;
         this.gainNode.gain.setTargetAtTime(value, this.ctx.currentTime, 0.1);
     }
     
-    /**
-     * Start playing with ADSR envelope
-     * @param {Object} adsr - { attack, decay, sustain, release, duration, loop }
-     *   - attack: seconds to ramp from 0 to 1
-     *   - decay: seconds to ramp from 1 to sustain level
-     *   - sustain: level to hold (0-1)
-     *   - release: seconds to ramp from sustain to 0
-     *   - duration: seconds to hold sustain before release (null = infinite/manual)
-     *   - loop: boolean - restart after release completes
-     */
-    start(adsr = { attack: 0.1, decay: 0, sustain: 1, release: 0.1, duration: null, loop: false }) {
+    start() {
         if (!this.initialized) return;
         
-        // Resume context if suspended (browser autoplay policy)
         if (this.ctx.state === 'suspended') {
             this.ctx.resume();
         }
         
-        // Clear any pending timers
-        this.clearTimers();
-        
-        this.currentADSR = adsr;
-        this.isLooping = adsr.loop || false;
-        
-        const now = this.ctx.currentTime;
-        const env = this.envelopeGain.gain;
-        
-        // Cancel any scheduled changes
-        env.cancelScheduledValues(now);
-        env.setValueAtTime(0, now);
-        
-        // Attack: ramp to 1
-        const attackEnd = now + adsr.attack;
-        env.linearRampToValueAtTime(1, attackEnd);
-        
-        // Decay: ramp to sustain level
-        const decayEnd = attackEnd + (adsr.decay || 0);
-        if (adsr.decay > 0) {
-            env.linearRampToValueAtTime(adsr.sustain, decayEnd);
-        } else {
-            env.setValueAtTime(adsr.sustain, attackEnd);
+        // Start all enabled voices
+        for (const voice of this.voices) {
+            if (voice.enabled && voice.initialized) {
+                voice.start();
+            }
         }
         
         this.isPlaying = true;
-        
-        // If duration is set, schedule release
-        if (adsr.duration !== null && adsr.duration > 0) {
-            const releaseStartTime = (adsr.attack + (adsr.decay || 0) + adsr.duration) * 1000;
-            
-            this.adsrTimeout = setTimeout(() => {
-                this.triggerRelease();
-            }, releaseStartTime);
-        }
     }
     
-    /**
-     * Trigger the release phase (called automatically if duration set, or manually)
-     */
-    triggerRelease() {
-        if (!this.initialized || !this.isPlaying) return;
-        
-        const adsr = this.currentADSR;
-        if (!adsr) return;
-        
-        const now = this.ctx.currentTime;
-        const env = this.envelopeGain.gain;
-        
-        // Cancel any scheduled changes and release from current value
-        env.cancelScheduledValues(now);
-        env.setValueAtTime(env.value, now);
-        env.linearRampToValueAtTime(0, now + adsr.release);
-        
-        // Handle loop or complete
-        const releaseMs = adsr.release * 1000 + 50;
-        
-        if (this.isLooping) {
-            this.loopTimeout = setTimeout(() => {
-                if (this.isLooping && this.isPlaying) {
-                    this.start(this.currentADSR);
-                }
-            }, releaseMs);
-        } else {
-            this.adsrTimeout = setTimeout(() => {
-                this.isPlaying = false;
-            }, releaseMs);
-        }
-    }
-    
-    /**
-     * Stop playing with release envelope
-     * @param {number} release - Release time in seconds (overrides preset)
-     * @param {Function} onComplete - Callback when release completes
-     */
     stop(release = 0.1, onComplete = null) {
         if (!this.initialized) return;
         
-        // Stop looping
-        this.isLooping = false;
-        this.clearTimers();
-        
-        const now = this.ctx.currentTime;
-        const env = this.envelopeGain.gain;
-        
-        // Cancel any scheduled changes and start release from current value
-        env.cancelScheduledValues(now);
-        env.setValueAtTime(env.value, now);
-        env.linearRampToValueAtTime(0, now + release);
+        // Stop all voices
+        for (const voice of this.voices) {
+            if (voice.initialized) {
+                voice.stop(release);
+            }
+        }
         
         this.isPlaying = false;
         
-        // Optional callback after release completes
         if (onComplete) {
-            this.adsrTimeout = setTimeout(() => {
-                onComplete();
-            }, release * 1000 + 50);
+            setTimeout(onComplete, release * 1000 + 50);
         }
     }
     
-    /**
-     * Immediate stop (for power off)
-     */
     stopImmediate() {
         this.stop(0.05);
     }
     
-    /**
-     * Clear all pending timers
-     */
-    clearTimers() {
-        if (this.adsrTimeout) {
-            clearTimeout(this.adsrTimeout);
-            this.adsrTimeout = null;
-        }
-        if (this.loopTimeout) {
-            clearTimeout(this.loopTimeout);
-            this.loopTimeout = null;
-        }
-    }
-    
-    /**
-     * Get analyser node for visualization
-     */
-    getAnalyser() {
-        return this.analyser;
-    }
-    
-    /**
-     * Get frequency data for visualization
-     */
-    getFrequencyData() {
-        if (!this.analyser) return null;
-        const data = new Uint8Array(this.analyser.frequencyBinCount);
-        this.analyser.getByteFrequencyData(data);
-        return data;
-    }
-    
-    /**
-     * Get waveform data for visualization
-     */
-    getWaveformData() {
-        if (!this.analyser) return null;
-        const data = new Uint8Array(this.analyser.fftSize);
-        this.analyser.getByteTimeDomainData(data);
-        return data;
-    }
-    
-    /**
-     * Suspend audio context (save resources when not playing)
-     */
     suspend() {
         if (this.ctx && this.ctx.state === 'running') {
             this.ctx.suspend();
         }
     }
     
-    /**
-     * Resume audio context
-     */
-    resume() {
-        if (this.ctx && this.ctx.state === 'suspended') {
-            this.ctx.resume();
+    getAnalyserData(dataArray) {
+        if (this.analyser) {
+            this.analyser.getByteFrequencyData(dataArray);
+        }
+    }
+    
+    getAnalyserWaveform(dataArray) {
+        if (this.analyser) {
+            this.analyser.getByteTimeDomainData(dataArray);
         }
     }
 }
 
-// Export singleton instance
 export const audioEngine = new AudioEngine();

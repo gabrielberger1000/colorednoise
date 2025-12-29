@@ -658,6 +658,77 @@
             align-items: center;
         }
         
+        .panel-subheader {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            margin: 1rem 0 0.5rem 0;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .panel-subheader .loop-switch {
+            margin-left: auto;
+            margin-right: 8px;
+        }
+        
+        .panel-subheader .loop-label {
+            font-size: 0.7rem;
+        }
+        
+        /* Voice Tabs */
+        .voice-panel {
+            padding: 0;
+        }
+        
+        .voice-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .voice-tab {
+            flex: 1;
+            padding: 0.75rem 0.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .voice-tab:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .voice-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        .voice-tab.disabled {
+            color: var(--text-dim);
+            opacity: 0.5;
+        }
+        
+        .voice-tab.enabled {
+            color: var(--text);
+        }
+        
+        .voice-content {
+            padding: 1rem;
+        }
+        
+        .voice-enable-row {
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
         /* Advanced panel */
         .advanced-panel {
             cursor: pointer;
