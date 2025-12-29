@@ -3,6 +3,8 @@
  * 
  * Generates white, pink, brown, blue, and violet noise using various
  * filtering techniques applied to a base random signal.
+ * 
+ * Supports blending two colors together for richer textures.
  */
 class NoiseProcessor extends AudioWorkletProcessor {
     constructor() {
@@ -22,28 +24,64 @@ class NoiseProcessor extends AudioWorkletProcessor {
         // Blue/Violet state (high-pass filtering) - per channel
         this.lastWhite = [0, 0];
         this.lastBlue = [0, 0];
+        
+        // Sample rate reduction state - per channel
+        this.sampleHoldCounter = [0, 0];
+        this.sampleHoldValue = [0, 0];
     }
     
     static get parameterDescriptors() {
         return [
             { name: 'color', defaultValue: 3, minValue: 0, maxValue: 4 },
-            { name: 'texture', defaultValue: 0, minValue: 0, maxValue: 1 }
+            { name: 'color2', defaultValue: 3, minValue: 0, maxValue: 4 },
+            { name: 'colorBlend', defaultValue: 0, minValue: 0, maxValue: 1 },
+            { name: 'texture', defaultValue: 0, minValue: 0, maxValue: 1 },
+            { name: 'bitDepth', defaultValue: 16, minValue: 2, maxValue: 16 },
+            { name: 'sampleRateReduction', defaultValue: 1, minValue: 1, maxValue: 32 }
         ];
+    }
+    
+    // Helper to get noise value for a given alpha
+    getNoiseForAlpha(alpha, white, violet, blue, pink, brown) {
+        if (alpha <= 1) {
+            return (1 - alpha) * violet + alpha * blue;
+        } else if (alpha <= 2) {
+            const t = alpha - 1;
+            return (1 - t) * blue + t * white;
+        } else if (alpha <= 3) {
+            const t = alpha - 2;
+            return (1 - t) * white + t * pink;
+        } else {
+            const t = alpha - 3;
+            return (1 - t) * pink + t * brown;
+        }
     }
     
     process(inputs, outputs, parameters) {
         const output = outputs[0];
         const colorParam = parameters['color'];
+        const color2Param = parameters['color2'];
+        const blendParam = parameters['colorBlend'];
         const texParam = parameters['texture'];
+        const bitDepthParam = parameters['bitDepth'];
+        const srrParam = parameters['sampleRateReduction'];
         
         for (let ch = 0; ch < output.length; ch++) {
             const outData = output[ch];
             const isColorConst = colorParam.length === 1;
+            const isColor2Const = color2Param.length === 1;
+            const isBlendConst = blendParam.length === 1;
             const isTexConst = texParam.length === 1;
+            const isBitConst = bitDepthParam.length === 1;
+            const isSrrConst = srrParam.length === 1;
             
             for (let i = 0; i < outData.length; i++) {
                 const alpha = isColorConst ? colorParam[0] : colorParam[i];
+                const alpha2 = isColor2Const ? color2Param[0] : color2Param[i];
+                const blend = isBlendConst ? blendParam[0] : blendParam[i];
                 const texture = isTexConst ? texParam[0] : texParam[i];
+                const bitDepth = isBitConst ? bitDepthParam[0] : bitDepthParam[i];
+                const srr = isSrrConst ? srrParam[0] : srrParam[i];
                 
                 // Generate white noise base
                 let white = 0;
@@ -57,12 +95,10 @@ class NoiseProcessor extends AudioWorkletProcessor {
                 }
                 
                 // === VIOLET NOISE (+6dB/octave) ===
-                // Differentiate white noise
                 const violet = (white - this.lastWhite[ch]) * 0.5;
                 this.lastWhite[ch] = white;
                 
                 // === BLUE NOISE (+3dB/octave) ===
-                // Gentle high-pass
                 const blue = (violet + this.lastBlue[ch]) * 0.5;
                 this.lastBlue[ch] = blue;
                 
@@ -78,32 +114,35 @@ class NoiseProcessor extends AudioWorkletProcessor {
                 this.b6[ch] = white * 0.115926;
                 
                 // === BROWN NOISE (-6dB/octave) ===
-                // Integrated white noise with clamping
                 let brown = (this.brownState[ch] + (0.02 * white)) / 1.02;
                 this.brownState[ch] = brown;
                 brown = Math.max(-1, Math.min(1, brown * 3.5));
                 
-                // === MIX based on alpha (0-4 scale) ===
-                // 0=Violet, 1=Blue, 2=White, 3=Pink, 4=Brown
-                let s = 0;
-                if (alpha <= 1) {
-                    // Violet to Blue
-                    s = (1 - alpha) * violet + alpha * blue;
-                } else if (alpha <= 2) {
-                    // Blue to White
-                    const t = alpha - 1;
-                    s = (1 - t) * blue + t * white;
-                } else if (alpha <= 3) {
-                    // White to Pink
-                    const t = alpha - 2;
-                    s = (1 - t) * white + t * pink;
-                } else {
-                    // Pink to Brown
-                    const t = alpha - 3;
-                    s = (1 - t) * pink + t * brown;
+                // Get noise for both colors
+                const noise1 = this.getNoiseForAlpha(alpha, white, violet, blue, pink, brown);
+                const noise2 = this.getNoiseForAlpha(alpha2, white, violet, blue, pink, brown);
+                
+                // Blend the two colors
+                let sample = (1 - blend) * noise1 + blend * noise2;
+                
+                // === BITCRUSHING ===
+                // Bit depth reduction (quantize to fewer bits)
+                if (bitDepth < 16) {
+                    const steps = Math.pow(2, bitDepth - 1);
+                    sample = Math.round(sample * steps) / steps;
                 }
                 
-                outData[i] = s;
+                // Sample rate reduction (sample & hold)
+                if (srr > 1) {
+                    this.sampleHoldCounter[ch]++;
+                    if (this.sampleHoldCounter[ch] >= srr) {
+                        this.sampleHoldCounter[ch] = 0;
+                        this.sampleHoldValue[ch] = sample;
+                    }
+                    sample = this.sampleHoldValue[ch];
+                }
+                
+                outData[i] = sample;
             }
         }
         return true;
