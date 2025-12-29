@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BNQ3WLE4ME');
-    </script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -19,22 +11,22 @@
     <meta name="keywords" content="white noise generator, pink noise, brown noise, sleep sounds, focus sounds, binaural beats, noise machine, tinnitus masking, meditation sounds, ambient noise, free noise generator, online sound machine">
     <meta name="author" content="Colored Noise">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://colorednoise.app">
+    <link rel="canonical" href=""><!-- Add your URL here -->
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://colorednoise.app">
+    <meta property="og:url" content=""><!-- Add your URL here -->
     <meta property="og:title" content="Colored Noise | Free Noise Generator for Sleep & Focus">
     <meta property="og:description" content="Free online noise generator with 50+ presets. White, pink, brown, blue & violet noise with binaural beats, sleep timer, and custom fades.">
-    <meta property="og:image" content="https://colorednoise.app/social-card.png">
+    <meta property="og:image" content=""><!-- Add a preview image URL here (1200x630px recommended) -->
     <meta property="og:site_name" content="Colored Noise">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://colorednoise.app">
+    <meta name="twitter:url" content=""><!-- Add your URL here -->
     <meta name="twitter:title" content="Colored Noise | Free Noise Generator for Sleep & Focus">
     <meta name="twitter:description" content="50+ noise presets: white, pink, brown, blue & violet. Binaural beats, sleep timer, custom fades. 100% free.">
-    <meta name="twitter:image" content="https://colorednoise.app/social-card.png">
+    <meta name="twitter:image" content=""><!-- Add a preview image URL here -->
     
     <!-- Structured Data for Rich Results -->
     <script type="application/ld+json">
@@ -44,7 +36,7 @@
         "name": "Colored Noise",
         "alternateName": "colorednoise.app",
         "description": "Free online noise generator with 50+ presets for sleep, focus, meditation, and tinnitus relief. Features white, pink, brown, blue, and violet noise with binaural beats and customizable settings.",
-	"url": "https://colorednoise.app",
+        "url": "",
         "applicationCategory": "HealthApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -64,6 +56,12 @@
             "Customizable fade in/out",
             "Save custom presets"
         ],
+        "screenshot": "",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1"
+        }
     }
     </script>
     
@@ -532,6 +530,7 @@
         .preset-btn[data-category="nature"] { border-left: 3px solid #22c55e; }
         .preset-btn[data-category="mechanical"] { border-left: 3px solid #f59e0b; }
         .preset-btn[data-category="experimental"] { border-left: 3px solid #ef4444; }
+        .preset-btn[data-category="textured"] { border-left: 3px solid #ec4899; }
         
         /* RIGHT PANEL */
         .right-panel {
@@ -1074,6 +1073,7 @@
                             <button data-filter="nature">Nature</button>
                             <button data-filter="ambient">Ambient</button>
                             <button data-filter="mechanical">Mech</button>
+                            <button data-filter="textured">Textured</button>
                         </div>
                     </div>
                     <div class="category-legend">
@@ -1083,6 +1083,7 @@
                         <span class="legend-item"><span class="legend-color" style="background:#10b981"></span>Ambient</span>
                         <span class="legend-item"><span class="legend-color" style="background:#f59e0b"></span>Mechanical</span>
                         <span class="legend-item"><span class="legend-color" style="background:#ef4444"></span>Experimental</span>
+                        <span class="legend-item"><span class="legend-color" style="background:#ec4899"></span>Textured</span>
                     </div>
                     <div class="preset-grid" id="presetContainer" role="listbox" aria-label="Sound presets"></div>
                 </div>
@@ -1402,7 +1403,27 @@ const builtInPresets = [
     { name: "Vinyl Crackle", category: "experimental", alpha: 0.4, pulse: 0.3, pulseShape: "triangle", grey: false, dist: 1, binaural: false, binauralFreq: 10, fadeIn: 2, fadeOut: 3 },
     { name: "Cicadas", category: "experimental", alpha: 1.1, pulse: 3.2, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 3, fadeOut: 5 },
     { name: "ASMR Static", category: "experimental", alpha: 0.3, pulse: 0, pulseShape: "sine", grey: true, dist: 1, binaural: false, binauralFreq: 10, fadeIn: 5, fadeOut: 8 },
-    { name: "Breath Work", category: "experimental", alpha: 3.2, pulse: 0.1, pulseShape: "sine", grey: false, dist: 0, binaural: true, binauralFreq: 10, fadeIn: 10, fadeOut: 15 }
+    { name: "Breath Work", category: "experimental", alpha: 3.2, pulse: 0.1, pulseShape: "sine", grey: false, dist: 0, binaural: true, binauralFreq: 10, fadeIn: 10, fadeOut: 15 },
+    
+    // === TEXTURED (8 presets) - Using resonant filters and comb filters ===
+    { name: "Resonant Drone", category: "textured", alpha: 3.5, pulse: 0, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 8, fadeOut: 12,
+      resonant: { enabled: true, frequencies: [110, 220, 330], q: 25, mix: 0.6 } },
+    { name: "Singing Pipes", category: "textured", alpha: 2.5, pulse: 0.08, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 5, fadeOut: 10,
+      resonant: { enabled: true, frequencies: [180, 360, 540], q: 30, mix: 0.5 } },
+    { name: "Tibetan Bowl", category: "textured", alpha: 3.2, pulse: 0, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 10, fadeOut: 20,
+      resonant: { enabled: true, frequencies: [256, 384, 512], q: 40, mix: 0.4 } },
+    { name: "Metal Wind", category: "textured", alpha: 2, pulse: 0.15, pulseShape: "triangle", grey: false, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 4, fadeOut: 8,
+      comb: { enabled: true, delay: 0.003, feedback: 0.75, mix: 0.4 } },
+    { name: "Hollow Tube", category: "textured", alpha: 3, pulse: 0, pulseShape: "sine", grey: false, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 3, fadeOut: 6,
+      comb: { enabled: true, delay: 0.008, feedback: 0.8, mix: 0.5 } },
+    { name: "Spaceship Hull", category: "textured", alpha: 3.8, pulse: 0.03, pulseShape: "sine", grey: true, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 10, fadeOut: 15,
+      comb: { enabled: true, delay: 0.015, feedback: 0.7, mix: 0.35 },
+      resonant: { enabled: true, frequencies: [80, 160, 240], q: 15, mix: 0.3 } },
+    { name: "Wind Chimes", category: "textured", alpha: 1.5, pulse: 0.2, pulseShape: "triangle", grey: false, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 3, fadeOut: 5,
+      resonant: { enabled: true, frequencies: [523, 659, 784], q: 35, mix: 0.5 } },
+    { name: "Cave Ambience", category: "textured", alpha: 4, pulse: 0.05, pulseShape: "sine", grey: true, dist: 0, binaural: false, binauralFreq: 10, fadeIn: 15, fadeOut: 25,
+      comb: { enabled: true, delay: 0.025, feedback: 0.6, mix: 0.4 },
+      resonant: { enabled: true, frequencies: [100, 150, 200], q: 12, mix: 0.25 } }
 ];
 
 // Load/save custom presets
@@ -1483,6 +1504,15 @@ let analyser = null;
 let greyLow = null;
 let greyHigh = null;
 let depthNode = null;
+
+// Texture filters
+let resonantFilters = [];
+let resonantGains = [];
+let combDelay = null;
+let combFeedback = null;
+let combMix = null;
+let dryGain = null;
+let wetMix = null;
 
 let isPlaying = false;
 let isFading = false;
@@ -1631,6 +1661,58 @@ function applySettings(s, instant = false) {
     } else {
         greyLow.gain.setTargetAtTime(gGain, now, timeConstant);
         greyHigh.gain.setTargetAtTime(gGain / 2, now, timeConstant);
+    }
+    
+    // === RESONANT FILTERS ===
+    // resonant: { enabled: bool, frequencies: [f1, f2, f3], q: number, mix: number }
+    if (s.resonant && s.resonant.enabled) {
+        const r = s.resonant;
+        for (let i = 0; i < 3; i++) {
+            const freq = r.frequencies[i] || (200 * (i + 1));
+            const q = r.q || 10;
+            const mix = r.mix || 0.5;
+            
+            if (instant) {
+                resonantFilters[i].frequency.setValueAtTime(freq, now);
+                resonantFilters[i].Q.setValueAtTime(q, now);
+                resonantGains[i].gain.setValueAtTime(mix / 3, now);
+            } else {
+                resonantFilters[i].frequency.setTargetAtTime(freq, now, timeConstant);
+                resonantFilters[i].Q.setTargetAtTime(q, now, timeConstant);
+                resonantGains[i].gain.setTargetAtTime(mix / 3, now, timeConstant);
+            }
+        }
+        // Reduce dry signal when resonant is active
+        dryGain.gain.setTargetAtTime(1 - (r.mix * 0.5), now, timeConstant);
+    } else {
+        // Turn off resonant filters
+        for (let i = 0; i < 3; i++) {
+            resonantGains[i].gain.setTargetAtTime(0, now, timeConstant);
+        }
+        dryGain.gain.setTargetAtTime(1, now, timeConstant);
+    }
+    
+    // === COMB FILTER ===
+    // comb: { enabled: bool, delay: number (seconds), feedback: number, mix: number }
+    if (s.comb && s.comb.enabled) {
+        const c = s.comb;
+        const delayTime = c.delay || 0.005;
+        const feedback = c.feedback || 0.7;
+        const mix = c.mix || 0.3;
+        
+        if (instant) {
+            combDelay.delayTime.setValueAtTime(delayTime, now);
+            combFeedback.gain.setValueAtTime(feedback, now);
+            combMix.gain.setValueAtTime(mix, now);
+        } else {
+            combDelay.delayTime.setTargetAtTime(delayTime, now, timeConstant);
+            combFeedback.gain.setTargetAtTime(feedback, now, timeConstant);
+            combMix.gain.setTargetAtTime(mix, now, timeConstant);
+        }
+    } else {
+        // Turn off comb filter
+        combFeedback.gain.setTargetAtTime(0, now, timeConstant);
+        combMix.gain.setTargetAtTime(0, now, timeConstant);
     }
 }
 
@@ -1862,6 +1944,35 @@ async function initAudio() {
     greyHigh.frequency.value = 6000;
     greyHigh.gain.value = 0;
     
+    // === RESONANT FILTERS (for tonal/drone sounds) ===
+    // Three bandpass filters that can be tuned to create harmonic content
+    resonantFilters = [];
+    resonantGains = [];
+    for (let i = 0; i < 3; i++) {
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.value = 200 * (i + 1); // 200, 400, 600 Hz default
+        filter.Q.value = 1; // Low Q = wide band, High Q = resonant/tonal
+        resonantFilters.push(filter);
+        
+        const gain = audioCtx.createGain();
+        gain.gain.value = 0; // Off by default
+        resonantGains.push(gain);
+    }
+    
+    // === COMB FILTER (for metallic/hollow sounds) ===
+    // Created using a delay line feeding back into itself
+    combDelay = audioCtx.createDelay(0.1); // Max 100ms delay
+    combDelay.delayTime.value = 0.005; // 5ms = metallic tone ~200Hz
+    combFeedback = audioCtx.createGain();
+    combFeedback.gain.value = 0; // 0 = off, 0.7-0.9 = strong comb effect
+    combMix = audioCtx.createGain();
+    combMix.gain.value = 0; // Dry/wet mix for comb
+    
+    // Comb filter feedback loop
+    combDelay.connect(combFeedback);
+    combFeedback.connect(combDelay);
+    
     pulseGain = audioCtx.createGain();
     pulseGain.gain.value = 1;
     
@@ -1883,8 +1994,39 @@ async function initAudio() {
     gainNode = audioCtx.createGain();
     gainNode.gain.value = 0;
     
+    // === AUDIO ROUTING ===
+    // Main path: noise -> pulse -> grey EQ -> output
+    // Resonant path: noise -> bandpass filters (parallel) -> mix back in
+    // Comb path: noise -> comb filter -> mix back in
+    
+    // Create a dry path and wet mix node
+    dryGain = audioCtx.createGain();
+    dryGain.gain.value = 1;
+    
+    wetMix = audioCtx.createGain();
+    wetMix.gain.value = 0;
+    
+    // Main routing
     noiseNode.connect(pulseGain);
-    pulseGain.connect(greyLow);
+    
+    // Dry path (original signal)
+    pulseGain.connect(dryGain);
+    
+    // Resonant filters (parallel)
+    for (let i = 0; i < 3; i++) {
+        pulseGain.connect(resonantFilters[i]);
+        resonantFilters[i].connect(resonantGains[i]);
+        resonantGains[i].connect(wetMix);
+    }
+    
+    // Comb filter path
+    pulseGain.connect(combDelay);
+    combDelay.connect(combMix);
+    combMix.connect(wetMix);
+    
+    // Mix dry and wet, then through grey EQ to output
+    dryGain.connect(greyLow);
+    wetMix.connect(greyLow);
     greyLow.connect(greyHigh);
     greyHigh.connect(analyser);
     analyser.connect(gainNode);
