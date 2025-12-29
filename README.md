@@ -64,4 +64,4 @@ MIT
 
 ## Credits
 
-Built with Claude.
+Built with Claude and Gemini.
