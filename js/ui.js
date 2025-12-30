@@ -3,8 +3,12 @@
  * Supports multi-voice polyrhythmic presets
  */
 
-import { audioEngine, Voice } from './audio-engine.js';
+import { audioEngine, Voice, checkBrowserCompatibility, WORKLET_PATH } from './audio-engine.js';
 import { builtInPresets, categories, defaultSettings, loadCustomPresets, saveCustomPresets } from './presets.js';
+
+// Pre-allocated arrays for visualizer to avoid GC pressure
+let frequencyDataArray = null;
+let waveformDataArray = null;
 
 // State
 let currentSettings = { ...defaultSettings };
@@ -18,10 +22,10 @@ let animationId = null;
 // Voice state
 let currentVoiceIndex = 0;
 let voiceSettings = [
-    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false },
-    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false },
-    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false },
-    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false }
+    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false },
+    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false },
+    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false },
+    { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false }
 ];
 
 // Timer state
@@ -33,9 +37,57 @@ let timerFadeStarted = false;
 let elements = {};
 
 /**
+ * Show browser compatibility error
+ */
+function showBrowserError(missingFeatures) {
+    const container = document.querySelector('.app-container') || document.body;
+    const errorHtml = `
+        <div class="browser-error" style="
+            background: #1a1a2e;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            text-align: center;
+            color: #fff;
+        ">
+            <h2 style="color: #ef4444; margin-bottom: 1rem;">Browser Not Supported</h2>
+            <p style="margin-bottom: 1rem;">
+                Your browser is missing features required for Colored Noise:
+            </p>
+            <ul style="text-align: left; margin: 1rem 2rem; color: #f87171;">
+                ${missingFeatures.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+            <p style="color: #9ca3af; font-size: 0.9rem;">
+                Please try a modern browser like Chrome, Firefox, Safari 14.1+, or Edge.
+            </p>
+        </div>
+    `;
+    container.innerHTML = errorHtml;
+}
+
+/**
+ * Initialize pre-allocated arrays for visualizer
+ */
+function initVisualizerArrays() {
+    if (audioEngine.analyser) {
+        frequencyDataArray = new Uint8Array(audioEngine.analyser.frequencyBinCount);
+        waveformDataArray = new Uint8Array(audioEngine.analyser.fftSize);
+    }
+}
+
+/**
  * Initialize UI
  */
 export function initUI() {
+    // Check browser compatibility early
+    const compat = checkBrowserCompatibility();
+    if (!compat.supported) {
+        showBrowserError(compat.missing);
+        return;
+    }
+
     elements = {
         presetContainer: document.getElementById('presetContainer'),
         powerBtn: document.getElementById('powerBtn'),
@@ -195,9 +247,14 @@ function createPresetButton(preset, idx) {
 
 async function activatePreset(preset, btnElem) {
     if (!audioEngine.initialized) {
-        await audioEngine.init();
+        const result = await audioEngine.init();
+        if (!result.success) {
+            elements.statusDisplay.textContent = "Error: " + result.error;
+            return;
+        }
+        initVisualizerArrays();
     }
-    
+
     currentSettings = { ...preset };
     currentPresetName = preset.name;
     
@@ -223,15 +280,17 @@ async function activatePreset(preset, btnElem) {
         }
     } else {
         // Single voice preset - apply to voice 1, disable others
+        // Support both 'color' and legacy 'alpha' naming
+        // duration: null means sustain indefinitely (non-looping)
         voiceSettings[0] = {
-            color: preset.alpha ?? 3,
+            color: preset.color ?? preset.alpha ?? 3,
             volume: 0.8,
             pan: 0,
             attack: preset.attack ?? 0.5,
             decay: preset.decay ?? 0,
             sustain: preset.sustain ?? 1,
             release: preset.release ?? 0.5,
-            duration: preset.duration ?? 2,
+            duration: preset.loop ? (preset.duration ?? 2) : (preset.duration ?? null),
             loop: preset.loop ?? false,
             enabled: true
         };
@@ -239,22 +298,23 @@ async function activatePreset(preset, btnElem) {
             voiceSettings[i].enabled = false;
         }
     }
-    
+
     syncControlsToCurrentVoice();
     syncGlobalControlsToSettings();
     updateVoiceTabStates();
-    
+
     audioEngine.applySettings(buildFullSettings(), true);
-    
+
     updateURL();
-    
-    if (!audioEngine.isPlaying) {
-        audioEngine.start();
-        updatePlayingUI(true);
-        startVisualizer();
+
+    // Always start/restart when activating a preset
+    audioEngine.start();
+    updatePlayingUI(true);
+    startVisualizer();
+
+    if (elements.statusDisplay) {
+        elements.statusDisplay.textContent = "Playing: " + preset.name;
     }
-    
-    elements.statusDisplay.textContent = "Playing: " + preset.name;
 }
 
 function buildFullSettings() {
@@ -364,7 +424,7 @@ function syncGlobalControlsToSettings() {
     // Advanced
     elements.sliderPanRate.value = currentSettings.panRate ?? 0;
     elements.sliderPanDepth.value = currentSettings.panDepth ?? 0;
-    elements.sliderColor2.value = currentSettings.alpha2 ?? 3;
+    elements.sliderColor2.value = currentSettings.color2 ?? currentSettings.alpha2 ?? 3;
     elements.sliderColorBlend.value = currentSettings.colorBlend ?? 0;
     elements.sliderSaturation.value = currentSettings.saturation ?? 0;
     elements.selSaturationMode.value = currentSettings.saturationMode ?? 'soft';
@@ -386,7 +446,7 @@ function syncGlobalSettingsFromControls() {
     
     currentSettings.panRate = parseFloat(elements.sliderPanRate.value);
     currentSettings.panDepth = parseFloat(elements.sliderPanDepth.value);
-    currentSettings.alpha2 = parseFloat(elements.sliderColor2.value);
+    currentSettings.color2 = parseFloat(elements.sliderColor2.value);
     currentSettings.colorBlend = parseFloat(elements.sliderColorBlend.value);
     currentSettings.saturation = parseFloat(elements.sliderSaturation.value);
     currentSettings.saturationMode = elements.selSaturationMode.value;
@@ -579,9 +639,14 @@ function setupEventListeners() {
 
 async function togglePower() {
     if (!audioEngine.initialized) {
-        await audioEngine.init();
+        const result = await audioEngine.init();
+        if (!result.success) {
+            elements.statusDisplay.textContent = "Error: " + result.error;
+            return;
+        }
+        initVisualizerArrays();
     }
-    
+
     if (audioEngine.isPlaying) {
         audioEngine.stop(0.1, () => {
             audioEngine.suspend();
@@ -599,9 +664,10 @@ async function togglePower() {
 }
 
 function updatePlayingUI(playing) {
+    if (!elements.powerBtn) return; // Guard against uninitialized UI
     elements.powerBtn.classList.toggle('active', playing);
     elements.powerBtn.setAttribute('aria-pressed', playing);
-    elements.powerBtn.querySelector('.power-label').textContent = playing ? "ON" : "OFF";
+    elements.powerBtn.textContent = playing ? "⏻ Power Off" : "⏻ Power On";
 }
 
 // === TIMER ===
@@ -672,77 +738,194 @@ function stopVisualizer() {
         cancelAnimationFrame(animationId);
         animationId = null;
     }
-    elements.ctx.clearRect(0, 0, elements.canvas.width, elements.canvas.height);
+    if (elements.ctx && elements.canvas) {
+        elements.ctx.clearRect(0, 0, elements.canvas.width, elements.canvas.height);
+    }
 }
 
 function drawVisualizer() {
-    if (!audioEngine.isPlaying) {
+    if (!audioEngine.isPlaying || !audioEngine.analyser) {
         stopVisualizer();
         return;
     }
-    
+
     animationId = requestAnimationFrame(drawVisualizer);
-    
+
     const width = elements.canvas.width;
     const height = elements.canvas.height;
     const ctx = elements.ctx;
-    
+
     ctx.clearRect(0, 0, width, height);
-    
+
+    // Ensure arrays are allocated (lazy initialization for robustness)
+    if (!frequencyDataArray) {
+        frequencyDataArray = new Uint8Array(audioEngine.analyser.frequencyBinCount);
+    }
+    if (!waveformDataArray) {
+        waveformDataArray = new Uint8Array(audioEngine.analyser.fftSize);
+    }
+
     if (vizMode === 'bars') {
-        const dataArray = new Uint8Array(audioEngine.analyser.frequencyBinCount);
-        audioEngine.getAnalyserData(dataArray);
-        
+        audioEngine.getAnalyserData(frequencyDataArray);
+
         const barCount = 32;
         const barWidth = width / barCount;
-        const step = Math.floor(dataArray.length / barCount);
-        
+        const step = Math.floor(frequencyDataArray.length / barCount);
+
         ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-        
+
         for (let i = 0; i < barCount; i++) {
-            const value = dataArray[i * step] / 255;
+            const value = frequencyDataArray[i * step] / 255;
             const barHeight = value * height * 0.9;
             ctx.fillRect(i * barWidth + 1, height - barHeight, barWidth - 2, barHeight);
         }
     } else {
-        const dataArray = new Uint8Array(audioEngine.analyser.fftSize);
-        audioEngine.getAnalyserWaveform(dataArray);
-        
+        audioEngine.getAnalyserWaveform(waveformDataArray);
+
         ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
         ctx.lineWidth = 2;
         ctx.beginPath();
-        
-        const sliceWidth = width / dataArray.length;
+
+        const sliceWidth = width / waveformDataArray.length;
         let x = 0;
-        
-        for (let i = 0; i < dataArray.length; i++) {
-            const v = dataArray[i] / 128.0;
+
+        for (let i = 0; i < waveformDataArray.length; i++) {
+            const v = waveformDataArray[i] / 128.0;
             const y = (v * height) / 2;
-            
+
             if (i === 0) ctx.moveTo(x, y);
             else ctx.lineTo(x, y);
-            
+
             x += sliceWidth;
         }
-        
+
         ctx.stroke();
     }
 }
 
 // === URL STATE ===
 
+/**
+ * Encode current settings to URL for sharing
+ */
 function updateURL() {
-    // Simplified URL state for now
     const params = new URLSearchParams();
+
+    // Volume
     params.set('v', elements.sliderVol.value);
-    
+
+    // Global settings - only include non-default values to keep URL short
+    if (currentSettings.pulse > 0) params.set('pulse', currentSettings.pulse);
+    if (currentSettings.pulseShape !== 'sine') params.set('ps', currentSettings.pulseShape);
+    if (currentSettings.grey) params.set('grey', '1');
+    if (currentSettings.dist > 0) params.set('dist', currentSettings.dist);
+    if (currentSettings.binaural) params.set('bin', '1');
+    if (currentSettings.binauralFreq !== 10) params.set('bf', currentSettings.binauralFreq);
+    if (currentSettings.panRate > 0) params.set('pr', currentSettings.panRate);
+    if (currentSettings.panDepth > 0) params.set('pd', currentSettings.panDepth);
+    if (currentSettings.colorBlend > 0) {
+        params.set('c2', currentSettings.color2 ?? currentSettings.alpha2 ?? 3);
+        params.set('cb', currentSettings.colorBlend);
+    }
+    if (currentSettings.saturation > 0) params.set('sat', currentSettings.saturation);
+    if (currentSettings.saturationMode !== 'soft') params.set('sm', currentSettings.saturationMode);
+    if (currentSettings.bitDepth < 16) params.set('bd', currentSettings.bitDepth);
+    if (currentSettings.sampleRateReduction > 1) params.set('srr', currentSettings.sampleRateReduction);
+    if (currentSettings.reverbMix > 0) params.set('rm', currentSettings.reverbMix);
+    if (currentSettings.reverbSize !== 'medium') params.set('rs', currentSettings.reverbSize);
+
+    // Encode voice settings (compact format)
+    const voiceData = voiceSettings.map((v, i) => {
+        if (i > 0 && !v.enabled) return null;
+        return [
+            v.color,
+            v.volume,
+            v.pan,
+            v.attack,
+            v.decay,
+            v.sustain,
+            v.release,
+            v.duration ?? 0,
+            v.loop ? 1 : 0
+        ].join(',');
+    }).filter(Boolean);
+
+    if (voiceData.length > 0) {
+        params.set('voices', voiceData.join('|'));
+    }
+
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     history.replaceState(null, '', newUrl);
 }
 
+/**
+ * Load settings from URL parameters
+ */
 function loadFromURL() {
     const params = new URLSearchParams(window.location.search);
-    if (params.has('v')) elements.sliderVol.value = parseFloat(params.get('v'));
+
+    // Volume
+    if (params.has('v')) {
+        elements.sliderVol.value = parseFloat(params.get('v'));
+    }
+
+    // Global settings
+    if (params.has('pulse')) currentSettings.pulse = parseFloat(params.get('pulse'));
+    if (params.has('ps')) currentSettings.pulseShape = params.get('ps');
+    if (params.has('grey')) currentSettings.grey = params.get('grey') === '1';
+    if (params.has('dist')) currentSettings.dist = parseInt(params.get('dist'));
+    if (params.has('bin')) currentSettings.binaural = params.get('bin') === '1';
+    if (params.has('bf')) currentSettings.binauralFreq = parseFloat(params.get('bf'));
+    if (params.has('pr')) currentSettings.panRate = parseFloat(params.get('pr'));
+    if (params.has('pd')) currentSettings.panDepth = parseFloat(params.get('pd'));
+    if (params.has('c2')) {
+        currentSettings.color2 = parseFloat(params.get('c2'));
+    }
+    if (params.has('cb')) currentSettings.colorBlend = parseFloat(params.get('cb'));
+    if (params.has('sat')) currentSettings.saturation = parseFloat(params.get('sat'));
+    if (params.has('sm')) currentSettings.saturationMode = params.get('sm');
+    if (params.has('bd')) currentSettings.bitDepth = parseInt(params.get('bd'));
+    if (params.has('srr')) currentSettings.sampleRateReduction = parseInt(params.get('srr'));
+    if (params.has('rm')) currentSettings.reverbMix = parseFloat(params.get('rm'));
+    if (params.has('rs')) currentSettings.reverbSize = params.get('rs');
+
+    // Decode voice settings
+    if (params.has('voices')) {
+        const voicesStr = params.get('voices');
+        const voiceDataArr = voicesStr.split('|');
+
+        voiceDataArr.forEach((vStr, i) => {
+            if (i >= 4 || !vStr) return;
+            const parts = vStr.split(',').map(Number);
+            if (parts.length >= 9) {
+                voiceSettings[i] = {
+                    color: parts[0],
+                    volume: parts[1],
+                    pan: parts[2],
+                    attack: parts[3],
+                    decay: parts[4],
+                    sustain: parts[5],
+                    release: parts[6],
+                    duration: parts[7] || null,
+                    loop: parts[8] === 1,
+                    enabled: i === 0 ? true : true // If in URL, it's enabled
+                };
+            }
+        });
+
+        // Mark voices not in URL as disabled (except voice 1)
+        for (let i = voiceDataArr.length; i < 4; i++) {
+            if (i > 0) voiceSettings[i].enabled = false;
+        }
+    }
+
+    // Sync UI if we loaded from URL
+    if (params.toString()) {
+        syncControlsToCurrentVoice();
+        syncGlobalControlsToSettings();
+        updateVoiceTabStates();
+        currentPresetName = "Custom";
+    }
 }
 
 // === PRESETS SAVE/RESET ===
@@ -779,10 +962,10 @@ function saveCurrentAsPreset() {
 function resetToDefaults() {
     currentSettings = { ...defaultSettings };
     voiceSettings = [
-        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: true },
-        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false },
-        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false },
-        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: 2, loop: false, enabled: false }
+        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: true },
+        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false },
+        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false },
+        { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false }
     ];
     
     syncControlsToCurrentVoice();
@@ -1237,40 +1420,73 @@ function validateEventList(events, context, currentTime = 0) {
 }
 
 function validateVoiceEvent(event, context) {
-    // Required fields
+    // Required fields with type checks
     if (event.color === undefined) {
         return { valid: false, error: `${context}: missing "color"` };
+    }
+    if (typeof event.color !== 'number') {
+        return { valid: false, error: `${context}: "color" must be a number, got ${typeof event.color}` };
     }
     if (event.duration === undefined) {
         return { valid: false, error: `${context}: missing "duration"` };
     }
-    
+    if (typeof event.duration !== 'number') {
+        return { valid: false, error: `${context}: "duration" must be a number, got ${typeof event.duration}` };
+    }
+
     // Range checks
-    if (event.color < 0 || event.color > 4) {
+    if (event.color < 0 || event.color > 4 || isNaN(event.color)) {
         return { valid: false, error: `${context}: "color" must be 0-4` };
     }
-    if (event.volume !== undefined && (event.volume < 0 || event.volume > 1)) {
-        return { valid: false, error: `${context}: "volume" must be 0-1` };
+    if (event.volume !== undefined) {
+        if (typeof event.volume !== 'number') {
+            return { valid: false, error: `${context}: "volume" must be a number, got ${typeof event.volume}` };
+        }
+        if (event.volume < 0 || event.volume > 1 || isNaN(event.volume)) {
+            return { valid: false, error: `${context}: "volume" must be 0-1` };
+        }
     }
-    if (event.pan !== undefined && (event.pan < -1 || event.pan > 1)) {
-        return { valid: false, error: `${context}: "pan" must be -1 to 1` };
+    if (event.pan !== undefined) {
+        if (typeof event.pan !== 'number') {
+            return { valid: false, error: `${context}: "pan" must be a number, got ${typeof event.pan}` };
+        }
+        if (event.pan < -1 || event.pan > 1 || isNaN(event.pan)) {
+            return { valid: false, error: `${context}: "pan" must be -1 to 1` };
+        }
     }
-    if (event.sustain !== undefined && (event.sustain < 0 || event.sustain > 1)) {
-        return { valid: false, error: `${context}: "sustain" must be 0-1` };
+    if (event.sustain !== undefined) {
+        if (typeof event.sustain !== 'number') {
+            return { valid: false, error: `${context}: "sustain" must be a number, got ${typeof event.sustain}` };
+        }
+        if (event.sustain < 0 || event.sustain > 1 || isNaN(event.sustain)) {
+            return { valid: false, error: `${context}: "sustain" must be 0-1` };
+        }
     }
-    if (event.duration < 0) {
+    if (event.attack !== undefined && typeof event.attack !== 'number') {
+        return { valid: false, error: `${context}: "attack" must be a number, got ${typeof event.attack}` };
+    }
+    if (event.decay !== undefined && typeof event.decay !== 'number') {
+        return { valid: false, error: `${context}: "decay" must be a number, got ${typeof event.decay}` };
+    }
+    if (event.release !== undefined && typeof event.release !== 'number') {
+        return { valid: false, error: `${context}: "release" must be a number, got ${typeof event.release}` };
+    }
+    if (event.duration < 0 || isNaN(event.duration)) {
         return { valid: false, error: `${context}: "duration" must be non-negative` };
     }
-    
+
     return { valid: true };
 }
 
 function validateGlobalEventList(events) {
     for (let i = 0; i < events.length; i++) {
         const event = events[i];
-        
+
         // Check for repeat block
         if (event.repeat !== undefined) {
+            if (typeof event.repeat !== 'number') {
+                return { valid: false, error: `global event ${i}: "repeat" must be a number` };
+            }
             if (!Array.isArray(event.events)) {
                 return { valid: false, error: `global event ${i}: repeat block must have "events" array` };
             }
@@ -1280,25 +1496,67 @@ function validateGlobalEventList(events) {
             }
             continue;
         }
-        
-        // Validate ranges
-        if (event.pulse !== undefined && (event.pulse < 0 || event.pulse > 4)) {
-            return { valid: false, error: `global event ${i}: "pulse" must be 0-4` };
+
+        // Type and range checks
+        if (event.wait !== undefined) {
+            if (typeof event.wait !== 'number') {
+                return { valid: false, error: `global event ${i}: "wait" must be a number` };
+            }
+            if (event.wait < 0 || isNaN(event.wait)) {
+                return { valid: false, error: `global event ${i}: "wait" must be non-negative` };
+            }
         }
-        if (event.panRate !== undefined && (event.panRate < 0 || event.panRate > 2)) {
-            return { valid: false, error: `global event ${i}: "panRate" must be 0-2` };
+        if (event.pulse !== undefined) {
+            if (typeof event.pulse !== 'number') {
+                return { valid: false, error: `global event ${i}: "pulse" must be a number` };
+            }
+            if (event.pulse < 0 || event.pulse > 4 || isNaN(event.pulse)) {
+                return { valid: false, error: `global event ${i}: "pulse" must be 0-4` };
+            }
         }
-        if (event.saturation !== undefined && (event.saturation < 0 || event.saturation > 1)) {
-            return { valid: false, error: `global event ${i}: "saturation" must be 0-1` };
+        if (event.panRate !== undefined) {
+            if (typeof event.panRate !== 'number') {
+                return { valid: false, error: `global event ${i}: "panRate" must be a number` };
+            }
+            if (event.panRate < 0 || event.panRate > 2 || isNaN(event.panRate)) {
+                return { valid: false, error: `global event ${i}: "panRate" must be 0-2` };
+            }
         }
-        if (event.bitDepth !== undefined && (event.bitDepth < 2 || event.bitDepth > 16)) {
-            return { valid: false, error: `global event ${i}: "bitDepth" must be 2-16` };
+        if (event.saturation !== undefined) {
+            if (typeof event.saturation !== 'number') {
+                return { valid: false, error: `global event ${i}: "saturation" must be a number` };
+            }
+            if (event.saturation < 0 || event.saturation > 1 || isNaN(event.saturation)) {
+                return { valid: false, error: `global event ${i}: "saturation" must be 0-1` };
+            }
         }
-        if (event.reverbMix !== undefined && (event.reverbMix < 0 || event.reverbMix > 1)) {
-            return { valid: false, error: `global event ${i}: "reverbMix" must be 0-1` };
+        if (event.bitDepth !== undefined) {
+            if (typeof event.bitDepth !== 'number') {
+                return { valid: false, error: `global event ${i}: "bitDepth" must be a number` };
+            }
+            if (event.bitDepth < 2 || event.bitDepth > 16 || isNaN(event.bitDepth)) {
+                return { valid: false, error: `global event ${i}: "bitDepth" must be 2-16` };
+            }
+        }
+        if (event.reverbMix !== undefined) {
+            if (typeof event.reverbMix !== 'number') {
+                return { valid: false, error: `global event ${i}: "reverbMix" must be a number` };
+            }
+            if (event.reverbMix < 0 || event.reverbMix > 1 || isNaN(event.reverbMix)) {
+                return { valid: false, error: `global event ${i}: "reverbMix" must be 0-1` };
+            }
+        }
+        if (event.grey !== undefined && typeof event.grey !== 'boolean') {
+            return { valid: false, error: `global event ${i}: "grey" must be a boolean` };
+        }
+        if (event.pulseShape !== undefined && typeof event.pulseShape !== 'string') {
+            return { valid: false, error: `global event ${i}: "pulseShape" must be a string` };
+        }
+        if (event.reverbSize !== undefined && typeof event.reverbSize !== 'string') {
+            return { valid: false, error: `global event ${i}: "reverbSize" must be a string` };
         }
     }
-    
+
     return { valid: true };
 }
 
@@ -1312,11 +1570,17 @@ function setCompositionStatus(message, valid) {
 
 async function playComposition() {
     if (!parsedComposition || compositionPlaying) return;
-    
+
     if (!audioEngine.initialized) {
-        await audioEngine.init();
+        const result = await audioEngine.init();
+        if (!result.success) {
+            elements.compositionStatus.textContent = "Error: " + result.error;
+            elements.compositionStatus.className = 'composition-status invalid';
+            return;
+        }
+        initVisualizerArrays();
     }
-    
+
     compositionPlaying = true;
     elements.playComposition.disabled = true;
     elements.stopComposition.disabled = false;
@@ -1457,7 +1721,7 @@ function applyGlobalEvent(event) {
     if (event.texture !== undefined) settingsToApply.dist = event.texture;
     if (event.panRate !== undefined) settingsToApply.panRate = event.panRate;
     if (event.panDepth !== undefined) settingsToApply.panDepth = event.panDepth;
-    if (event.color2 !== undefined) settingsToApply.alpha2 = event.color2;
+    if (event.color2 !== undefined) settingsToApply.color2 = event.color2;
     if (event.colorBlend !== undefined) settingsToApply.colorBlend = event.colorBlend;
     if (event.saturation !== undefined) settingsToApply.saturation = event.saturation;
     if (event.saturationMode !== undefined) settingsToApply.saturationMode = event.saturationMode;
@@ -1476,12 +1740,14 @@ function stopComposition() {
         clearTimeout(timeout);
     }
     compositionTimeouts = [];
-    
-    // Stop all voices
+
+    // Stop all voices and clean up extras
     if (audioEngine.initialized) {
         audioEngine.stop(0.1);
+        // Clean up any extra voices created during composition playback
+        audioEngine.cleanupExtraVoices();
     }
-    
+
     compositionPlaying = false;
     elements.playComposition.disabled = !parsedComposition;
     elements.stopComposition.disabled = true;

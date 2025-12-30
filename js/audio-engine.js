@@ -1,12 +1,12 @@
 /**
  * AudioEngine - Core audio processing for Colored Noise
- * 
+ *
  * Supports up to 4 independent voices, each with:
  * - Independent noise color
  * - Independent ADSR envelope with looping
  * - Independent pan position
  * - Independent volume
- * 
+ *
  * Global effects (applied to mixed output):
  * - Grey noise EQ
  * - Pulse/LFO modulation
@@ -17,30 +17,67 @@
  */
 
 const MAX_VOICES = 4;
+const WORKLET_PATH = 'worklet/noise-processor.js';
+
+/**
+ * Check browser compatibility for required Web Audio features
+ * @returns {Object} { supported: boolean, missing: string[] }
+ */
+function checkBrowserCompatibility() {
+    const missing = [];
+
+    if (!window.AudioContext && !window.webkitAudioContext) {
+        missing.push('Web Audio API');
+    }
+
+    if (window.AudioContext || window.webkitAudioContext) {
+        const TestContext = window.AudioContext || window.webkitAudioContext;
+        const testCtx = new TestContext();
+
+        if (!testCtx.audioWorklet) {
+            missing.push('AudioWorklet');
+        }
+
+        if (!testCtx.createStereoPanner) {
+            missing.push('StereoPannerNode');
+        }
+
+        testCtx.close();
+    }
+
+    if (typeof OfflineAudioContext === 'undefined') {
+        missing.push('OfflineAudioContext');
+    }
+
+    return {
+        supported: missing.length === 0,
+        missing
+    };
+}
 
 /**
  * Represents a single voice with its own noise source and envelope
  */
 class Voice {
-    constructor(ctx, workletPath, index) {
+    constructor(ctx, index) {
         this.ctx = ctx;
         this.index = index;
         this.enabled = index === 0; // Voice 1 always enabled
         this.initialized = false;
-        
+
         // Nodes
         this.noiseNode = null;
         this.envelopeGain = null;
         this.voiceGain = null;
         this.panner = null;
-        
+
         // ADSR state
         this.adsrTimeout = null;
         this.loopTimeout = null;
         this.currentADSR = null;
         this.isLooping = false;
         this.isPlaying = false;
-        
+
         // Settings
         this.settings = {
             color: 3,
@@ -91,7 +128,7 @@ class Voice {
     
     applySettings(settings, globalSettings, instant = false) {
         if (!this.initialized) return;
-        
+
         this.settings = { ...this.settings, ...settings };
         const now = this.ctx.currentTime;
         const tc = instant ? 0 : 0.15;
@@ -115,7 +152,7 @@ class Voice {
             const blendParam = this.noiseNode.parameters.get('colorBlend');
             if (color2Param && blendParam) {
                 if (globalSettings.colorBlend && globalSettings.colorBlend > 0) {
-                    color2Param.setValueAtTime(globalSettings.alpha2 || 3, now);
+                    color2Param.setValueAtTime(globalSettings.color2 ?? globalSettings.alpha2 ?? 3, now);
                     blendParam.setValueAtTime(globalSettings.colorBlend, now);
                 } else {
                     blendParam.setValueAtTime(0, now);
@@ -139,9 +176,9 @@ class Voice {
     
     start() {
         if (!this.initialized || !this.enabled) return;
-        
+
         this.clearTimers();
-        
+
         const adsr = {
             attack: this.settings.attack,
             decay: this.settings.decay || 0,
@@ -150,7 +187,7 @@ class Voice {
             duration: this.settings.duration,
             loop: this.settings.loop
         };
-        
+
         this.currentADSR = adsr;
         this.isLooping = adsr.loop || false;
         
@@ -274,7 +311,7 @@ export class AudioEngine {
         this.ctx = null;
         this.voices = [];
         this.voiceMerger = null; // Gain node to merge all voices
-        
+
         // Global nodes (after voice merge)
         this.pulseOsc = null;
         this.pulseGain = null;
@@ -303,66 +340,124 @@ export class AudioEngine {
         this.reverbFilter = null;
         this.analyser = null;
         this.gainNode = null;
-        
+        this.postSaturation = null;
+
         // State
         this.initialized = false;
         this.isPlaying = false;
         this.currentSettings = null;
         this.workletReady = false;
+        this.initError = null;
     }
-    
+
+    /**
+     * Initialize the audio engine
+     * @returns {Promise<{success: boolean, error?: string}>}
+     */
     async init() {
-        if (this.initialized) return;
-        
-        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Load worklet once
-        await this.ctx.audioWorklet.addModule('worklet/noise-processor.js');
-        this.workletReady = true;
-        
-        // Create voice merger
+        if (this.initialized) return { success: true };
+
+        // Check browser compatibility first
+        const compat = checkBrowserCompatibility();
+        if (!compat.supported) {
+            this.initError = `Browser missing: ${compat.missing.join(', ')}`;
+            return { success: false, error: this.initError };
+        }
+
+        try {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+            // Load worklet with error handling
+            try {
+                await this.ctx.audioWorklet.addModule(WORKLET_PATH);
+                this.workletReady = true;
+            } catch (workletError) {
+                throw new Error(`Failed to load audio worklet: ${workletError.message}`);
+            }
+
+            // Initialize voice merger and voices
+            this._initVoiceMerger();
+            await this._initVoices();
+
+            // Initialize global signal chain
+            this._initGreyEQ();
+            this._initResonantFilters();
+            this._initCombFilter();
+            this._initDryWetMix();
+            this._initPulseLFO();
+            this._initPanLFO();
+            this._initSaturation();
+            this._initReverb();
+            this._initAnalyserAndMaster();
+
+            // Connect the signal chain
+            this._connectSignalChain();
+
+            this.initialized = true;
+            return { success: true };
+
+        } catch (error) {
+            this.initError = error.message;
+            console.error('AudioEngine init failed:', error);
+
+            // Clean up partial initialization
+            if (this.ctx) {
+                try {
+                    await this.ctx.close();
+                } catch (e) {
+                    // Ignore close errors
+                }
+                this.ctx = null;
+            }
+
+            return { success: false, error: this.initError };
+        }
+    }
+
+    _initVoiceMerger() {
         this.voiceMerger = this.ctx.createGain();
         this.voiceMerger.gain.value = 1;
-        
+    }
+
+    async _initVoices() {
         // Create voices (but only initialize voice 1)
         for (let i = 0; i < MAX_VOICES; i++) {
-            const voice = new Voice(this.ctx, 'worklet/noise-processor.js', i);
+            const voice = new Voice(this.ctx, i);
             this.voices.push(voice);
         }
-        
+
         // Initialize voice 1 (always enabled)
         await this.voices[0].init();
         this.voices[0].getOutput().connect(this.voiceMerger);
-        
-        // === GLOBAL SIGNAL CHAIN ===
-        
-        // Grey noise EQ filters
+    }
+
+    _initGreyEQ() {
         this.greyLow = this.ctx.createBiquadFilter();
         this.greyLow.type = "lowshelf";
         this.greyLow.frequency.value = 100;
         this.greyLow.gain.value = 0;
-        
+
         this.greyHigh = this.ctx.createBiquadFilter();
         this.greyHigh.type = "highshelf";
         this.greyHigh.frequency.value = 6000;
         this.greyHigh.gain.value = 0;
-        
-        // Resonant bandpass filters (3 parallel)
-        this.resonantFilters = [];
-        this.resonantGains = [];
+    }
+
+    _initResonantFilters() {
         for (let i = 0; i < 3; i++) {
             const filter = this.ctx.createBiquadFilter();
             filter.type = "bandpass";
             filter.frequency.value = 200 * (i + 1);
             filter.Q.value = 1;
             this.resonantFilters.push(filter);
-            
+
             const gain = this.ctx.createGain();
             gain.gain.value = 0;
             this.resonantGains.push(gain);
         }
-        
-        // Comb filter
+    }
+
+    _initCombFilter() {
         this.combDelay = this.ctx.createDelay(0.1);
         this.combDelay.delayTime.value = 0.005;
         this.combFeedback = this.ctx.createGain();
@@ -371,140 +466,143 @@ export class AudioEngine {
         this.combMix.gain.value = 0;
         this.combDelay.connect(this.combFeedback);
         this.combFeedback.connect(this.combDelay);
-        
-        // Dry/wet for texture filters
+    }
+
+    _initDryWetMix() {
         this.dryGain = this.ctx.createGain();
         this.dryGain.gain.value = 1;
         this.wetMix = this.ctx.createGain();
         this.wetMix.gain.value = 0;
-        
-        // Pulse/LFO
+    }
+
+    _initPulseLFO() {
         this.pulseGain = this.ctx.createGain();
         this.pulseGain.gain.value = 1;
-        
+
         this.pulseOsc = this.ctx.createOscillator();
         this.pulseOsc.type = 'sine';
         this.pulseOsc.frequency.value = 0.2;
         this.pulseOsc.start();
-        
+
         this.depthNode = this.ctx.createGain();
         this.depthNode.gain.value = 0;
-        
+
         this.pulseOsc.connect(this.depthNode);
         this.depthNode.connect(this.pulseGain.gain);
-        
-        // Global stereo panner with LFO
+    }
+
+    _initPanLFO() {
         this.globalPanner = this.ctx.createStereoPanner();
         this.globalPanner.pan.value = 0;
-        
+
         this.panLFO = this.ctx.createOscillator();
         this.panLFO.type = 'sine';
         this.panLFO.frequency.value = 0.1;
         this.panLFO.start();
-        
+
         this.panLFOGain = this.ctx.createGain();
         this.panLFOGain.gain.value = 0;
-        
+
         this.panLFO.connect(this.panLFOGain);
         this.panLFOGain.connect(this.globalPanner.pan);
-        
-        // Saturation
+    }
+
+    _initSaturation() {
         this.waveshaper = this.ctx.createWaveShaper();
         this.waveshaper.oversample = '2x';
         this.saturationCurves = this.createSaturationCurves();
         this.waveshaper.curve = this.saturationCurves.soft;
-        
+
         this.saturationMix = this.ctx.createGain();
         this.saturationMix.gain.value = 0;
         this.saturationDry = this.ctx.createGain();
         this.saturationDry.gain.value = 1;
-        
-        // Reverb
+
+        this.postSaturation = this.ctx.createGain();
+        this.postSaturation.gain.value = 1;
+    }
+
+    _initReverb() {
         const delayTimes = [0.029, 0.037, 0.043, 0.053, 0.067, 0.079];
-        this.reverbDelays = [];
-        this.reverbGains = [];
-        
+
         for (let i = 0; i < delayTimes.length; i++) {
             const delay = this.ctx.createDelay(0.1);
             delay.delayTime.value = delayTimes[i];
             this.reverbDelays.push(delay);
-            
+
             const gain = this.ctx.createGain();
             gain.gain.value = 0.4;
             this.reverbGains.push(gain);
         }
-        
+
         this.reverbFeedback = this.ctx.createGain();
         this.reverbFeedback.gain.value = 0.5;
-        
+
         this.reverbFilter = this.ctx.createBiquadFilter();
         this.reverbFilter.type = 'lowpass';
         this.reverbFilter.frequency.value = 4000;
-        
+
         this.reverbMix = this.ctx.createGain();
         this.reverbMix.gain.value = 0;
         this.reverbDry = this.ctx.createGain();
         this.reverbDry.gain.value = 1;
-        
-        // Analyser
+    }
+
+    _initAnalyserAndMaster() {
         this.analyser = this.ctx.createAnalyser();
         this.analyser.fftSize = 256;
         this.analyser.smoothingTimeConstant = 0.8;
-        
-        // Master gain
+
         this.gainNode = this.ctx.createGain();
         this.gainNode.gain.value = 0.5;
-        
-        // === ROUTING ===
+    }
+
+    _connectSignalChain() {
         // Voice merger -> Pulse -> Dry/wet split
         this.voiceMerger.connect(this.pulseGain);
         this.pulseGain.connect(this.dryGain);
-        
+
         // Resonant filter paths
         for (let i = 0; i < 3; i++) {
             this.pulseGain.connect(this.resonantFilters[i]);
             this.resonantFilters[i].connect(this.resonantGains[i]);
             this.resonantGains[i].connect(this.wetMix);
         }
-        
+
         // Comb filter path
         this.pulseGain.connect(this.combDelay);
         this.combDelay.connect(this.combMix);
         this.combMix.connect(this.wetMix);
-        
+
         // Mix -> Grey EQ
         this.dryGain.connect(this.greyLow);
         this.wetMix.connect(this.greyLow);
         this.greyLow.connect(this.greyHigh);
-        
+
         // Saturation
-        const postSaturation = this.ctx.createGain();
-        postSaturation.gain.value = 1;
         this.greyHigh.connect(this.saturationDry);
         this.greyHigh.connect(this.waveshaper);
         this.waveshaper.connect(this.saturationMix);
-        this.saturationDry.connect(postSaturation);
-        this.saturationMix.connect(postSaturation);
-        
+        this.saturationDry.connect(this.postSaturation);
+        this.saturationMix.connect(this.postSaturation);
+
         // Reverb
-        postSaturation.connect(this.reverbDry);
+        this.postSaturation.connect(this.reverbDry);
         for (let i = 0; i < this.reverbDelays.length; i++) {
-            postSaturation.connect(this.reverbDelays[i]);
+            this.postSaturation.connect(this.reverbDelays[i]);
             this.reverbDelays[i].connect(this.reverbGains[i]);
             this.reverbGains[i].connect(this.reverbFilter);
         }
         this.reverbFilter.connect(this.reverbFeedback);
         this.reverbFeedback.connect(this.reverbDelays[0]);
         this.reverbFilter.connect(this.reverbMix);
-        
+
         // Final output
         this.reverbDry.connect(this.globalPanner);
         this.reverbMix.connect(this.globalPanner);
         this.globalPanner.connect(this.analyser);
         this.analyser.connect(this.gainNode);
         this.gainNode.connect(this.ctx.destination);
-        
-        this.initialized = true;
     }
     
     createSaturationCurves() {
@@ -729,8 +827,9 @@ export class AudioEngine {
             }
         } else {
             // Single voice mode - apply to voice 1
+            // Support both 'color' and legacy 'alpha' naming
             this.applyVoiceSettings(0, {
-                color: settings.alpha,
+                color: settings.color ?? settings.alpha,
                 attack: settings.attack,
                 decay: settings.decay,
                 sustain: settings.sustain,
@@ -796,7 +895,29 @@ export class AudioEngine {
             this.ctx.suspend();
         }
     }
-    
+
+    /**
+     * Clean up extra voices created during composition playback.
+     * Destroys any voices beyond the standard MAX_VOICES limit.
+     */
+    cleanupExtraVoices() {
+        if (!this.initialized) return;
+
+        while (this.voices.length > MAX_VOICES) {
+            const voice = this.voices.pop();
+            if (voice) {
+                voice.destroy();
+            }
+        }
+
+        // Reset all voices to disabled state (except voice 1)
+        for (let i = 1; i < this.voices.length; i++) {
+            if (this.voices[i].initialized) {
+                this.voices[i].setEnabled(false);
+            }
+        }
+    }
+
     getAnalyserData(dataArray) {
         if (this.analyser) {
             this.analyser.getByteFrequencyData(dataArray);
@@ -810,5 +931,5 @@ export class AudioEngine {
     }
 }
 
-export { Voice };
+export { Voice, checkBrowserCompatibility, WORKLET_PATH };
 export const audioEngine = new AudioEngine();
