@@ -1232,13 +1232,16 @@ let compositionTimeouts = [];
 function handleCompositionUpload(e) {
     const file = e.target.files[0];
     if (!file) return;
-    
+
     const reader = new FileReader();
     reader.onload = (event) => {
         elements.compositionEditor.value = event.target.result;
         validateCompositionInput();
     };
     reader.readAsText(file);
+
+    // Reset input so the same file can be uploaded again
+    e.target.value = '';
 }
 
 function loadExampleComposition() {
