@@ -1007,7 +1007,7 @@ async function startExport() {
         const offlineCtx = new OfflineAudioContext(2, length, sampleRate);
         
         // Load worklet into offline context
-        await offlineCtx.audioWorklet.addModule('worklet/noise-processor.js');
+        await offlineCtx.audioWorklet.addModule(WORKLET_PATH);
         
         elements.exportProgressText.textContent = 'Rendering audio...';
         elements.exportProgressBar.style.setProperty('--progress', '10%');
@@ -1753,7 +1753,7 @@ async function exportCompositionToWav() {
         const length = Math.ceil(duration * sampleRate);
         
         const offlineCtx = new OfflineAudioContext(2, length, sampleRate);
-        await offlineCtx.audioWorklet.addModule('worklet/noise-processor.js');
+        await offlineCtx.audioWorklet.addModule(WORKLET_PATH);
         
         // Create master output
         const masterGain = offlineCtx.createGain();
