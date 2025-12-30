@@ -72,12 +72,22 @@
             font-weight: 500;
             font-size: 1.4rem;
             letter-spacing: -0.5px;
+        }
+
+        .header-left h1 a {
+            text-decoration: none;
             background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
+        .header-left h1 a:hover {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--text) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
         .header-left .subtitle {
             margin: 2px 0 0 0;
             font-size: 0.75rem;
