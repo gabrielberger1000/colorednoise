@@ -1,0 +1,67 @@
+{
+  "voices": {
+    "wave_left": [
+      {
+        "color": 4,
+        "duration": 2,
+        "volume": 0.7,
+        "pan": -0.5,
+        "attack": 3,
+        "decay": 0,
+        "sustain": 1,
+        "release": 4
+      },
+      {
+        "repeat": 5,
+        "events": [
+          {
+            "color": 4,
+            "duration": 2,
+            "volume": 0.7,
+            "pan": -0.5,
+            "attack": 3,
+            "decay": 0,
+            "sustain": 1,
+            "release": 4
+          }
+        ]
+      }
+    ],
+    "wave_right": [
+      {
+        "wait": 4
+      },
+      {
+        "color": 4,
+        "duration": 2,
+        "volume": 0.7,
+        "pan": 0.5,
+        "attack": 3,
+        "decay": 0,
+        "sustain": 1,
+        "release": 4
+      },
+      {
+        "repeat": 5,
+        "events": [
+          {
+            "color": 4,
+            "duration": 2,
+            "volume": 0.7,
+            "pan": 0.5,
+            "attack": 3,
+            "decay": 0,
+            "sustain": 1,
+            "release": 4
+          }
+        ]
+      }
+    ]
+  },
+  "global": [
+    {
+      "reverbMix": 0.4,
+      "reverbSize": "large"
+    }
+  ]
+}
