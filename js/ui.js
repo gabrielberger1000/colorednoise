@@ -3,7 +3,7 @@
  * Supports multi-voice polyrhythmic presets
  */
 
-import { audioEngine } from './audio-engine.js';
+import { audioEngine, Voice } from './audio-engine.js';
 import { builtInPresets, categories, defaultSettings, loadCustomPresets, saveCustomPresets } from './presets.js';
 
 // State
@@ -108,6 +108,24 @@ export function initUI() {
         presetNameInput: document.getElementById('presetNameInput'),
         savePresetBtn: document.getElementById('savePresetBtn'),
         resetBtn: document.getElementById('resetBtn'),
+        
+        // Export
+        sliderExportDuration: document.getElementById('sliderExportDuration'),
+        valExportDuration: document.getElementById('valExportDuration'),
+        exportBtn: document.getElementById('exportBtn'),
+        exportProgress: document.getElementById('exportProgress'),
+        exportProgressBar: document.getElementById('exportProgressBar'),
+        exportProgressText: document.getElementById('exportProgressText'),
+        
+        // Composition
+        compositionFile: document.getElementById('compositionFile'),
+        compositionEditor: document.getElementById('compositionEditor'),
+        compositionStatus: document.getElementById('compositionStatus'),
+        validateComposition: document.getElementById('validateComposition'),
+        loadExample: document.getElementById('loadExample'),
+        playComposition: document.getElementById('playComposition'),
+        stopComposition: document.getElementById('stopComposition'),
+        exportComposition: document.getElementById('exportComposition'),
         
         vizBarsBtn: document.getElementById('vizBars'),
         vizWaveBtn: document.getElementById('vizWave'),
@@ -525,6 +543,20 @@ function setupEventListeners() {
     elements.savePresetBtn.onclick = saveCurrentAsPreset;
     elements.resetBtn.onclick = resetToDefaults;
     
+    // Export
+    elements.sliderExportDuration.addEventListener('input', () => {
+        elements.valExportDuration.textContent = elements.sliderExportDuration.value + "s";
+    });
+    elements.exportBtn.onclick = startExport;
+    
+    // Composition
+    elements.compositionFile.addEventListener('change', handleCompositionUpload);
+    elements.validateComposition.onclick = validateCompositionInput;
+    elements.loadExample.onclick = loadExampleComposition;
+    elements.playComposition.onclick = playComposition;
+    elements.stopComposition.onclick = stopComposition;
+    elements.exportComposition.onclick = exportCompositionToWav;
+    
     // Category filters
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.onclick = () => {
@@ -791,4 +823,786 @@ function handleKeyboard(e) {
                 if (buttons[idx]) buttons[idx].click();
             }
     }
+}
+
+// === EXPORT (Offline Render) ===
+
+let isExporting = false;
+
+async function startExport() {
+    if (isExporting) return;
+    
+    isExporting = true;
+    elements.exportBtn.disabled = true;
+    elements.exportBtn.querySelector('.export-label').textContent = 'Rendering...';
+    elements.exportProgress.style.display = 'block';
+    elements.exportProgressText.textContent = 'Preparing...';
+    elements.exportProgressBar.style.setProperty('--progress', '0%');
+    
+    try {
+        const duration = parseInt(elements.sliderExportDuration.value);
+        const sampleRate = 44100;
+        const length = duration * sampleRate;
+        
+        // Create offline context
+        const offlineCtx = new OfflineAudioContext(2, length, sampleRate);
+        
+        // Load worklet into offline context
+        await offlineCtx.audioWorklet.addModule('worklet/noise-processor.js');
+        
+        elements.exportProgressText.textContent = 'Rendering audio...';
+        elements.exportProgressBar.style.setProperty('--progress', '10%');
+        
+        // Build the same signal chain as the live audio engine
+        const renderedBuffer = await renderAudio(offlineCtx, duration);
+        
+        elements.exportProgressBar.style.setProperty('--progress', '90%');
+        elements.exportProgressText.textContent = 'Converting to WAV...';
+        
+        // Convert to WAV and download
+        const wavBlob = audioBufferToWav(renderedBuffer);
+        downloadBlob(wavBlob);
+        
+        elements.exportProgressBar.style.setProperty('--progress', '100%');
+        elements.exportProgressText.textContent = 'Export complete!';
+        
+    } catch (err) {
+        console.error('Export error:', err);
+        elements.exportProgressText.textContent = 'Export failed: ' + err.message;
+    }
+    
+    setTimeout(() => {
+        isExporting = false;
+        elements.exportBtn.disabled = false;
+        elements.exportBtn.querySelector('.export-label').textContent = 'Export WAV';
+        elements.exportProgress.style.display = 'none';
+        elements.exportProgressBar.style.setProperty('--progress', '0%');
+    }, 2000);
+}
+
+async function renderAudio(ctx, duration) {
+    const settings = currentSettings;
+    const volume = parseFloat(elements.sliderVol.value);
+    
+    // Create master gain
+    const masterGain = ctx.createGain();
+    masterGain.gain.value = volume;
+    masterGain.connect(ctx.destination);
+    
+    // Create grey EQ
+    const greyLow = ctx.createBiquadFilter();
+    greyLow.type = 'lowshelf';
+    greyLow.frequency.value = 100;
+    greyLow.gain.value = settings.grey ? 10 : 0;
+    
+    const greyHigh = ctx.createBiquadFilter();
+    greyHigh.type = 'highshelf';
+    greyHigh.frequency.value = 6000;
+    greyHigh.gain.value = settings.grey ? 5 : 0;
+    
+    greyLow.connect(greyHigh);
+    greyHigh.connect(masterGain);
+    
+    // Create voices
+    for (let i = 0; i < 4; i++) {
+        const v = voiceSettings[i];
+        if (i > 0 && !v.enabled) continue;
+        
+        await renderVoice(ctx, v, duration, greyLow, settings);
+    }
+    
+    // Render
+    return await ctx.startRendering();
+}
+
+async function renderVoice(ctx, v, duration, destination, globalSettings) {
+    // Create noise node
+    const noiseNode = new AudioWorkletNode(ctx, 'noise-processor', {
+        numberOfInputs: 0,
+        numberOfOutputs: 1,
+        outputChannelCount: [2]
+    });
+    
+    // Set color
+    const colorParam = noiseNode.parameters.get('color');
+    if (colorParam) colorParam.setValueAtTime(v.color, 0);
+    
+    // Apply global settings to worklet
+    const texParam = noiseNode.parameters.get('texture');
+    if (texParam) texParam.setValueAtTime(globalSettings.dist || 0, 0);
+    
+    const bitDepthParam = noiseNode.parameters.get('bitDepth');
+    if (bitDepthParam) bitDepthParam.setValueAtTime(globalSettings.bitDepth || 16, 0);
+    
+    const srrParam = noiseNode.parameters.get('sampleRateReduction');
+    if (srrParam) srrParam.setValueAtTime(globalSettings.sampleRateReduction || 1, 0);
+    
+    // Envelope
+    const envelope = ctx.createGain();
+    envelope.gain.value = 0;
+    
+    // Volume
+    const voiceGain = ctx.createGain();
+    voiceGain.gain.value = v.volume;
+    
+    // Pan
+    const panner = ctx.createStereoPanner();
+    panner.pan.value = v.pan;
+    
+    // Connect
+    noiseNode.connect(envelope);
+    envelope.connect(voiceGain);
+    voiceGain.connect(panner);
+    panner.connect(destination);
+    
+    // Schedule envelope(s)
+    const attack = v.attack || 0.5;
+    const decay = v.decay || 0;
+    const sustain = v.sustain ?? 1;
+    const release = v.release || 0.5;
+    const voiceDuration = v.duration || 2;
+    const loop = v.loop;
+    
+    if (loop && voiceDuration > 0) {
+        // Schedule repeating envelopes
+        const cycleTime = attack + decay + voiceDuration + release;
+        let time = 0;
+        
+        while (time < duration) {
+            // Attack
+            envelope.gain.setValueAtTime(0, time);
+            envelope.gain.linearRampToValueAtTime(1, time + attack);
+            
+            // Decay
+            if (decay > 0) {
+                envelope.gain.linearRampToValueAtTime(sustain, time + attack + decay);
+            } else {
+                envelope.gain.setValueAtTime(sustain, time + attack);
+            }
+            
+            // Release
+            const releaseStart = time + attack + decay + voiceDuration;
+            envelope.gain.setValueAtTime(sustain, releaseStart);
+            envelope.gain.linearRampToValueAtTime(0, releaseStart + release);
+            
+            time += cycleTime;
+        }
+    } else {
+        // Single envelope - fade in and sustain
+        envelope.gain.setValueAtTime(0, 0);
+        envelope.gain.linearRampToValueAtTime(1, attack);
+        if (decay > 0) {
+            envelope.gain.linearRampToValueAtTime(sustain, attack + decay);
+        }
+    }
+}
+
+function audioBufferToWav(buffer) {
+    const numChannels = buffer.numberOfChannels;
+    const sampleRate = buffer.sampleRate;
+    const format = 1; // PCM
+    const bitDepth = 16;
+    
+    const bytesPerSample = bitDepth / 8;
+    const blockAlign = numChannels * bytesPerSample;
+    
+    const dataLength = buffer.length * blockAlign;
+    const bufferLength = 44 + dataLength;
+    
+    const arrayBuffer = new ArrayBuffer(bufferLength);
+    const view = new DataView(arrayBuffer);
+    
+    // WAV header
+    writeString(view, 0, 'RIFF');
+    view.setUint32(4, 36 + dataLength, true);
+    writeString(view, 8, 'WAVE');
+    writeString(view, 12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, format, true);
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * blockAlign, true);
+    view.setUint16(32, blockAlign, true);
+    view.setUint16(34, bitDepth, true);
+    writeString(view, 36, 'data');
+    view.setUint32(40, dataLength, true);
+    
+    // Write samples
+    const channels = [];
+    for (let i = 0; i < numChannels; i++) {
+        channels.push(buffer.getChannelData(i));
+    }
+    
+    let offset = 44;
+    for (let i = 0; i < buffer.length; i++) {
+        for (let ch = 0; ch < numChannels; ch++) {
+            const sample = Math.max(-1, Math.min(1, channels[ch][i]));
+            const intSample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+            view.setInt16(offset, intSample, true);
+            offset += 2;
+        }
+    }
+    
+    return new Blob([arrayBuffer], { type: 'audio/wav' });
+}
+
+function writeString(view, offset, string) {
+    for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+    }
+}
+
+function downloadBlob(blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
+    a.download = `colorednoise_${currentPresetName.replace(/\s+/g, '_')}_${timestamp}.wav`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// === COMPOSITION SYSTEM ===
+
+let parsedComposition = null;
+let compositionPlaying = false;
+let compositionTimeouts = [];
+
+function handleCompositionUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        elements.compositionEditor.value = event.target.result;
+        validateCompositionInput();
+    };
+    reader.readAsText(file);
+}
+
+function loadExampleComposition() {
+    const example = {
+        voices: {
+            bass: [
+                { color: 4, volume: 0.7, pan: 0, attack: 1, decay: 0.5, sustain: 0.6, release: 2, duration: 3 },
+                { wait: 1 },
+                { repeat: 2, events: [
+                    { color: 3.5, volume: 0.6, pan: -0.3, attack: 0.5, decay: 0.2, sustain: 0.8, release: 1, duration: 2 },
+                    { color: 4, volume: 0.7, pan: 0.3, attack: 0.5, decay: 0.2, sustain: 0.8, release: 1, duration: 2 }
+                ]}
+            ],
+            melody: [
+                { wait: 2 },
+                { color: 2, volume: 0.5, pan: 0.5, attack: 0.2, decay: 0.1, sustain: 0.9, release: 0.5, duration: 1 },
+                { color: 2.5, volume: 0.5, pan: -0.5, attack: 0.2, decay: 0.1, sustain: 0.9, release: 0.5, duration: 1 },
+                { repeat: 3, events: [
+                    { color: 1.5, volume: 0.4, pan: 0, attack: 0.1, decay: 0.1, sustain: 0.7, release: 0.3, duration: 0.5 }
+                ]}
+            ]
+        },
+        global: [
+            { grey: true, reverbMix: 0.3, reverbSize: "medium" },
+            { wait: 5 },
+            { reverbMix: 0.6, reverbSize: "large" }
+        ]
+    };
+    
+    elements.compositionEditor.value = JSON.stringify(example, null, 2);
+    validateCompositionInput();
+}
+
+function validateCompositionInput() {
+    const text = elements.compositionEditor.value.trim();
+    
+    if (!text) {
+        setCompositionStatus('', false);
+        return null;
+    }
+    
+    try {
+        const comp = JSON.parse(text);
+        const result = validateComposition(comp);
+        
+        if (result.valid) {
+            parsedComposition = comp;
+            setCompositionStatus(`Valid: ${result.voiceCount} voices, ${result.totalDuration.toFixed(1)}s total`, true);
+            return comp;
+        } else {
+            parsedComposition = null;
+            setCompositionStatus(`Error: ${result.error}`, false);
+            return null;
+        }
+    } catch (e) {
+        parsedComposition = null;
+        setCompositionStatus(`Invalid JSON: ${e.message}`, false);
+        return null;
+    }
+}
+
+function validateComposition(comp) {
+    // Check structure
+    if (!comp.voices || typeof comp.voices !== 'object') {
+        return { valid: false, error: 'Missing "voices" object' };
+    }
+    
+    const voiceNames = Object.keys(comp.voices);
+    if (voiceNames.length === 0) {
+        return { valid: false, error: 'No voices defined' };
+    }
+    
+    let maxDuration = 0;
+    
+    // Validate each voice
+    for (const name of voiceNames) {
+        const events = comp.voices[name];
+        if (!Array.isArray(events)) {
+            return { valid: false, error: `Voice "${name}" must be an array` };
+        }
+        
+        const result = validateEventList(events, `voice "${name}"`);
+        if (!result.valid) {
+            return result;
+        }
+        maxDuration = Math.max(maxDuration, result.duration);
+    }
+    
+    // Validate global track if present
+    if (comp.global) {
+        if (!Array.isArray(comp.global)) {
+            return { valid: false, error: '"global" must be an array' };
+        }
+        const result = validateGlobalEventList(comp.global);
+        if (!result.valid) {
+            return result;
+        }
+    }
+    
+    return { valid: true, voiceCount: voiceNames.length, totalDuration: maxDuration };
+}
+
+function validateEventList(events, context, currentTime = 0) {
+    let time = currentTime;
+    
+    for (let i = 0; i < events.length; i++) {
+        const event = events[i];
+        
+        // Check for repeat block
+        if (event.repeat !== undefined) {
+            if (typeof event.repeat !== 'number' || event.repeat < 1) {
+                return { valid: false, error: `${context} event ${i}: "repeat" must be a positive number` };
+            }
+            if (!Array.isArray(event.events)) {
+                return { valid: false, error: `${context} event ${i}: repeat block must have "events" array` };
+            }
+            
+            // Validate nested events and calculate duration
+            const nestedResult = validateEventList(event.events, `${context} repeat block`, 0);
+            if (!nestedResult.valid) {
+                return nestedResult;
+            }
+            time += nestedResult.duration * event.repeat;
+            continue;
+        }
+        
+        // Check for wait
+        if (event.wait !== undefined) {
+            if (typeof event.wait !== 'number' || event.wait < 0) {
+                return { valid: false, error: `${context} event ${i}: "wait" must be a non-negative number` };
+            }
+            time += event.wait;
+            
+            // If it's just a wait, continue
+            if (Object.keys(event).length === 1) {
+                continue;
+            }
+        }
+        
+        // Validate voice event
+        const validation = validateVoiceEvent(event, `${context} event ${i}`);
+        if (!validation.valid) {
+            return validation;
+        }
+        
+        // Calculate event duration
+        const attack = event.attack || 0;
+        const decay = event.decay || 0;
+        const duration = event.duration || 0;
+        const release = event.release || 0;
+        time += attack + decay + duration + release;
+    }
+    
+    return { valid: true, duration: time };
+}
+
+function validateVoiceEvent(event, context) {
+    // Required fields
+    if (event.color === undefined) {
+        return { valid: false, error: `${context}: missing "color"` };
+    }
+    if (event.duration === undefined) {
+        return { valid: false, error: `${context}: missing "duration"` };
+    }
+    
+    // Range checks
+    if (event.color < 0 || event.color > 4) {
+        return { valid: false, error: `${context}: "color" must be 0-4` };
+    }
+    if (event.volume !== undefined && (event.volume < 0 || event.volume > 1)) {
+        return { valid: false, error: `${context}: "volume" must be 0-1` };
+    }
+    if (event.pan !== undefined && (event.pan < -1 || event.pan > 1)) {
+        return { valid: false, error: `${context}: "pan" must be -1 to 1` };
+    }
+    if (event.sustain !== undefined && (event.sustain < 0 || event.sustain > 1)) {
+        return { valid: false, error: `${context}: "sustain" must be 0-1` };
+    }
+    if (event.duration < 0) {
+        return { valid: false, error: `${context}: "duration" must be non-negative` };
+    }
+    
+    return { valid: true };
+}
+
+function validateGlobalEventList(events) {
+    for (let i = 0; i < events.length; i++) {
+        const event = events[i];
+        
+        // Check for repeat block
+        if (event.repeat !== undefined) {
+            if (!Array.isArray(event.events)) {
+                return { valid: false, error: `global event ${i}: repeat block must have "events" array` };
+            }
+            const nestedResult = validateGlobalEventList(event.events);
+            if (!nestedResult.valid) {
+                return nestedResult;
+            }
+            continue;
+        }
+        
+        // Validate ranges
+        if (event.pulse !== undefined && (event.pulse < 0 || event.pulse > 4)) {
+            return { valid: false, error: `global event ${i}: "pulse" must be 0-4` };
+        }
+        if (event.panRate !== undefined && (event.panRate < 0 || event.panRate > 2)) {
+            return { valid: false, error: `global event ${i}: "panRate" must be 0-2` };
+        }
+        if (event.saturation !== undefined && (event.saturation < 0 || event.saturation > 1)) {
+            return { valid: false, error: `global event ${i}: "saturation" must be 0-1` };
+        }
+        if (event.bitDepth !== undefined && (event.bitDepth < 2 || event.bitDepth > 16)) {
+            return { valid: false, error: `global event ${i}: "bitDepth" must be 2-16` };
+        }
+        if (event.reverbMix !== undefined && (event.reverbMix < 0 || event.reverbMix > 1)) {
+            return { valid: false, error: `global event ${i}: "reverbMix" must be 0-1` };
+        }
+    }
+    
+    return { valid: true };
+}
+
+function setCompositionStatus(message, valid) {
+    elements.compositionStatus.textContent = message;
+    elements.compositionStatus.className = 'composition-status' + (message ? (valid ? ' valid' : ' invalid') : '');
+    
+    elements.playComposition.disabled = !valid;
+    elements.exportComposition.disabled = !valid;
+}
+
+async function playComposition() {
+    if (!parsedComposition || compositionPlaying) return;
+    
+    if (!audioEngine.initialized) {
+        await audioEngine.init();
+    }
+    
+    compositionPlaying = true;
+    elements.playComposition.disabled = true;
+    elements.stopComposition.disabled = false;
+    elements.playComposition.textContent = 'Playing...';
+    elements.statusDisplay.textContent = 'Playing composition';
+    
+    // Flatten events with absolute times
+    const schedule = buildCompositionSchedule(parsedComposition);
+    
+    // Schedule all events
+    const startTime = audioEngine.ctx.currentTime + 0.1;
+    
+    for (const event of schedule.voiceEvents) {
+        const timeout = setTimeout(() => {
+            playVoiceEvent(event);
+        }, event.time * 1000);
+        compositionTimeouts.push(timeout);
+    }
+    
+    for (const event of schedule.globalEvents) {
+        const timeout = setTimeout(() => {
+            applyGlobalEvent(event);
+        }, event.time * 1000);
+        compositionTimeouts.push(timeout);
+    }
+    
+    // Schedule end
+    const endTimeout = setTimeout(() => {
+        stopComposition();
+    }, schedule.totalDuration * 1000 + 500);
+    compositionTimeouts.push(endTimeout);
+}
+
+function buildCompositionSchedule(comp) {
+    const voiceEvents = [];
+    const globalEvents = [];
+    let maxDuration = 0;
+    
+    // Process voices
+    const voiceNames = Object.keys(comp.voices);
+    for (let voiceIndex = 0; voiceIndex < voiceNames.length; voiceIndex++) {
+        const name = voiceNames[voiceIndex];
+        const events = flattenEvents(comp.voices[name]);
+        
+        let time = 0;
+        for (const event of events) {
+            if (event.wait) {
+                time += event.wait;
+            }
+            if (event.color !== undefined) {
+                voiceEvents.push({
+                    time,
+                    voiceIndex,
+                    voiceName: name,
+                    ...event
+                });
+                const eventDuration = (event.attack || 0) + (event.decay || 0) + (event.duration || 0) + (event.release || 0);
+                time += eventDuration;
+            }
+        }
+        maxDuration = Math.max(maxDuration, time);
+    }
+    
+    // Process global
+    if (comp.global) {
+        const events = flattenEvents(comp.global);
+        let time = 0;
+        for (const event of events) {
+            if (event.wait) {
+                time += event.wait;
+            }
+            // Only add if there are actual settings (not just a wait)
+            const settingsKeys = Object.keys(event).filter(k => k !== 'wait');
+            if (settingsKeys.length > 0) {
+                globalEvents.push({ time, ...event });
+            }
+        }
+    }
+    
+    return { voiceEvents, globalEvents, totalDuration: maxDuration };
+}
+
+function flattenEvents(events, result = []) {
+    for (const event of events) {
+        if (event.repeat !== undefined && event.events) {
+            for (let i = 0; i < event.repeat; i++) {
+                flattenEvents(event.events, result);
+            }
+        } else {
+            result.push(event);
+        }
+    }
+    return result;
+}
+
+async function playVoiceEvent(event) {
+    if (!compositionPlaying) return;
+    
+    // Ensure we have enough voices initialized
+    while (audioEngine.voices.length <= event.voiceIndex) {
+        const newVoice = new Voice(audioEngine.ctx, event.voiceIndex);
+        await newVoice.init();
+        newVoice.getOutput().connect(audioEngine.voiceMerger);
+        audioEngine.voices.push(newVoice);
+    }
+    
+    const voice = audioEngine.voices[event.voiceIndex];
+    if (!voice.initialized) {
+        await voice.init();
+        voice.getOutput().connect(audioEngine.voiceMerger);
+    }
+    voice.setEnabled(true);
+    
+    voice.applySettings({
+        color: event.color,
+        volume: event.volume ?? 0.8,
+        pan: event.pan ?? 0,
+        attack: event.attack ?? 0.5,
+        decay: event.decay ?? 0,
+        sustain: event.sustain ?? 1,
+        release: event.release ?? 0.5,
+        duration: event.duration,
+        loop: false
+    }, currentSettings, true);
+    
+    voice.start();
+}
+
+function applyGlobalEvent(event) {
+    if (!compositionPlaying) return;
+    
+    // Merge event into current settings
+    const settingsToApply = { ...currentSettings };
+    
+    if (event.grey !== undefined) settingsToApply.grey = event.grey;
+    if (event.pulse !== undefined) settingsToApply.pulse = event.pulse;
+    if (event.pulseShape !== undefined) settingsToApply.pulseShape = event.pulseShape;
+    if (event.texture !== undefined) settingsToApply.dist = event.texture;
+    if (event.panRate !== undefined) settingsToApply.panRate = event.panRate;
+    if (event.panDepth !== undefined) settingsToApply.panDepth = event.panDepth;
+    if (event.color2 !== undefined) settingsToApply.alpha2 = event.color2;
+    if (event.colorBlend !== undefined) settingsToApply.colorBlend = event.colorBlend;
+    if (event.saturation !== undefined) settingsToApply.saturation = event.saturation;
+    if (event.saturationMode !== undefined) settingsToApply.saturationMode = event.saturationMode;
+    if (event.bitDepth !== undefined) settingsToApply.bitDepth = event.bitDepth;
+    if (event.sampleRateReduction !== undefined) settingsToApply.sampleRateReduction = event.sampleRateReduction;
+    if (event.reverbMix !== undefined) settingsToApply.reverbMix = event.reverbMix;
+    if (event.reverbSize !== undefined) settingsToApply.reverbSize = event.reverbSize;
+    
+    currentSettings = settingsToApply;
+    audioEngine.applyGlobalSettings(currentSettings, true);
+}
+
+function stopComposition() {
+    // Clear all scheduled events
+    for (const timeout of compositionTimeouts) {
+        clearTimeout(timeout);
+    }
+    compositionTimeouts = [];
+    
+    // Stop all voices
+    if (audioEngine.initialized) {
+        audioEngine.stop(0.1);
+    }
+    
+    compositionPlaying = false;
+    elements.playComposition.disabled = !parsedComposition;
+    elements.stopComposition.disabled = true;
+    elements.playComposition.textContent = 'Play';
+    elements.statusDisplay.textContent = 'System Standby';
+}
+
+async function exportCompositionToWav() {
+    if (!parsedComposition) return;
+    
+    elements.exportComposition.disabled = true;
+    elements.exportComposition.textContent = 'Rendering...';
+    
+    try {
+        const schedule = buildCompositionSchedule(parsedComposition);
+        const duration = schedule.totalDuration + 1; // Add 1 second buffer
+        const sampleRate = 44100;
+        const length = Math.ceil(duration * sampleRate);
+        
+        const offlineCtx = new OfflineAudioContext(2, length, sampleRate);
+        await offlineCtx.audioWorklet.addModule('worklet/noise-processor.js');
+        
+        // Create master output
+        const masterGain = offlineCtx.createGain();
+        masterGain.gain.value = parseFloat(elements.sliderVol.value);
+        masterGain.connect(offlineCtx.destination);
+        
+        // Create grey EQ
+        const greyLow = offlineCtx.createBiquadFilter();
+        greyLow.type = 'lowshelf';
+        greyLow.frequency.value = 100;
+        
+        const greyHigh = offlineCtx.createBiquadFilter();
+        greyHigh.type = 'highshelf';
+        greyHigh.frequency.value = 6000;
+        
+        greyLow.connect(greyHigh);
+        greyHigh.connect(masterGain);
+        
+        // Schedule global events
+        let globalState = { ...currentSettings };
+        for (const event of schedule.globalEvents) {
+            if (event.grey !== undefined) globalState.grey = event.grey;
+            // Schedule grey changes
+            greyLow.gain.setValueAtTime(globalState.grey ? 10 : 0, event.time);
+            greyHigh.gain.setValueAtTime(globalState.grey ? 5 : 0, event.time);
+        }
+        
+        // Initial grey state
+        greyLow.gain.setValueAtTime(globalState.grey ? 10 : 0, 0);
+        greyHigh.gain.setValueAtTime(globalState.grey ? 5 : 0, 0);
+        
+        // Render each voice event
+        for (const event of schedule.voiceEvents) {
+            await renderCompositionVoiceEvent(offlineCtx, event, greyLow);
+        }
+        
+        const renderedBuffer = await offlineCtx.startRendering();
+        const wavBlob = audioBufferToWav(renderedBuffer);
+        
+        const url = URL.createObjectURL(wavBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
+        a.download = `composition_${timestamp}.wav`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+    } catch (err) {
+        console.error('Composition export error:', err);
+        alert('Export failed: ' + err.message);
+    }
+    
+    elements.exportComposition.disabled = !parsedComposition;
+    elements.exportComposition.textContent = 'Export WAV';
+}
+
+async function renderCompositionVoiceEvent(ctx, event, destination) {
+    const noiseNode = new AudioWorkletNode(ctx, 'noise-processor', {
+        numberOfInputs: 0,
+        numberOfOutputs: 1,
+        outputChannelCount: [2]
+    });
+    
+    const colorParam = noiseNode.parameters.get('color');
+    if (colorParam) colorParam.setValueAtTime(event.color, 0);
+    
+    const envelope = ctx.createGain();
+    envelope.gain.value = 0;
+    
+    const voiceGain = ctx.createGain();
+    voiceGain.gain.value = event.volume ?? 0.8;
+    
+    const panner = ctx.createStereoPanner();
+    panner.pan.value = event.pan ?? 0;
+    
+    noiseNode.connect(envelope);
+    envelope.connect(voiceGain);
+    voiceGain.connect(panner);
+    panner.connect(destination);
+    
+    // Schedule envelope
+    const startTime = event.time;
+    const attack = event.attack || 0.5;
+    const decay = event.decay || 0;
+    const sustain = event.sustain ?? 1;
+    const release = event.release || 0.5;
+    const duration = event.duration || 1;
+    
+    envelope.gain.setValueAtTime(0, startTime);
+    envelope.gain.linearRampToValueAtTime(1, startTime + attack);
+    
+    if (decay > 0) {
+        envelope.gain.linearRampToValueAtTime(sustain, startTime + attack + decay);
+    } else {
+        envelope.gain.setValueAtTime(sustain, startTime + attack);
+    }
+    
+    const releaseStart = startTime + attack + decay + duration;
+    envelope.gain.setValueAtTime(sustain, releaseStart);
+    envelope.gain.linearRampToValueAtTime(0, releaseStart + release);
 }

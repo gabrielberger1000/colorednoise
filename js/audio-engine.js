@@ -810,4 +810,5 @@ export class AudioEngine {
     }
 }
 
+export { Voice };
 export const audioEngine = new AudioEngine();
