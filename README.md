@@ -1,6 +1,6 @@
 # Colored Noise
 
-A free, browser-based noise generator for sleep, focus, and relaxation — with advanced multi-voice polyrhythm capabilities.
+A free, browser-based noise generator with advanced multi-voice polyrhythm capabilities.
 
 **Live site:** [colorednoise.app](https://colorednoise.app)
 
@@ -116,8 +116,7 @@ worklet/
 The site is a static app. To deploy:
 
 1. Upload the entire directory to any static host (Netlify, Vercel, GitHub Pages, etc.)
-2. Ensure the `worklet/` directory is included with `noise-processor.js`
-3. Done
+2. Done
 
 ## Local Development
 
