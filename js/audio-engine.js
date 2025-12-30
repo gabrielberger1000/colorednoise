@@ -33,16 +33,16 @@ function checkBrowserCompatibility() {
     if (window.AudioContext || window.webkitAudioContext) {
         const TestContext = window.AudioContext || window.webkitAudioContext;
         const testCtx = new TestContext();
-
-        if (!testCtx.audioWorklet) {
-            missing.push('AudioWorklet');
+        try {
+            if (!testCtx.audioWorklet) {
+                missing.push('AudioWorklet');
+            }
+            if (!testCtx.createStereoPanner) {
+                missing.push('StereoPannerNode');
+            }
+        } finally {
+            testCtx.close();
         }
-
-        if (!testCtx.createStereoPanner) {
-            missing.push('StereoPannerNode');
-        }
-
-        testCtx.close();
     }
 
     if (typeof OfflineAudioContext === 'undefined') {

@@ -1220,7 +1220,7 @@ function downloadBlob(blob) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
 // === COMPOSITION SYSTEM ===
@@ -1801,11 +1801,11 @@ async function exportCompositionToWav() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        setTimeout(() => URL.revokeObjectURL(url), 100);
         
     } catch (err) {
         console.error('Composition export error:', err);
-        alert('Export failed: ' + err.message);
+        setCompositionStatus('Export failed: ' + err.message, false);
     }
     
     elements.exportComposition.disabled = !parsedComposition;
