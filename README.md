@@ -94,6 +94,68 @@ Create complex compositions with multiple voices and timed events:
 - `saturation`, `saturationMode`, `bitDepth`, `sampleRateReduction`
 - `reverbMix`, `reverbSize`
 
+## Python Composer
+
+The `composer/` directory contains a Python module for programmatically creating compositions.
+
+```python
+from composer import *
+
+# Define reusable phrases
+bass_swell = phrase(color=BROWN, attack=2, duration=3, release=2, volume=0.7)
+high_ping = phrase(color=BLUE, attack=0.1, duration=0.5, release=0.3, volume=0.5)
+
+# Build composition
+comp = composition(
+    voices={
+        "bass": [bass_swell, wait(2), repeat(3, bass_swell)],
+        "melody": [wait(1), repeat(8, high_ping, wait(0.5))]
+    },
+    global_events=[
+        global_settings(reverb_mix=0.4, reverb_size="large")
+    ]
+)
+
+# Save to JSON file
+save(comp, "my_composition.json")
+```
+
+### Available Functions
+
+- `phrase(color, duration, ...)` — create a voice event
+- `wait(seconds)` — create a pause
+- `repeat(n, *events)` — loop a sequence of events
+- `global_settings(...)` — change effects mid-composition
+- `composition(voices, global_events)` — build the final structure
+
+### Transformation Functions
+
+- `transpose_color(event, amount)` — shift color up/down
+- `scale_time(event, factor)` — stretch/compress timing
+- `with_pan(event, pan)` — copy with different pan
+- `with_volume(event, volume)` — copy with different volume
+
+### Preset Phrases
+
+```python
+presets.pink_swell    # Slow fade in/out
+presets.brown_thud    # Short percussive hit
+presets.pink_drone    # 30-second sustained tone
+# ... and more
+```
+
+### Color Constants
+
+```python
+VIOLET = 0
+BLUE = 1
+WHITE = 2
+PINK = 3
+BROWN = 4
+```
+
+See `composer/example_*.py` for complete examples.
+
 ## Files
 
 ```
@@ -109,6 +171,13 @@ js/
   ui.js                     # DOM manipulation, events, visualizer, composition system
 worklet/
   noise-processor.js        # AudioWorklet for noise generation & bitcrushing
+composer/
+  composer.py               # Python module for creating compositions
+  example_ocean.py          # Example: overlapping wave patterns
+  example_rhythm.py         # Example: polyrhythmic percussion
+  example_evolving.py       # Example: changing effects over time
+  example_variations.py     # Example: transformation functions
+  example_presets.py        # Example: using preset phrases
 ```
 
 ## Deployment
