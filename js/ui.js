@@ -9,6 +9,7 @@ import { builtInPresets, categories, defaultSettings, loadCustomPresets, saveCus
 // Pre-allocated arrays for visualizer to avoid GC pressure
 let frequencyDataArray = null;
 let waveformDataArray = null;
+let cachedAccentColor = null;
 
 // State
 let currentSettings = { ...defaultSettings };
@@ -75,6 +76,8 @@ function initVisualizerArrays() {
         frequencyDataArray = new Uint8Array(audioEngine.analyser.frequencyBinCount);
         waveformDataArray = new Uint8Array(audioEngine.analyser.fftSize);
     }
+    // Cache CSS accent color to avoid getComputedStyle() on every frame
+    cachedAccentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
 }
 
 /**
@@ -127,12 +130,8 @@ export function initUI() {
         selPulseShape: document.getElementById('selPulseShape'),
         selDist: document.getElementById('selDist'),
         checkGrey: document.getElementById('checkGrey'),
-        checkBinaural: document.getElementById('checkBinaural'),
-        sliderBinaural: document.getElementById('sliderBinaural'),
-        binauralFreqGroup: document.getElementById('binauralFreqGroup'),
-        
+
         valPulse: document.getElementById('valPulse'),
-        valBinaural: document.getElementById('valBinaural'),
         
         // Advanced controls
         sliderPanRate: document.getElementById('sliderPanRate'),
@@ -303,7 +302,7 @@ async function activatePreset(preset, btnElem) {
     syncGlobalControlsToSettings();
     updateVoiceTabStates();
 
-    audioEngine.applySettings(buildFullSettings(), true);
+    await audioEngine.applySettings(buildFullSettings(), true);
 
     updateURL();
 
@@ -417,10 +416,7 @@ function syncGlobalControlsToSettings() {
     elements.selPulseShape.value = currentSettings.pulseShape ?? 'sine';
     elements.selDist.value = currentSettings.dist ?? 0;
     elements.checkGrey.checked = currentSettings.grey ?? false;
-    elements.checkBinaural.checked = currentSettings.binaural ?? false;
-    elements.sliderBinaural.value = currentSettings.binauralFreq ?? 10;
-    elements.binauralFreqGroup.style.display = currentSettings.binaural ? 'block' : 'none';
-    
+
     // Advanced
     elements.sliderPanRate.value = currentSettings.panRate ?? 0;
     elements.sliderPanDepth.value = currentSettings.panDepth ?? 0;
@@ -441,9 +437,7 @@ function syncGlobalSettingsFromControls() {
     currentSettings.pulseShape = elements.selPulseShape.value;
     currentSettings.dist = parseInt(elements.selDist.value);
     currentSettings.grey = elements.checkGrey.checked;
-    currentSettings.binaural = elements.checkBinaural.checked;
-    currentSettings.binauralFreq = parseFloat(elements.sliderBinaural.value);
-    
+
     currentSettings.panRate = parseFloat(elements.sliderPanRate.value);
     currentSettings.panDepth = parseFloat(elements.sliderPanDepth.value);
     currentSettings.color2 = parseFloat(elements.sliderColor2.value);
@@ -454,9 +448,7 @@ function syncGlobalSettingsFromControls() {
     currentSettings.sampleRateReduction = parseInt(elements.sliderDownsample.value);
     currentSettings.reverbMix = parseFloat(elements.sliderReverbMix.value);
     currentSettings.reverbSize = elements.selReverbSize.value;
-    
-    elements.binauralFreqGroup.style.display = currentSettings.binaural ? 'block' : 'none';
-    
+
     updateGlobalLabels();
     
     if (audioEngine.initialized) {
@@ -524,9 +516,7 @@ function updateGlobalLabels() {
     
     const p = parseFloat(elements.sliderPulse.value);
     elements.valPulse.textContent = p === 0 ? "Off" : p.toFixed(2) + " Hz";
-    
-    elements.valBinaural.textContent = elements.sliderBinaural.value + " Hz";
-    
+
     const panRate = parseFloat(elements.sliderPanRate.value);
     elements.valPanRate.textContent = panRate === 0 ? "Off" : panRate.toFixed(2) + " Hz";
     
@@ -574,17 +564,7 @@ function setupEventListeners() {
      elements.sliderReverbMix, elements.selReverbSize].forEach(el => {
         el.addEventListener('input', syncGlobalSettingsFromControls);
     });
-    
-    elements.checkBinaural.addEventListener('change', () => {
-        elements.binauralFreqGroup.style.display = elements.checkBinaural.checked ? 'block' : 'none';
-        syncGlobalSettingsFromControls();
-    });
-    
-    elements.sliderBinaural.addEventListener('input', () => {
-        updateGlobalLabels();
-        syncGlobalSettingsFromControls();
-    });
-    
+
     // Volume
     elements.sliderVol.addEventListener('input', () => {
         elements.valVol.textContent = Math.round(elements.sliderVol.value * 100) + "%";
@@ -618,11 +598,11 @@ function setupEventListeners() {
     elements.exportComposition.onclick = exportCompositionToWav;
     
     // Category filters
-    document.querySelectorAll('.filter-btn').forEach(btn => {
+    document.querySelectorAll('.preset-filter button').forEach(btn => {
         btn.onclick = () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.preset-filter button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            currentFilter = btn.dataset.category;
+            currentFilter = btn.dataset.filter;
             renderPresets();
         };
     });
@@ -655,7 +635,7 @@ async function togglePower() {
         stopVisualizer();
         elements.statusDisplay.textContent = "System Standby";
     } else {
-        audioEngine.applySettings(buildFullSettings(), true);
+        await audioEngine.applySettings(buildFullSettings(), true);
         audioEngine.start();
         updatePlayingUI(true);
         startVisualizer();
@@ -772,7 +752,7 @@ function drawVisualizer() {
         const barWidth = width / barCount;
         const step = Math.floor(frequencyDataArray.length / barCount);
 
-        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+        ctx.fillStyle = cachedAccentColor;
 
         for (let i = 0; i < barCount; i++) {
             const value = frequencyDataArray[i * step] / 255;
@@ -782,7 +762,7 @@ function drawVisualizer() {
     } else {
         audioEngine.getAnalyserWaveform(waveformDataArray);
 
-        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+        ctx.strokeStyle = cachedAccentColor;
         ctx.lineWidth = 2;
         ctx.beginPath();
 
@@ -819,8 +799,6 @@ function updateURL() {
     if (currentSettings.pulseShape !== 'sine') params.set('ps', currentSettings.pulseShape);
     if (currentSettings.grey) params.set('grey', '1');
     if (currentSettings.dist > 0) params.set('dist', currentSettings.dist);
-    if (currentSettings.binaural) params.set('bin', '1');
-    if (currentSettings.binauralFreq !== 10) params.set('bf', currentSettings.binauralFreq);
     if (currentSettings.panRate > 0) params.set('pr', currentSettings.panRate);
     if (currentSettings.panDepth > 0) params.set('pd', currentSettings.panDepth);
     if (currentSettings.colorBlend > 0) {
@@ -874,8 +852,6 @@ function loadFromURL() {
     if (params.has('ps')) currentSettings.pulseShape = params.get('ps');
     if (params.has('grey')) currentSettings.grey = params.get('grey') === '1';
     if (params.has('dist')) currentSettings.dist = parseInt(params.get('dist'));
-    if (params.has('bin')) currentSettings.binaural = params.get('bin') === '1';
-    if (params.has('bf')) currentSettings.binauralFreq = parseFloat(params.get('bf'));
     if (params.has('pr')) currentSettings.panRate = parseFloat(params.get('pr'));
     if (params.has('pd')) currentSettings.panDepth = parseFloat(params.get('pd'));
     if (params.has('c2')) {
@@ -906,7 +882,7 @@ function loadFromURL() {
                     decay: parts[4],
                     sustain: parts[5],
                     release: parts[6],
-                    duration: parts[7] || null,
+                    duration: Number.isFinite(parts[7]) ? parts[7] : null,
                     loop: parts[8] === 1,
                     enabled: i === 0 ? true : true // If in URL, it's enabled
                 };
@@ -959,7 +935,7 @@ function saveCurrentAsPreset() {
     elements.presetNameInput.value = '';
 }
 
-function resetToDefaults() {
+async function resetToDefaults() {
     currentSettings = { ...defaultSettings };
     voiceSettings = [
         { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: true },
@@ -967,15 +943,15 @@ function resetToDefaults() {
         { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false },
         { color: 3, volume: 0.8, pan: 0, attack: 0.5, decay: 0, sustain: 1, release: 0.5, duration: null, loop: false, enabled: false }
     ];
-    
+
     syncControlsToCurrentVoice();
     syncGlobalControlsToSettings();
     updateVoiceTabStates();
-    
+
     if (audioEngine.initialized) {
-        audioEngine.applySettings(buildFullSettings(), true);
+        await audioEngine.applySettings(buildFullSettings(), true);
     }
-    
+
     markAsCustom();
 }
 
@@ -1066,34 +1042,34 @@ async function startExport() {
 async function renderAudio(ctx, duration) {
     const settings = currentSettings;
     const volume = parseFloat(elements.sliderVol.value);
-    
+
     // Create master gain
     const masterGain = ctx.createGain();
     masterGain.gain.value = volume;
     masterGain.connect(ctx.destination);
-    
+
     // Create grey EQ
     const greyLow = ctx.createBiquadFilter();
     greyLow.type = 'lowshelf';
     greyLow.frequency.value = 100;
     greyLow.gain.value = settings.grey ? 10 : 0;
-    
+
     const greyHigh = ctx.createBiquadFilter();
     greyHigh.type = 'highshelf';
     greyHigh.frequency.value = 6000;
     greyHigh.gain.value = settings.grey ? 5 : 0;
-    
+
     greyLow.connect(greyHigh);
     greyHigh.connect(masterGain);
-    
+
     // Create voices
     for (let i = 0; i < 4; i++) {
         const v = voiceSettings[i];
         if (i > 0 && !v.enabled) continue;
-        
+
         await renderVoice(ctx, v, duration, greyLow, settings);
     }
-    
+
     // Render
     return await ctx.startRendering();
 }
@@ -1676,12 +1652,21 @@ function flattenEvents(events, result = []) {
     return result;
 }
 
+// Maximum voices allowed in compositions to prevent memory exhaustion
+const MAX_COMPOSITION_VOICES = 32;
+
 async function playVoiceEvent(event) {
     if (!compositionPlaying) return;
-    
+
+    // Guard against excessive voice indices to prevent memory exhaustion
+    if (event.voiceIndex >= MAX_COMPOSITION_VOICES) {
+        console.warn(`Voice index ${event.voiceIndex} exceeds maximum (${MAX_COMPOSITION_VOICES}), skipping event`);
+        return;
+    }
+
     // Ensure we have enough voices initialized
     while (audioEngine.voices.length <= event.voiceIndex) {
-        const newVoice = new Voice(audioEngine.ctx, event.voiceIndex);
+        const newVoice = new Voice(audioEngine.ctx, audioEngine.voices.length);
         await newVoice.init();
         newVoice.getOutput().connect(audioEngine.voiceMerger);
         audioEngine.voices.push(newVoice);
@@ -1799,12 +1784,12 @@ async function exportCompositionToWav() {
         // Initial grey state
         greyLow.gain.setValueAtTime(globalState.grey ? 10 : 0, 0);
         greyHigh.gain.setValueAtTime(globalState.grey ? 5 : 0, 0);
-        
+
         // Render each voice event
         for (const event of schedule.voiceEvents) {
             await renderCompositionVoiceEvent(offlineCtx, event, greyLow);
         }
-        
+
         const renderedBuffer = await offlineCtx.startRendering();
         const wavBlob = audioBufferToWav(renderedBuffer);
         

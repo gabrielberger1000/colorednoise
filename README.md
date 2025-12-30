@@ -10,7 +10,6 @@ A free, browser-based noise generator with advanced multi-voice polyrhythm capab
 - **5 noise colors:** White, pink, brown, blue, and violet noise
 - **Color layering:** Blend two noise colors together
 - **Grey noise:** Perceptual EQ for a more balanced sound
-- **Binaural beats** with adjustable frequency (1-40 Hz)
 - **Customizable pulse/modulation** with sine, triangle, or square waveforms
 
 ### Multi-Voice System

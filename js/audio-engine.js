@@ -781,7 +781,7 @@ export class AudioEngine {
         if (settings.reverbMix && settings.reverbMix > 0) {
             const mix = settings.reverbMix;
             const size = settings.reverbSize || 'medium';
-            
+
             let feedback, filterFreq;
             switch (size) {
                 case 'small':
@@ -797,7 +797,7 @@ export class AudioEngine {
                     feedback = 0.35;
                     filterFreq = 4000;
             }
-            
+
             this.reverbFeedback.gain.setTargetAtTime(feedback, now, tc);
             this.reverbFilter.frequency.setTargetAtTime(filterFreq, now, tc);
             this.reverbMix.gain.setTargetAtTime(mix, now, tc);
@@ -809,16 +809,16 @@ export class AudioEngine {
     }
     
     // Backward compatibility: applySettings applies to voice 1 + global
-    applySettings(settings, instant = false) {
+    async applySettings(settings, instant = false) {
         this.applyGlobalSettings(settings, instant);
-        
+
         // If there are voice-specific settings in the preset, apply them
         if (settings.voices && Array.isArray(settings.voices)) {
             for (let i = 0; i < settings.voices.length && i < MAX_VOICES; i++) {
                 const voiceSettings = settings.voices[i];
                 if (voiceSettings) {
                     if (i > 0 && voiceSettings.enabled) {
-                        this.enableVoice(i);
+                        await this.enableVoice(i);
                     } else if (i > 0) {
                         this.disableVoice(i);
                     }
