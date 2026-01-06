@@ -1285,49 +1285,93 @@
             -webkit-user-select: text;
         }
 
-	.site-footer {
-    padding: 40px 20px;
-    max-width: 800px;
+.site-footer {
+    margin-top: 60px;
+    padding: 40px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 800px; /* Adjust this to match your .app-container width */
     margin: 0 auto;
-}
-
-.footer-intro {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.footer-intro p {
-    color: #94a3b8;
-    font-size: 0.85rem;
-    margin-bottom: 0.75rem;
-    opacity: 0.8;
-}
-
-.footer-nav-links {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    font-size: 0.95rem;
+    padding: 0 20px;
 }
 
-.footer-nav-links a {
-    color: #3b82f6;
+.tagline {
+    color: #64748b; /* Muted slate */
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.tech-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.nav-item {
+    color: #3b82f6; /* Matching your blue accent */
     text-decoration: none;
-    transition: color 0.2s;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
 }
 
-.footer-nav-links a:hover {
-    color: #60a5fa;
+.nav-item:hover {
+    opacity: 0.8;
     text-decoration: underline;
 }
 
-.dot-separator {
-    color: #334155;
-    user-select: none;
+.nav-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* Ensure FAQ sections have proper spacing from the links above */
+.faq-nav {
+    width: 100%;
+}
+
 .faq-section {
-    margin-top: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+}
+
+.faq-section:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-section summary {
+    padding: 15px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #e2e8f0;
+    list-style: none; /* Removes default arrow */
+}
+
+/* Optional: Custom arrow indicator */
+.faq-section summary::before {
+    content: '+';
+    color: #10b981; /* Matching your green accent */
+    margin-right: 12px;
+}
+
+.faq-section[open] summary::before {
+    content: '−';
+}
+
+.faq-section p {
+    padding: 0 20px 20px 42px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
