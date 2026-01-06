@@ -16,26 +16,21 @@
 </head>
 <body style="background: #0a0a0f;">
     <div class="content-page">
-        <a href="/" style="color: #3b82f6; text-decoration: none;">← Back to Generator</a>
-        
-        <h1>The Physics of Noise Colors</h1>
-        <p>In audio engineering, "colored" noise refers to signals where the power spectral density (PSD) is a function of frequency \(f\). These are generally defined by the power-law relationship:</p>
-        
-        <div class="math-block">
-            $$S(f) \propto \frac{1}{f^\alpha}$$
-        </div>
+    <a href="/" class="back-link">← Back to Generator</a>
+    
+    <h1>The Physics of Noise Colors</h1>
+    <p>In audio engineering, "colored" noise refers to signals where the power spectral density (PSD) follows a power-law relationship:</p>
+    
+    <div class="math-display">S(f) &prop; 1 / f <sup>&alpha;</sup></div>
 
-        <h2>White Noise ($\alpha = 0$)</h2>
-        <p>White noise has a flat PSD ($1/f^0$). It contains equal power per unit of bandwidth. To the human ear, it sounds high-pitched because octaves at higher frequencies contain more absolute bandwidth than lower ones.</p>
+    <h2>White Noise (&alpha; = 0)</h2>
+    <p>White noise has a flat PSD. It contains equal power per unit of bandwidth across the spectrum.</p>
 
-        <h2>Pink Noise ($\alpha = 1$)</h2>
-        <p>Pink noise, or $1/f$ noise, has equal power per <b>octave</b>. The power density decreases by 3 dB per octave. This profile is frequently observed in biological systems and natural phenomena.</p>
+    <h2>Pink Noise (&alpha; = 1)</h2>
+    <p>Pink noise, or 1/f noise, has equal power per octave. The power density decreases by 3 dB per octave.</p>
 
-        <h2>Brownian Noise ($\alpha = 2$)</h2>
-        <p>Brownian noise (Red noise) decreases by 6 dB per octave ($1/f^2$). It is mathematically the integral of white noise, representing Brownian motion. It is characterized by heavy low-frequency energy.</p>
-
-        <h2>Grey Noise</h2>
-        <p>Unlike the power-law noises above, Grey noise is defined psychoacoustically. It is noise subjected to an inverted <b>Equal-Loudness Contour</b> (ISO 226), making it sound equally loud to a human listener across all frequencies.</p>
+    <h2>Brownian Noise (&alpha; = 2)</h2>
+    <p>Brownian noise (Red noise) decreases by 6 dB per octave. It is mathematically the integral of white noise.</p>
     </div>
 </body>
 </html>

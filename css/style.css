@@ -1286,92 +1286,63 @@
         }
 
 .site-footer {
-    margin-top: 60px;
-    padding: 40px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    width: 100%;
+    margin-top: 80px;
+    padding-bottom: 60px;
+    display: flex;
+    justify-content: center;
 }
 
-.footer-container {
-    max-width: 800px; /* Adjust this to match your .app-container width */
-    margin: 0 auto;
+.footer-wrap {
+    width: 100%;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 20px;
 }
 
-.tagline {
-    color: #64748b; /* Muted slate */
-    font-size: 0.85rem;
+.footer-tagline {
+    color: #64748b;
+    font-size: 0.8rem;
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
-.tech-nav {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+.footer-links {
     margin-bottom: 2.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
 }
 
-.nav-item {
-    color: #3b82f6; /* Matching your blue accent */
+.footer-links a {
+    color: #3b82f6;
     text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: opacity 0.2s;
-}
-
-.nav-item:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-}
-
-.nav-divider {
-    width: 1px;
-    height: 14px;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.faq-nav {
-    width: 100%;
-}
-
-.faq-section {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    margin-bottom: 10px;
-    transition: background 0.2s;
-}
-
-.faq-section:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.faq-section summary {
-    padding: 15px 20px;
-    cursor: pointer;
-    font-weight: 500;
-    color: #e2e8f0;
-    list-style: none; /* Removes default arrow */
-}
-
-/* Optional: Custom arrow indicator */
-.faq-section summary::before {
-    content: '+';
-    color: #10b981; /* Matching your green accent */
-    margin-right: 12px;
-}
-
-.faq-section[open] summary::before {
-    content: '−';
-}
-
-.faq-section p {
-    padding: 0 20px 20px 42px;
-    color: #94a3b8;
     font-size: 0.9rem;
-    line-height: 1.6;
+    font-weight: 500;
+}
+
+.footer-links a:hover { text-decoration: underline; }
+
+.sep { color: #1e293b; }
+
+.footer-faq { width: 100%; }
+
+.faq-item {
+    background: #11111a;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.faq-item summary {
+    padding: 12px 20px;
+    cursor: pointer;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+}
+
+.faq-item p {
+    padding: 0 20px 15px 20px;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    line-height: 1.5;
 }
