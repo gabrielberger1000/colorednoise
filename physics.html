@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Physics of Noise Colors | Colored Noise</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <style>
+        .content-page { max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #e0e0e0; }
+        h1, h2 { color: #8b5cf6; }
+        code { background: #1a1a24; padding: 2px 5px; border-radius: 4px; }
+        .math-block { margin: 20px 0; text-align: center; font-size: 1.2em; }
+    </style>
+</head>
+<body style="background: #0a0a0f;">
+    <div class="content-page">
+        <a href="/" style="color: #3b82f6; text-decoration: none;">← Back to Generator</a>
+        
+        <h1>The Physics of Noise Colors</h1>
+        <p>In audio engineering, "colored" noise refers to signals where the power spectral density (PSD) is a function of frequency \(f\). These are generally defined by the power-law relationship:</p>
+        
+        <div class="math-block">
+            $$S(f) \propto \frac{1}{f^\alpha}$$
+        </div>
+
+        <h2>White Noise ($\alpha = 0$)</h2>
+        <p>White noise has a flat PSD ($1/f^0$). It contains equal power per unit of bandwidth. To the human ear, it sounds high-pitched because octaves at higher frequencies contain more absolute bandwidth than lower ones.</p>
+
+        <h2>Pink Noise ($\alpha = 1$)</h2>
+        <p>Pink noise, or $1/f$ noise, has equal power per <b>octave</b>. The power density decreases by 3 dB per octave. This profile is frequently observed in biological systems and natural phenomena.</p>
+
+        <h2>Brownian Noise ($\alpha = 2$)</h2>
+        <p>Brownian noise (Red noise) decreases by 6 dB per octave ($1/f^2$). It is mathematically the integral of white noise, representing Brownian motion. It is characterized by heavy low-frequency energy.</p>
+
+        <h2>Grey Noise</h2>
+        <p>Unlike the power-law noises above, Grey noise is defined psychoacoustically. It is noise subjected to an inverted <b>Equal-Loudness Contour</b> (ISO 226), making it sound equally loud to a human listener across all frequencies.</p>
+    </div>
+</body>
+</html>
