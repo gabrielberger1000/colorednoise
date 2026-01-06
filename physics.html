@@ -2,35 +2,146 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The Physics of Noise Colors | Colored Noise</title>
+    <meta name="description" content="Learn about the mathematics and physics behind white, pink, brown, blue, and violet noise. Understand power spectral density and frequency distribution.">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="canonical" href="https://colorednoise.app/physics.html">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
-    <style>
-        .content-page { max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #e0e0e0; }
-        h1, h2 { color: #8b5cf6; }
-        code { background: #1a1a24; padding: 2px 5px; border-radius: 4px; }
-        .math-block { margin: 20px 0; text-align: center; font-size: 1.2em; }
-    </style>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
 </head>
-<body style="background: #0a0a0f;">
+<body>
     <div class="content-page">
-    <a href="/" class="back-link">← Back to Generator</a>
-    
-    <h1>The Physics of Noise Colors</h1>
-    <p>In audio engineering, "colored" noise refers to signals where the power spectral density (PSD) follows a power-law relationship:</p>
-    
-    <div class="math-display">S(f) &prop; 1 / f <sup>&alpha;</sup></div>
+        <a href="/" class="back-link">&larr; Back to Generator</a>
 
-    <h2>White Noise (&alpha; = 0)</h2>
-    <p>White noise has a flat PSD. It contains equal power per unit of bandwidth across the spectrum.</p>
+        <h1>The Physics of Noise Colors</h1>
 
-    <h2>Pink Noise (&alpha; = 1)</h2>
-    <p>Pink noise, or 1/f noise, has equal power per octave. The power density decreases by 3 dB per octave.</p>
+        <p>In signal processing and audio engineering, "colored" noise refers to random signals whose power spectral density (PSD) follows a power-law relationship with frequency. The "color" metaphor comes from visible light—just as white light contains all frequencies equally, white noise contains equal power at all frequencies.</p>
 
-    <h2>Brownian Noise (&alpha; = 2)</h2>
-    <p>Brownian noise (Red noise) decreases by 6 dB per octave. It is mathematically the integral of white noise.</p>
+        <h2>Power Spectral Density</h2>
+
+        <p>The power spectral density of colored noise follows the general form:</p>
+
+        <div class="math-block">
+            $$S(f) \propto \frac{1}{f^\alpha}$$
+        </div>
+
+        <p>Where $f$ is frequency and $\alpha$ (alpha) determines the noise "color." Different values of $\alpha$ produce dramatically different sonic characteristics.</p>
+
+        <h2>White Noise ($\alpha = 0$)</h2>
+
+        <p>White noise has a flat power spectral density—equal energy per unit bandwidth across all frequencies. Mathematically:</p>
+
+        <div class="math-block">
+            $$S(f) = \text{constant}$$
+        </div>
+
+        <p>This makes white noise sound "bright" or "hissy" because our perception of loudness is logarithmic. Each octave contains twice as many frequencies as the previous one, so white noise has twice as much perceived energy in higher octaves.</p>
+
+        <p><strong>Generation:</strong> White noise is simply a sequence of uncorrelated random samples, typically from a Gaussian or uniform distribution.</p>
+
+        <h2>Pink Noise ($\alpha = 1$)</h2>
+
+        <p>Pink noise, also called $1/f$ noise or flicker noise, has equal power per octave rather than per Hz. The power decreases by 3 dB per octave:</p>
+
+        <div class="math-block">
+            $$S(f) \propto \frac{1}{f}$$
+        </div>
+
+        <p>This equal-octave distribution matches how humans perceive frequency, making pink noise sound more "natural" and balanced. Many natural phenomena exhibit $1/f$ characteristics: heartbeat rhythms, neural activity, even stock market fluctuations.</p>
+
+        <p><strong>Generation:</strong> The Voss-McCartney algorithm or Paul Kellett's filter method can efficiently generate pink noise by filtering white noise through a series of first-order lowpass filters.</p>
+
+        <h2>Brownian (Red) Noise ($\alpha = 2$)</h2>
+
+        <p>Brown noise (named after Robert Brown, not the color) is also called red noise or random walk noise. Power decreases by 6 dB per octave:</p>
+
+        <div class="math-block">
+            $$S(f) \propto \frac{1}{f^2}$$
+        </div>
+
+        <p>Brownian noise is mathematically the integral of white noise—each sample is the cumulative sum of previous random values. This creates a deep, rumbling sound with very little high-frequency content.</p>
+
+        <p><strong>Generation:</strong> Integrate white noise samples: $x[n] = x[n-1] + w[n]$, where $w[n]$ is white noise. Clamping prevents unbounded drift.</p>
+
+        <h2>Blue Noise ($\alpha = -1$)</h2>
+
+        <p>Blue noise is the inverse of pink noise—power increases by 3 dB per octave:</p>
+
+        <div class="math-block">
+            $$S(f) \propto f$$
+        </div>
+
+        <p>This creates a bright, hissy sound with emphasis on high frequencies. Blue noise is useful in dithering algorithms for image processing and audio quantization.</p>
+
+        <p><strong>Generation:</strong> Differentiate pink noise or apply a +3 dB/octave filter to white noise.</p>
+
+        <h2>Violet Noise ($\alpha = -2$)</h2>
+
+        <p>Violet noise (or purple noise) is the derivative of white noise, with power increasing by 6 dB per octave:</p>
+
+        <div class="math-block">
+            $$S(f) \propto f^2$$
+        </div>
+
+        <p>This creates a very bright, almost piercing sound dominated by high frequencies. It's the inverse of Brownian noise.</p>
+
+        <p><strong>Generation:</strong> Differentiate white noise: $x[n] = w[n] - w[n-1]$.</p>
+
+        <h2>Grey Noise</h2>
+
+        <p>Grey noise is not defined by a simple power law. Instead, it applies psychoacoustic equalization (inverse A-weighting or equal-loudness contour) so that all frequencies are perceived as equally loud by human ears. This accounts for our reduced sensitivity to very low and very high frequencies.</p>
+
+        <h2>Summary Table</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Color</th>
+                    <th>$\alpha$</th>
+                    <th>Slope</th>
+                    <th>Character</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Violet</td>
+                    <td>-2</td>
+                    <td>+6 dB/octave</td>
+                    <td>Bright, hissy</td>
+                </tr>
+                <tr>
+                    <td>Blue</td>
+                    <td>-1</td>
+                    <td>+3 dB/octave</td>
+                    <td>Bright</td>
+                </tr>
+                <tr>
+                    <td>White</td>
+                    <td>0</td>
+                    <td>Flat</td>
+                    <td>Balanced (statically)</td>
+                </tr>
+                <tr>
+                    <td>Pink</td>
+                    <td>1</td>
+                    <td>-3 dB/octave</td>
+                    <td>Natural, balanced</td>
+                </tr>
+                <tr>
+                    <td>Brown</td>
+                    <td>2</td>
+                    <td>-6 dB/octave</td>
+                    <td>Deep, rumbling</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top: 3rem; text-align: center;">
+            <a href="/" class="back-link">&larr; Back to Generator</a>
+        </p>
     </div>
 </body>
 </html>

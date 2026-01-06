@@ -2,28 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>JSON Composition Documentation | Colored Noise</title>
+    <meta name="description" content="Complete documentation for the Colored Noise JSON composition format. Create multi-voice polyrhythmic soundscapes with ADSR envelopes and effects.">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="canonical" href="https://colorednoise.app/docs.html">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .content-page { max-width: 900px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #e0e0e0; }
-        h1, h2, h3 { color: #8b5cf6; margin-top: 1.5em; }
-        code { background: #1a1a24; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #3b82f6; }
-        pre { background: #0f172a; padding: 15px; border-radius: 8px; overflow-x: auto; border: 1px solid #1e293b; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #1e293b; }
-        th { color: #8b5cf6; }
-    </style>
 </head>
-<body style="background: #0a0a0f;">
+<body>
     <div class="content-page">
-        <a href="/" style="color: #3b82f6; text-decoration: none;">← Back to Generator</a>
-        
-        <h1>JSON Composition Documentation</h1>
-        <p>The Colored Noise engine allows users to programmatically define multi-voice soundscapes using a JSON schema. This allows for precise control over synthesis parameters and complex polyrhythmic modulation.</p>
+        <a href="/" class="back-link">&larr; Back to Generator</a>
 
-        <h2>Voice Parameters</h2>
-        <p>The <code>voices</code> array supports up to four voice objects. Each voice is an independent synthesizer with the following properties:</p>
-        
+        <h1>JSON Composition Documentation</h1>
+
+        <p>The Colored Noise composition engine allows you to programmatically create complex, evolving soundscapes using a JSON schema. Compositions support unlimited voices, timed events, repeat blocks, and dynamic global effects.</p>
+
+        <h2>Basic Structure</h2>
+
+        <p>A composition has two main sections: <code>voices</code> (named voice channels with event sequences) and <code>global</code> (master effects that change over time).</p>
+
+<pre><code>{
+  "voices": {
+    "bass": [ /* events */ ],
+    "melody": [ /* events */ ]
+  },
+  "global": [ /* effect changes */ ]
+}</code></pre>
+
+        <h2>Voice Events</h2>
+
+        <p>Each voice is an array of events that play sequentially. Events can be sound triggers, waits, or repeat blocks.</p>
+
+        <h3>Sound Event Properties</h3>
+
         <table>
             <thead>
                 <tr>
@@ -36,66 +47,256 @@
             <tbody>
                 <tr>
                     <td><code>color</code></td>
-                    <td>Float</td>
-                    <td>0.0 - 4.0</td>
-                    <td>0: Violet, 1: Blue, 2: White, 3: Pink, 4: Brown.</td>
+                    <td>Number</td>
+                    <td>0 - 4</td>
+                    <td>Noise color: 0=Violet, 1=Blue, 2=White, 3=Pink, 4=Brown</td>
                 </tr>
                 <tr>
                     <td><code>volume</code></td>
-                    <td>Float</td>
-                    <td>0.0 - 1.0</td>
-                    <td>Individual gain level.</td>
+                    <td>Number</td>
+                    <td>0 - 1</td>
+                    <td>Voice amplitude</td>
                 </tr>
                 <tr>
                     <td><code>pan</code></td>
-                    <td>Float</td>
-                    <td>-1.0 - 1.0</td>
-                    <td>Stereo position (-1: Left, 1: Right).</td>
-                </tr>
-                <tr>
-                    <td><code>loop</code></td>
-                    <td>Bool</td>
-                    <td>true/false</td>
-                    <td>Repeats the ADSR envelope.</td>
+                    <td>Number</td>
+                    <td>-1 to 1</td>
+                    <td>Stereo position (-1=Left, 0=Center, 1=Right)</td>
                 </tr>
                 <tr>
                     <td><code>attack</code></td>
-                    <td>Float</td>
-                    <td>0.0 - 10.0</td>
-                    <td>Fade-in time in seconds.</td>
+                    <td>Number</td>
+                    <td>0+</td>
+                    <td>Fade-in time in seconds</td>
+                </tr>
+                <tr>
+                    <td><code>decay</code></td>
+                    <td>Number</td>
+                    <td>0+</td>
+                    <td>Time to reach sustain level</td>
+                </tr>
+                <tr>
+                    <td><code>sustain</code></td>
+                    <td>Number</td>
+                    <td>0 - 1</td>
+                    <td>Sustain level (fraction of peak)</td>
+                </tr>
+                <tr>
+                    <td><code>release</code></td>
+                    <td>Number</td>
+                    <td>0+</td>
+                    <td>Fade-out time in seconds</td>
+                </tr>
+                <tr>
+                    <td><code>duration</code></td>
+                    <td>Number</td>
+                    <td>0+</td>
+                    <td>Total event duration (attack + hold + release)</td>
                 </tr>
             </tbody>
         </table>
 
-        <h2>Global Settings</h2>
-        <p>The <code>global</code> object defines master effects and signal processing applied to the mixed output of all voices.</p>
+        <h3>Wait Event</h3>
+
+        <p>Pause before the next event:</p>
+
+<pre><code>{ "wait": 2 }  // Wait 2 seconds</code></pre>
+
+        <h3>Repeat Block</h3>
+
+        <p>Loop a sequence of events:</p>
+
+<pre><code>{
+  "repeat": 4,
+  "events": [
+    { "color": 3, "volume": 0.5, "duration": 1, "attack": 0.2, "release": 0.3 },
+    { "wait": 0.5 }
+  ]
+}</code></pre>
+
+        <h2>Global Events</h2>
+
+        <p>The <code>global</code> array contains events that modify master effects over time. All properties are optional—only include what you want to change.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>grey</code></td>
+                    <td>Boolean</td>
+                    <td>Enable perceptual EQ (grey noise filter)</td>
+                </tr>
+                <tr>
+                    <td><code>pulse</code></td>
+                    <td>Number</td>
+                    <td>Modulation speed (0-10 Hz)</td>
+                </tr>
+                <tr>
+                    <td><code>pulseShape</code></td>
+                    <td>String</td>
+                    <td>"sine", "triangle", or "square"</td>
+                </tr>
+                <tr>
+                    <td><code>texture</code></td>
+                    <td>Number</td>
+                    <td>Modulation depth (0-1)</td>
+                </tr>
+                <tr>
+                    <td><code>panRate</code></td>
+                    <td>Number</td>
+                    <td>Stereo LFO speed (Hz)</td>
+                </tr>
+                <tr>
+                    <td><code>panDepth</code></td>
+                    <td>Number</td>
+                    <td>Stereo LFO depth (0-1)</td>
+                </tr>
+                <tr>
+                    <td><code>color2</code></td>
+                    <td>Number</td>
+                    <td>Secondary noise color for blending</td>
+                </tr>
+                <tr>
+                    <td><code>colorBlend</code></td>
+                    <td>Number</td>
+                    <td>Blend amount (0=primary only, 1=secondary only)</td>
+                </tr>
+                <tr>
+                    <td><code>reverbMix</code></td>
+                    <td>Number</td>
+                    <td>Reverb wet/dry mix (0-1)</td>
+                </tr>
+                <tr>
+                    <td><code>reverbSize</code></td>
+                    <td>String</td>
+                    <td>"small", "medium", or "large"</td>
+                </tr>
+                <tr>
+                    <td><code>saturation</code></td>
+                    <td>Number</td>
+                    <td>Distortion amount (0-1)</td>
+                </tr>
+                <tr>
+                    <td><code>saturationMode</code></td>
+                    <td>String</td>
+                    <td>"soft", "hard", or "tube"</td>
+                </tr>
+                <tr>
+                    <td><code>bitDepth</code></td>
+                    <td>Number</td>
+                    <td>Bit reduction (1-16, 16=off)</td>
+                </tr>
+                <tr>
+                    <td><code>sampleRateReduction</code></td>
+                    <td>Number</td>
+                    <td>Sample rate reduction factor (1-100)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Complete Example</h2>
+
+        <p>This composition creates an evolving ambient texture with two voices and changing reverb:</p>
+
+<pre><code>{
+  "voices": {
+    "bass": [
+      {
+        "color": 4,
+        "volume": 0.7,
+        "pan": 0,
+        "attack": 2,
+        "decay": 0.5,
+        "sustain": 0.6,
+        "release": 2,
+        "duration": 6
+      },
+      { "wait": 1 },
+      {
+        "repeat": 2,
+        "events": [
+          {
+            "color": 3.5,
+            "volume": 0.6,
+            "pan": -0.3,
+            "attack": 1,
+            "duration": 4,
+            "release": 1.5
+          },
+          { "wait": 0.5 }
+        ]
+      }
+    ],
+    "melody": [
+      { "wait": 3 },
+      {
+        "color": 2,
+        "volume": 0.4,
+        "pan": 0.5,
+        "attack": 0.3,
+        "duration": 2,
+        "release": 0.8
+      }
+    ]
+  },
+  "global": [
+    {
+      "grey": true,
+      "reverbMix": 0.3,
+      "reverbSize": "medium"
+    },
+    { "wait": 8 },
+    {
+      "reverbMix": 0.6,
+      "reverbSize": "large",
+      "saturation": 0.15,
+      "saturationMode": "tube"
+    }
+  ]
+}</code></pre>
+
+        <h2>Python Composer</h2>
+
+        <p>For complex compositions, use the Python module in the <code>composer/</code> directory:</p>
+
+<pre><code>from composer import *
+
+bass_swell = phrase(color=BROWN, attack=2, duration=3, release=2, volume=0.7)
+high_ping = phrase(color=BLUE, attack=0.1, duration=0.5, release=0.3, volume=0.5)
+
+comp = composition(
+    voices={
+        "bass": [bass_swell, wait(2), repeat(3, bass_swell)],
+        "melody": [wait(1), repeat(8, high_ping, wait(0.5))]
+    },
+    global_events=[
+        global_settings(reverb_mix=0.4, reverb_size="large")
+    ]
+)
+
+save(comp, "my_composition.json")</code></pre>
+
+        <p>See the example files in <code>composer/</code> for more patterns.</p>
+
+        <h2>Tips</h2>
+
         <ul>
-            <li><code>pulseSpeed</code>: Frequency of the master LFO (Hz).</li>
-            <li><code>greyNoise</code>: Boolean. Applies an inverse A-weighting perceptual EQ.</li>
-            <li><code>satAmount</code>: Amount of non-linear saturation (0.0 to 1.0).</li>
+            <li>Use fractional <code>color</code> values (e.g., 3.5) to blend between noise types</li>
+            <li>Layer voices with different <code>pan</code> values for stereo width</li>
+            <li>Combine <code>repeat</code> blocks with different loop lengths for polyrhythms</li>
+            <li>Start with low <code>saturation</code> values (0.1-0.2) for warmth without distortion</li>
+            <li>Use <code>wait</code> events in <code>global</code> to create evolving soundscapes</li>
         </ul>
 
-        <h2>Example Composition</h2>
-        <p>The following JSON creates a deep, pulsing brown noise texture:</p>
-<pre>
-{
-  "voices": [
-    {
-      "color": 4.0,
-      "volume": 0.8,
-      "loop": true,
-      "attack": 2.0,
-      "sustain": 0.5,
-      "duration": 4.0
-    }
-  ],
-  "global": {
-    "pulseSpeed": 0.5,
-    "satAmount": 0.2,
-    "satMode": "warm"
-  }
-}
-</pre>
+        <p style="margin-top: 3rem; text-align: center;">
+            <a href="/" class="back-link">&larr; Back to Generator</a>
+        </p>
     </div>
 </body>
 </html>
