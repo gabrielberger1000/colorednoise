@@ -30,3 +30,17 @@ npm-debug.log*
 # Optional: local dev notes
 notes.txt
 TODO.txt
+
+# Node
+node_modules/
+package-lock.json
+
+# Capacitor native projects
+ios/
+android/
+
+# Build outputs
+dist/
+
+# www contains symlinks for Capacitor
+www/

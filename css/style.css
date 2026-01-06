@@ -1237,3 +1237,50 @@
                 align-items: flex-start;
             }
         }
+
+        /* MOBILE APP (CAPACITOR) OPTIMIZATIONS */
+
+        /* Safe area insets for notched devices */
+        body {
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
+        }
+
+        /* Prevent pull-to-refresh and overscroll */
+        html, body {
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Remove tap highlight on mobile */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Improve touch targets */
+        button,
+        .preset-btn,
+        .timer-preset-btn,
+        .voice-tab,
+        select {
+            touch-action: manipulation;
+        }
+
+        /* Prevent text selection on UI elements */
+        .header,
+        .control-panel,
+        .timer-panel,
+        .voice-tabs,
+        .preset-filter,
+        .viz-toggle {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Allow text selection in composition editor */
+        #compositionEditor {
+            user-select: text;
+            -webkit-user-select: text;
+        }

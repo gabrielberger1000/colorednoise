@@ -1,0 +1,38 @@
+{
+  "name": "colored-noise",
+  "version": "1.0.0",
+  "description": "A free, browser-based noise generator with advanced multi-voice polyrhythm capabilities",
+  "main": "js/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'No build step required - static files'",
+    "cap:add:ios": "npx cap add ios",
+    "cap:add:android": "npx cap add android",
+    "cap:sync": "npx cap sync",
+    "cap:open:ios": "npx cap open ios",
+    "cap:open:android": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
+    "serve": "^14.2.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "noise-generator",
+    "white-noise",
+    "pink-noise",
+    "brown-noise",
+    "web-audio",
+    "sleep",
+    "focus",
+    "ambient"
+  ],
+  "author": "",
+  "license": "MIT"
+}
