@@ -31,7 +31,7 @@ A free, browser-based noise generator with advanced multi-voice polyrhythm capab
 - **Live playback** or **WAV export**
 
 ### Presets & Export
-- **50+ built-in presets** organized by category (Sleep, Focus, Nature, Ambient, Mechanical, Experimental, Textured)
+- **71 built-in presets** organized by category (Sleep, Focus, Nature, Ambient, Mechanical, Experimental, Textured)
 - **Multi-voice polyrhythm presets** (Ocean Drift, Breathing Room, Machine Rhythm, etc.)
 - **Save custom presets** to localStorage
 - **Export to WAV** — render any duration instantly using OfflineAudioContext
@@ -42,6 +42,31 @@ A free, browser-based noise generator with advanced multi-voice polyrhythm capab
 - **Real-time visualizer** (spectrum bars or waveform)
 - **Shareable URLs** — settings are encoded in the URL
 - **Keyboard shortcuts** — Space for play/pause, arrows for volume, 1-9 for presets
+
+## Privacy
+
+Colored Noise is designed with privacy as a core principle:
+
+- **No tracking:** No analytics, no cookies, no fingerprinting
+- **No accounts:** No signup, no login, no personal data collection
+- **No ads:** No advertising networks, no third-party scripts
+- **Local processing:** All audio is generated in your browser — nothing is sent to any server
+- **Local storage only:** Custom presets are saved to your browser's localStorage, never uploaded
+- **Open source:** The complete source code is available for inspection
+
+Your listening habits are your own business.
+
+## Technical Differentiators
+
+Unlike most noise generators that play looped audio files, Colored Noise synthesizes audio mathematically in real-time:
+
+- **[Physics of Noise](https://colorednoise.app/physics.html):** In-depth documentation on noise color theory, spectral density, and the mathematical algorithms used for generation (Paul Kellett's pink noise filter, Brownian integration, etc.)
+
+- **[Composition Documentation](https://colorednoise.app/docs.html):** Full specification of the JSON composition format for creating programmatic, multi-voice soundscapes with ADSR envelopes and timed global effects
+
+- **[Preset Guide](https://colorednoise.app/presets/):** Detailed descriptions of all 71 presets, organized by use case (sleep, focus, nature, ambient, mechanical, experimental, textured)
+
+- **Python Composer:** A Python module (`composer/`) for programmatically generating compositions, with transformation functions, preset phrases, and examples
 
 ## How It Works
 
@@ -158,7 +183,10 @@ See `composer/example_*.py` for complete examples.
 ## Files
 
 ```
-index.html                  # HTML structure
+index.html                  # Main app
+physics.html                # Physics of noise documentation
+docs.html                   # JSON composition documentation
+sitemap.xml                 # Search engine sitemap
 favicon.svg                 # Browser tab icon
 social-card.png             # Open Graph / Twitter preview image
 css/
@@ -170,6 +198,11 @@ js/
   ui.js                     # DOM manipulation, events, visualizer, composition system
 worklet/
   noise-processor.js        # AudioWorklet for noise generation & bitcrushing
+presets/
+  index.html                # Preset guide (all 71 presets)
+  *.html                    # Individual preset pages (71 files)
+scripts/
+  generate-preset-pages.js  # Generator for preset HTML pages
 composer/
   composer.py               # Python module for creating compositions
   example_ocean.py          # Example: overlapping wave patterns
