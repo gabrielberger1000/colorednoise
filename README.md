@@ -247,7 +247,3 @@ Tested in Chrome, Firefox, Safari, and Edge.
 ## License
 
 MIT
-
-## Credits
-
-Built with Claude and Gemini.
