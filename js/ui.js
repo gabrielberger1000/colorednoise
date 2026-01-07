@@ -842,6 +842,23 @@ function updateURL() {
 function loadFromURL() {
     const params = new URLSearchParams(window.location.search);
 
+    // Handle preset parameter - activate preset by index
+    if (params.has('preset')) {
+        const presetIndex = parseInt(params.get('preset'));
+        const allPresets = [...builtInPresets, ...customPresets];
+        if (!isNaN(presetIndex) && presetIndex >= 0 && presetIndex < allPresets.length) {
+            const preset = allPresets[presetIndex];
+            // Find the corresponding button in the DOM
+            const buttons = elements.presetContainer.querySelectorAll('.preset-btn');
+            const btn = buttons[presetIndex];
+            if (btn) {
+                // Delay activation to allow the UI to fully initialize
+                setTimeout(() => activatePreset(preset, btn), 0);
+            }
+        }
+        return; // Don't process other params if preset is specified
+    }
+
     // Volume
     if (params.has('v')) {
         elements.sliderVol.value = parseFloat(params.get('v'));
