@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Metal Wind - Free White Noise for Textured | Colored Noise</title>
-    <meta name="description" content="Metal Wind: White noise. with slow, gentle modulation. Features a 0.8s fade-in and 1.5s fade-out in a repeating cycle. with metallic... Free online noise generator.">
+    <title>Metal Wind – Free White Noise Preset (Textured) | Colored Noise</title>
+    <meta name="description" content="Metal Wind: White noise through a 3 ms comb filter in four-second gusts, a metallic whistle. Free white noise preset for textured, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/metal-wind.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/metal-wind.html">
-    <meta property="og:title" content="Metal Wind - Free white Noise Generator">
-    <meta property="og:description" content="Metal Wind: White noise. with slow, gentle modulation. Features a 0.8s fade-in and 1.5s fade-out in a repeating cycle. with metallic... Free online noise generator.">
+    <meta property="og:title" content="Metal Wind – Free White Noise Generator">
+    <meta property="og:description" content="Metal Wind: White noise through a 3 ms comb filter in four-second gusts, a metallic whistle. Free white noise preset for textured, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Metal Wind",
-        "description": "White noise. with slow, gentle modulation. Features a 0.8s fade-in and 1.5s fade-out in a repeating cycle. with metallic comb filter texture.",
+        "description": "White noise through a 3 ms comb filter in four-second gusts, a metallic whistle",
         "url": "https://colorednoise.app/presets/metal-wind.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Metal Wind"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Metal Wind",
-            "description": "White noise. with slow, gentle modulation. Features a 0.8s fade-in and 1.5s fade-out in a repeating cycle. with metallic comb filter texture.",
+            "description": "Metal Wind is wind blowing across sheet metal or through the gaps of a corrugated shed: a hard, ringing whistle with a hollow, metallic color that plain noise never has. Gusts arrive, hold briefly and drop away, with a slower swell moving underneath them. It is deliberately unsettling, and it works best in a mix rather than on its own for hours. The color is exactly 2, white. A comb filter with a 3 millisecond delay and 75 percent feedback at a 40 percent mix adds resonant peaks spaced about 333 Hz apart, which gives the metallic ring. The envelope rises in 0.8 seconds, holds for 2 at 90 percent and releases over 1.5, a cycle of four and a half seconds, and a triangle pulse at 0.15 Hz swells every six or seven seconds. It is a sound-design and atmosphere preset more than a relaxation one. Hollow Tube uses a longer 8 millisecond comb for a lower, woodier tone, and Mountain Wind in the nature category is the same gusting idea without any filtering. Try it under a darker preset for a hint of metal without giving up the low end.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Textured noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Metal Wind</span>
         </nav>
@@ -62,43 +66,46 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ec4899">Textured</span>
             <h1>Metal Wind</h1>
-            <p class="preset-tagline">white noise (balanced frequencies)</p>
+            <p class="preset-tagline">White noise through a 3 ms comb filter in four-second gusts, a metallic whistle</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=53" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Metal Wind loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="53"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=53" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>White noise. with slow, gentle modulation. Features a 0.8s fade-in and 1.5s fade-out in a repeating cycle. with metallic comb filter texture.</p>
+            <p>Metal Wind is wind blowing across sheet metal or through the gaps of a corrugated shed: a hard, ringing whistle with a hollow, metallic color that plain noise never has. Gusts arrive, hold briefly and drop away, with a slower swell moving underneath them. It is deliberately unsettling, and it works best in a mix rather than on its own for hours.</p>
+            <p>The color is exactly 2, white. A comb filter with a 3 millisecond delay and 75 percent feedback at a 40 percent mix adds resonant peaks spaced about 333 Hz apart, which gives the metallic ring. The envelope rises in 0.8 seconds, holds for 2 at 90 percent and releases over 1.5, a cycle of four and a half seconds, and a triangle pulse at 0.15 Hz swells every six or seven seconds.</p>
+            <p>It is a sound-design and atmosphere preset more than a relaxation one. <a href='/presets/hollow-tube.html'>Hollow Tube</a> uses a longer 8 millisecond comb for a lower, woodier tone, and <a href='/presets/mountain-wind.html'>Mountain Wind</a> in the nature category is the same gusting idea without any filtering. Try it under a darker preset for a hint of metal without giving up the low end.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Meditation</li>
-                <li>Sound design</li>
-                <li>Immersive experiences</li>
-                <li>Ambient music production</li>
+                <li>Abandoned-building atmosphere</li>
+                <li>Science-fiction wind effects</li>
+                <li>Metallic drone beds</li>
+                <li>Horror and thriller sound design</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Increase the comb delay to 0.005 seconds and the ring drops to a lower, thicker pitch.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>White</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.15 Hz triangle</dd>
-
-                
-
+                <dd>White (2)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 0.8s, Sustain: 0.9, Release: 1.5s</dd>
-
-                
-
-                
+                <dd>0.8s in, hold 2s, 1.5s out (4.5s cycle)</dd>
+                <dt>Modulation</dt>
+                <dd>0.15 Hz triangle (one cycle every 6.7 s)</dd>
+                <dt>Comb Filter</dt>
+                <dd>3 ms delay, 75% feedback</dd>
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +123,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/tibetan-bowl.html" class="prev-preset">&larr; Tibetan Bowl</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/hollow-tube.html" class="next-preset">Hollow Tube &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

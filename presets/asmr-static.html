@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ASMR Static - Free Violet Noise for Experimental | Colored Noise</title>
-    <meta name="description" content="ASMR Static: A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <title>ASMR Static – Free Violet Noise Preset (Experimental) | Colored Noise</title>
+    <meta name="description" content="ASMR Static: Near-violet noise at 0.3 with grey EQ and uniform grain, a soft, fine hiss. Free violet noise preset for experimental, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/asmr-static.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/asmr-static.html">
-    <meta property="og:title" content="ASMR Static - Free violet Noise Generator">
-    <meta property="og:description" content="ASMR Static: A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <meta property="og:title" content="ASMR Static – Free Violet Noise Generator">
+    <meta property="og:description" content="ASMR Static: Near-violet noise at 0.3 with grey EQ and uniform grain, a soft, fine hiss. Free violet noise preset for experimental, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "ASMR Static",
-        "description": "A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies.",
+        "description": "Near-violet noise at 0.3 with grey EQ and uniform grain, a soft, fine hiss",
         "url": "https://colorednoise.app/presets/asmr-static.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "ASMR Static"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "ASMR Static",
-            "description": "A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies.",
+            "description": "ASMR Static is a very fine, whispery hiss, like the sound between tracks on a cassette or the faint fizz of a carbonated drink held near the ear. It is bright but not sharp, because the grey EQ pulls the spectrum back into balance and the uniform grain gives it a soft, dry texture. The color is 0.3, almost violet, with grey equalization switched on to keep the treble from stinging and a little body underneath. The distribution is uniform for grain. There is no pulse and no envelope, and the five-second fade-in lets the hiss creep up rather than snap on. It is used at low volume for tingles, for masking very quiet rooms, and as a texture under recorded whispers. Violet Haze in the ambient category is the raw, unequalized sibling at 0.2, and Vinyl Crackle is the same brightness shaped into a crackle rhythm.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Experimental noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>ASMR Static</span>
         </nav>
@@ -62,43 +66,46 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ef4444">Experimental</span>
             <h1>ASMR Static</h1>
-            <p class="preset-tagline">violet noise (high-frequency emphasis)</p>
+            <p class="preset-tagline">Near-violet noise at 0.3 with grey EQ and uniform grain, a soft, fine hiss</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=48" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with ASMR Static loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="48"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=48" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies.</p>
+            <p>ASMR Static is a very fine, whispery hiss, like the sound between tracks on a cassette or the faint fizz of a carbonated drink held near the ear. It is bright but not sharp, because the grey EQ pulls the spectrum back into balance and the uniform grain gives it a soft, dry texture.</p>
+            <p>The color is 0.3, almost violet, with grey equalization switched on to keep the treble from stinging and a little body underneath. The distribution is uniform for grain. There is no pulse and no envelope, and the five-second fade-in lets the hiss creep up rather than snap on.</p>
+            <p>It is used at low volume for tingles, for masking very quiet rooms, and as a texture under recorded whispers. <a href='/presets/violet-haze.html'>Violet Haze</a> in the ambient category is the raw, unequalized sibling at 0.2, and <a href='/presets/vinyl-crackle.html'>Vinyl Crackle</a> is the same brightness shaped into a crackle rhythm.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Creative projects</li>
-                <li>Unique soundscapes</li>
-                <li>ASMR</li>
-                <li>Artistic expression</li>
+                <li>Low-volume ASMR listening</li>
+                <li>Bed for whispered recordings</li>
+                <li>Very quiet rooms at night</li>
+                <li>Light masking on headphones</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Enable stereo auto-pan at 0.1 Hz with moderate depth so the hiss drifts slowly from ear to ear.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Violet (0.3)</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>Violet (0.30 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>5 seconds</dd>
-
-                
-
-                
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
+                <dt>Distribution</dt>
+                <dd>Uniform (slightly grittier texture)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/violet-noise.html">Learn more about violet noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +123,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/cicadas.html" class="prev-preset">&larr; Cicadas</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/breath-work.html" class="next-preset">Breath Work &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

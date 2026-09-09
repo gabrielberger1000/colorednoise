@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Grey Noise Generator - Gray Noise Online, Equal Loudness Noise</title>
+    <meta name="description" content="Free grey noise (gray noise) generator. White noise shaped by an equal-loudness curve so every frequency sounds equally loud. No ads, no signup.">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://colorednoise.app/grey-noise.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://colorednoise.app/grey-noise.html">
+    <meta property="og:title" content="Grey Noise Generator - Gray Noise Online, Equal Loudness Noise">
+    <meta property="og:description" content="Free grey noise (gray noise) generator. White noise shaped by an equal-loudness curve so every frequency sounds equally loud. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
+    <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Grey Noise Generator - Gray Noise Online, Equal Loudness Noise">
+    <meta name="twitter:description" content="Free grey noise (gray noise) generator. White noise shaped by an equal-loudness curve so every frequency sounds equally loud. No ads, no signup.">
+    <meta name="twitter:image" content="https://colorednoise.app/social-card.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Article",
+            "@id": "https://colorednoise.app/grey-noise.html#article",
+            "headline": "Grey Noise Generator",
+            "description": "Free grey noise (gray noise) generator. White noise shaped by an equal-loudness curve so every frequency sounds equally loud. No ads, no signup.",
+            "url": "https://colorednoise.app/grey-noise.html",
+            "image": "https://colorednoise.app/social-card.png",
+            "wordCount": 1062,
+            "author": {
+                "@type": "Person",
+                "name": "Gabriel Berger"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Colored Noise",
+                "url": "https://colorednoise.app"
+            },
+            "isPartOf": {
+                "@type": "WebApplication",
+                "@id": "https://colorednoise.app/#website",
+                "name": "Colored Noise"
+            },
+            "mainEntityOfPage": "https://colorednoise.app/grey-noise.html"
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://colorednoise.app/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Grey Noise Generator"
+                }
+            ]
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Is it grey noise or gray noise?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Both spellings refer to the same thing. Grey is standard in British English and gray in American English. Search engines treat them as the same term, and this site uses grey throughout. Either way, it means noise equalized so that all frequencies sound equally loud."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is the difference between grey noise and white noise?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "White noise has equal power at every frequency as measured by an instrument. Grey noise has equal loudness at every frequency as heard by a person, which requires more bass and extreme treble and less midrange. Grey is white noise corrected for the ear's uneven sensitivity."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Is grey noise better for sleep than white noise?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Many people find it more comfortable because it lacks the midrange sharpness of white noise and keeps its low end at quiet volumes. There is no controlled research comparing the two for sleep. If you want a sleep sound, also try grey on top of brown, as in Heavy Blanket, which combines the smoothness of grey with the depth of brown."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Is grey noise the same as A-weighted noise?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Close but not identical. A-weighting is a simplified inverse loudness curve used in sound meters, and grey noise is roughly white noise shaped by the inverse of A-weighting. In practice, implementations differ in which contour they use and at what level. On this site the curve is fixed and tuned by ear for comfortable listening."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Can I combine grey noise with pink or brown noise?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes, and that is how it is implemented here. Grey is a toggle that applies the loudness curve to whatever base color you have selected. Grey plus brown gives a deep, even sound that many people prefer for sleep, while grey plus pink is a good general masker for work. Several presets use these combinations."
+                    }
+                }
+            ]
+        }
+    ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="content-page landing-page">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Colored Noise</a>
+            <span class="separator">/</span>
+            <span>Grey Noise Generator</span>
+        </nav>
+
+        <header class="landing-header">
+            <h1>Grey Noise Generator</h1>
+            <div class="landing-intro">
+                <p>Grey noise is white noise that has been equalized with an inverse equal-loudness curve so that every frequency sounds equally loud to a human ear, rather than measuring equally loud on an instrument. The result has more bass and more extreme treble than white noise and less of the midrange bite, and many people find it the most neutral-sounding of all the colors.</p>
+                <p>The generator on this page runs in your browser with no ads, signup or tracking, and the source code is public. Grey noise here is a toggle rather than a fixed color: it applies the perceptual curve on top of whatever color the slider is set to, so you can have grey white noise, grey pink noise or grey brown noise. The sound is synthesized live and never loops.</p>
+            </div>
+        </header>
+
+        <div class="preset-cta">
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="31"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview Grey Noise</span></button>
+                <a href="/?preset=31" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Free, no ads, no signup. Runs entirely in your browser.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
+        </div>
+
+        <section>
+            <h2>What grey noise sounds like</h2>
+            <p>Switch between plain white noise and grey noise and the difference is immediate. White noise seems to live in the upper midrange; grey noise spreads out, with a weight in the low end you can feel and a sheen at the very top, while the 2 to 5 kHz region where the ear is sharpest is pulled back. The effect is something like the difference between a small radio speaker and a full-range system playing the same static.</p>
+            <p>At low volume, grey noise holds its balance better than white. Turn white noise down and the bass vanishes first, leaving only hiss; grey noise is pre-compensated for that, so it stays full even when quiet. This is one reason it is popular for overnight use at very low levels.</p>
+        </section>
+
+        <section>
+            <h2>The idea behind grey noise</h2>
+            <p>Human hearing is not flat. Equal-loudness contours, first measured by Fletcher and Munson in the 1930s and refined in the ISO 226 standard, show that a 50 Hz tone needs roughly 30 dB more sound pressure than a 3 kHz tone to sound as loud. The ear is also less sensitive above about 10 kHz. White noise, being flat in power, therefore sounds midrange-heavy.</p>
+            <p>Grey noise inverts one of these contours and applies it to white noise. Where the ear is insensitive, the noise gets a boost; where the ear is sensitive, it is cut. Unlike the other colors, grey noise is not a power law and cannot be described by a single dB-per-octave slope. It is defined by psychoacoustics rather than by mathematics, which is why it is a modifier rather than a point on the color slider. See <a href="/physics.html">the physics page</a> for how it relates to the others.</p>
+        </section>
+
+        <section>
+            <h2>How this site generates grey noise</h2>
+            <p>The generator first produces the base color you have selected, from violet to brown, using white noise and the appropriate integration, differentiation or Kellett filter. With the grey toggle on, that signal then passes through a fixed equalization stage that approximates the inverse of a mid-level equal-loudness contour: a bass shelf, a broad cut around 3 to 4 kHz, and a treble lift. The curve is applied in an audio worklet on every sample, so the output is continuous.</p>
+            <p>Because it is a modifier, grey noise on this site is really a family. The <a href="/presets/grey-noise.html">Grey Noise</a> preset applies the curve to white noise, which is the textbook definition. <a href="/presets/heavy-blanket.html">Heavy Blanket</a> applies it to brown, and <a href="/presets/focus-zone.html">Focus Zone</a> to pink-brown. Fifteen of the seventy-one presets use it, across the sleep, focus, mechanical and ambient categories.</p>
+        </section>
+
+        <section>
+            <h2>Who uses grey noise</h2>
+            <p>People who find white noise harsh but pink noise too dull often settle on grey. It is well suited to masking at low volume, since its balance survives being turned down, and its broad coverage makes it a common choice for tinnitus masking where the ringing pitch is unknown or changes. Audio engineers use equal-loudness-weighted noise to judge the perceived balance of headphones and rooms.</p>
+            <p>It is also the default EQ on many of this site's mechanical presets, such as <a href="/presets/airplane-cabin.html">Airplane Cabin</a> and <a href="/presets/box-fan.html">Box Fan</a>, because the real sounds they imitate are heard through the ear's own curve and the EQ brings the synthetic version closer to that impression. Without it, a synthesized fan sounds like a hiss; with it, it gains the low-frequency body of the real thing.</p>
+        </section>
+
+        <section>
+            <h2>Using the grey noise generator</h2>
+            <p>Press play to load Grey Noise, which is the perceptual curve applied to pure white. To hear the curve on a different color, move the color slider while leaving the grey toggle on; a setting around 3.5 with grey enabled is what several of the sleep and focus presets use. Toggle grey off and on to hear exactly what it is doing.</p>
+            <p>Set the sleep timer for a gentle fade-out at night, copy the URL to keep your settings, export a WAV for a bedside player, or install the page as an app so it works without a connection. Because the grey curve is calculated rather than baked into a recording, it applies cleanly whatever volume or color you choose, and it costs nothing in loading time.</p>
+        </section>
+
+        <section>
+            <h2>Recommended presets</h2>
+            <ul class="preset-picks">
+                <li>
+                    <a class="pick-name" href="/presets/grey-noise.html">Grey Noise</a>
+                    <span class="pick-why">The perceptual curve applied to pure white noise, the reference for this page.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="31"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=31">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/heavy-blanket.html">Heavy Blanket</a>
+                    <span class="pick-why">Grey EQ on brown noise, deep and even, the most popular grey preset for sleep.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="5"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=5">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/focus-zone.html">Focus Zone</a>
+                    <span class="pick-why">Grey EQ on a pink-brown blend, balanced masking for work.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="9"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=9">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/airplane-cabin.html">Airplane Cabin</a>
+                    <span class="pick-why">Grey EQ on pink-brown, the steady cabin roar many people sleep well to.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="35"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=35">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/box-fan.html">Box Fan</a>
+                    <span class="pick-why">Grey EQ with a uniform texture, close to a fan running in the next room.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="36"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=36">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/tinnitus-mask.html">Tinnitus Mask</a>
+                    <span class="pick-why">Grey EQ on a blue-white blend, spread wide to cover an unknown ringing pitch.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="34"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=34">Open &rarr;</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="landing-faq">
+            <h2>Frequently asked questions</h2>
+            <details>
+                <summary>Is it grey noise or gray noise?</summary>
+                <p>Both spellings refer to the same thing. Grey is standard in British English and gray in American English. Search engines treat them as the same term, and this site uses grey throughout. Either way, it means noise equalized so that all frequencies sound equally loud.</p>
+            </details>
+            <details>
+                <summary>What is the difference between grey noise and white noise?</summary>
+                <p>White noise has equal power at every frequency as measured by an instrument. Grey noise has equal loudness at every frequency as heard by a person, which requires more bass and extreme treble and less midrange. Grey is white noise corrected for the ear's uneven sensitivity.</p>
+            </details>
+            <details>
+                <summary>Is grey noise better for sleep than white noise?</summary>
+                <p>Many people find it more comfortable because it lacks the midrange sharpness of white noise and keeps its low end at quiet volumes. There is no controlled research comparing the two for sleep. If you want a sleep sound, also try grey on top of brown, as in Heavy Blanket, which combines the smoothness of grey with the depth of brown.</p>
+            </details>
+            <details>
+                <summary>Is grey noise the same as A-weighted noise?</summary>
+                <p>Close but not identical. A-weighting is a simplified inverse loudness curve used in sound meters, and grey noise is roughly white noise shaped by the inverse of A-weighting. In practice, implementations differ in which contour they use and at what level. On this site the curve is fixed and tuned by ear for comfortable listening.</p>
+            </details>
+            <details>
+                <summary>Can I combine grey noise with pink or brown noise?</summary>
+                <p>Yes, and that is how it is implemented here. Grey is a toggle that applies the loudness curve to whatever base color you have selected. Grey plus brown gives a deep, even sound that many people prefer for sleep, while grey plus pink is a good general masker for work. Several presets use these combinations.</p>
+            </details>
+        </section>
+
+        <aside class="landing-related">
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="/white-noise.html">White Noise Generator</a></li>
+                <li><a href="/pink-noise.html">Pink Noise Generator</a></li>
+                <li><a href="/tinnitus-masking.html">Tinnitus Masking Sound</a></li>
+                <li><a href="/presets/">All 71 presets</a></li>
+                <li><a href="/physics.html">The physics of noise</a></li>
+            </ul>
+        </aside>
+
+        <footer class="landing-footer">
+            <span><a href="/">Colored Noise</a> is free and open source. No ads, no signup, no tracking.</span>
+            <a href="https://github.com/gabrielberger1000/colorednoise">Source on GitHub</a>
+        </footer>
+    </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
+</body>
+</html>

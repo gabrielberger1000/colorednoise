@@ -1,8 +1,12 @@
 # Colored Noise
 
-A free, browser-based noise generator with advanced multi-voice polyrhythm capabilities.
+[![Colored Noise](social-card.png)](https://colorednoise.app)
 
-**Live site:** [colorednoise.app](https://colorednoise.app)
+A free, open-source noise generator that synthesizes white, pink, brown, blue and violet noise in real time in your browser. 71 presets, multi-voice polyrhythms, sleep timer, WAV export. No ads, no signup, no tracking.
+
+**Live site:** [colorednoise.app](https://colorednoise.app) · Installable as an app on phone and desktop, works offline.
+
+**Guides:** [Brown noise](https://colorednoise.app/brown-noise.html) · [Pink noise](https://colorednoise.app/pink-noise.html) · [White noise](https://colorednoise.app/white-noise.html) · [Noise for sleep](https://colorednoise.app/noise-for-sleep.html) · [Noise for focus](https://colorednoise.app/noise-for-focus.html) · [Brown noise & ADHD](https://colorednoise.app/brown-noise-adhd.html) · [Tinnitus masking](https://colorednoise.app/tinnitus-masking.html) · [White vs pink vs brown](https://colorednoise.app/white-vs-pink-vs-brown-noise.html)
 
 ## Features
 
@@ -37,6 +41,7 @@ A free, browser-based noise generator with advanced multi-voice polyrhythm capab
 - **Export to WAV** — render any duration instantly using OfflineAudioContext
 
 ### Interface
+- **Installable app (PWA):** Add to your home screen or desktop; a service worker caches the whole generator so it works offline
 - **Sleep timer** with automatic fade-out
 - **Per-preset fade in/out** durations (ADSR envelope)
 - **Real-time visualizer** (spectrum bars or waveform)
@@ -186,13 +191,19 @@ See `composer/example_*.py` for complete examples.
 index.html                  # Main app
 physics.html                # Physics of noise documentation
 docs.html                   # JSON composition documentation
+brown-noise.html, ...       # Noise guides / landing pages (generated, 11 files)
 sitemap.xml                 # Search engine sitemap
+manifest.webmanifest        # PWA manifest
+sw.js                       # Service worker (offline app shell)
 favicon.svg                 # Browser tab icon
+icons/                      # PWA and Apple touch icons (rendered from favicon.svg)
 social-card.png             # Open Graph / Twitter preview image
 css/
   style.css                 # All styling
 js/
   main.js                   # Entry point
+  pwa.js                    # Service worker registration and install button
+  preset-preview.js         # In-page preview button used on preset and guide pages
   audio-engine.js           # WebAudio context, multi-voice system, effects
   presets.js                # Preset definitions
   ui.js                     # DOM manipulation, events, visualizer, composition system
@@ -200,9 +211,12 @@ worklet/
   noise-processor.js        # AudioWorklet for noise generation & bitcrushing
 presets/
   index.html                # Preset guide (all 71 presets)
-  *.html                    # Individual preset pages (71 files)
+  *.html                    # Individual preset pages (71 files, generated)
 scripts/
   generate-preset-pages.js  # Generator for preset HTML pages
+  preset-content.js         # Hand-written copy for each preset page
+  generate-landing-pages.js # Generator for the noise guide pages
+  landing-content.js        # Copy for the noise guide pages
 composer/
   composer.py               # Python module for creating compositions
   example_ocean.py          # Example: overlapping wave patterns
@@ -218,6 +232,15 @@ The site is a static app. To deploy:
 
 1. Upload the entire directory to any static host (Netlify, Vercel, GitHub Pages, etc.)
 2. Done
+
+The preset pages and noise guides are generated. After editing `js/presets.js`, `scripts/preset-content.js`, or `scripts/landing-content.js`, regenerate them:
+
+```bash
+node scripts/generate-preset-pages.js
+node scripts/generate-landing-pages.js
+```
+
+If you change any file listed in `sw.js` (the app shell), bump `CACHE_VERSION` there so installed apps pick up the update.
 
 ## Local Development
 

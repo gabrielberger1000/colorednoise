@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Heavy Blanket - Free Brown Noise for Sleep | Colored Noise</title>
-    <meta name="description" content="Heavy Blanket: Brown noise. using perceptual equalization for balanced loudness across all frequencies. Gradually fades in over 15 seco... Free online noise generator.">
+    <title>Heavy Blanket – Free Brown Noise Preset (Sleep) | Colored Noise</title>
+    <meta name="description" content="Heavy Blanket: Full brown noise with grey EQ, no pulse, and a quick fifteen-second fade-in. Free brown noise preset for sleep, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/heavy-blanket.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/heavy-blanket.html">
-    <meta property="og:title" content="Heavy Blanket - Free brown Noise Generator">
-    <meta property="og:description" content="Heavy Blanket: Brown noise. using perceptual equalization for balanced loudness across all frequencies. Gradually fades in over 15 seco... Free online noise generator.">
+    <meta property="og:title" content="Heavy Blanket – Free Brown Noise Generator">
+    <meta property="og:description" content="Heavy Blanket: Full brown noise with grey EQ, no pulse, and a quick fifteen-second fade-in. Free brown noise preset for sleep, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Heavy Blanket",
-        "description": "Brown noise. using perceptual equalization for balanced loudness across all frequencies. Gradually fades in over 15 seconds for a smooth transition.",
+        "description": "Full brown noise with grey EQ, no pulse, and a quick fifteen-second fade-in",
         "url": "https://colorednoise.app/presets/heavy-blanket.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Heavy Blanket"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Heavy Blanket",
-            "description": "Brown noise. using perceptual equalization for balanced loudness across all frequencies. Gradually fades in over 15 seconds for a smooth transition.",
+            "description": "This is the sound of a jet engine idling three gates away, or a big idling truck heard through a closed window. It is dense, constant and low, with no swell or motion of any kind. Heavy Blanket is the simplest of the sleep presets and for many people the most effective. The color is set to the full brown value of 4, which rolls off at roughly 6 dB per octave and leaves very little above a few hundred hertz. Grey EQ is enabled to keep the low end from turning into mud on headphones. The pulse is off, and the fade-in is a relatively brisk 15 seconds. If you want to fall asleep fast and simply need a wall of low sound, this is usually the first pick. Deep Brown in the ambient category is the same color without grey EQ, and Lucid Dream is the closest sleep sibling, sitting at 3.8 without equalization.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Sleep noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Heavy Blanket</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #8b5cf6">Sleep</span>
             <h1>Heavy Blanket</h1>
-            <p class="preset-tagline">brown noise (deep, rumbling bass)</p>
+            <p class="preset-tagline">Full brown noise with grey EQ, no pulse, and a quick fifteen-second fade-in</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=5" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Heavy Blanket loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="5"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=5" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>Brown noise. using perceptual equalization for balanced loudness across all frequencies. Gradually fades in over 15 seconds for a smooth transition.</p>
+            <p>This is the sound of a jet engine idling three gates away, or a big idling truck heard through a closed window. It is dense, constant and low, with no swell or motion of any kind. Heavy Blanket is the simplest of the sleep presets and for many people the most effective.</p>
+            <p>The color is set to the full brown value of 4, which rolls off at roughly 6 dB per octave and leaves very little above a few hundred hertz. Grey EQ is enabled to keep the low end from turning into mud on headphones. The pulse is off, and the fade-in is a relatively brisk 15 seconds.</p>
+            <p>If you want to fall asleep fast and simply need a wall of low sound, this is usually the first pick. <a href='/presets/deep-brown.html'>Deep Brown</a> in the ambient category is the same color without grey EQ, and <a href='/presets/lucid-dream.html'>Lucid Dream</a> is the closest sleep sibling, sitting at 3.8 without equalization.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Falling asleep</li>
-                <li>Staying asleep</li>
-                <li>Blocking nighttime disturbances</li>
-                <li>Creating a calming bedtime routine</li>
+                <li>Blocking traffic and sirens</li>
+                <li>Deep sleepers who wake early</li>
+                <li>Sharing a wall with neighbours</li>
+                <li>Recovery sleep after long shifts</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> If it sounds boomy on a small speaker, nudge the color slider down to 3.7 or turn grey EQ off and compare.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Brown</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>Brown (4)</dd>
                 <dt>Fade In</dt>
                 <dd>15 seconds</dd>
-
-                
-
-                
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/brown-noise.html">Learn more about brown noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/drift-away.html" class="prev-preset">&larr; Drift Away</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/midnight-hum.html" class="next-preset">Midnight Hum &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

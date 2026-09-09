@@ -1,0 +1,25 @@
+{
+  "name": "Colored Noise",
+  "short_name": "Colored Noise",
+  "description": "Free noise generator for sleep and focus. White, pink, brown, blue and violet noise synthesized in your browser. No ads, no signup, no tracking.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "lang": "en",
+  "categories": ["health", "music", "productivity", "utilities"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Deep Sleep", "url": "/?preset=0", "description": "Start the Deep Sleep preset" },
+    { "name": "Focus Zone", "url": "/?preset=9", "description": "Start the Focus Zone preset" },
+    { "name": "Deep Brown", "url": "/?preset=28", "description": "Start pure brown noise" }
+  ]
+}

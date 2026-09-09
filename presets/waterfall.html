@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Waterfall - Free Pink Noise for Nature | Colored Noise</title>
-    <meta name="description" content="Waterfall: A blend of white and pink noise. Free online noise generator.">
+    <title>Waterfall – Free Pink Noise Preset (Nature) | Colored Noise</title>
+    <meta name="description" content="Waterfall: Bright, gritty noise at 2.8 with uniform texture, like standing beside a cascade. Free pink noise preset for nature, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/waterfall.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/waterfall.html">
-    <meta property="og:title" content="Waterfall - Free pink Noise Generator">
-    <meta property="og:description" content="Waterfall: A blend of white and pink noise. Free online noise generator.">
+    <meta property="og:title" content="Waterfall – Free Pink Noise Generator">
+    <meta property="og:description" content="Waterfall: Bright, gritty noise at 2.8 with uniform texture, like standing beside a cascade. Free pink noise preset for nature, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Waterfall",
-        "description": "A blend of white and pink noise.",
+        "description": "Bright, gritty noise at 2.8 with uniform texture, like standing beside a cascade",
         "url": "https://colorednoise.app/presets/waterfall.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Waterfall"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Waterfall",
-            "description": "A blend of white and pink noise.",
+            "description": "Waterfall is the roar you hear standing on a footbridge beside a cascade: brighter and more textured than rain, with a sandy, spraying quality in the high frequencies. It is the most energetic of the nature presets and masks a wide range of sounds. Stand by it long enough and voices, keyboards and traffic all disappear into the spray. The color is 2.8, just on the white side of pink, so there is plenty of treble energy. The distribution is uniform rather than Gaussian, which adds a fine grain to the texture that reads as spray. Grey EQ and pulse are both off, and the fade-in is three seconds. It suits people who find rain presets too soft, and those who need a nature sound that covers voices. Heavy Rain is warmer and smoother at 3.3, and Mountain Wind goes even brighter at 1.8 but with gusting rather than a constant roar. Try it during the day rather than at night; it is a lot of sound to sleep through.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Nature noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Waterfall</span>
         </nav>
@@ -62,42 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #22c55e">Nature</span>
             <h1>Waterfall</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Bright, gritty noise at 2.8 with uniform texture, like standing beside a cascade</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=20" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Waterfall loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="20"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=20" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of white and pink noise.</p>
+            <p>Waterfall is the roar you hear standing on a footbridge beside a cascade: brighter and more textured than rain, with a sandy, spraying quality in the high frequencies. It is the most energetic of the nature presets and masks a wide range of sounds. Stand by it long enough and voices, keyboards and traffic all disappear into the spray.</p>
+            <p>The color is 2.8, just on the white side of pink, so there is plenty of treble energy. The distribution is uniform rather than Gaussian, which adds a fine grain to the texture that reads as spray. Grey EQ and pulse are both off, and the fade-in is three seconds.</p>
+            <p>It suits people who find rain presets too soft, and those who need a nature sound that covers voices. <a href='/presets/heavy-rain.html'>Heavy Rain</a> is warmer and smoother at 3.3, and <a href='/presets/mountain-wind.html'>Mountain Wind</a> goes even brighter at 1.8 but with gusting rather than a constant roar. Try it during the day rather than at night; it is a lot of sound to sleep through.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Relaxation</li>
-                <li>Meditation</li>
-                <li>Creating a peaceful atmosphere</li>
-                <li>Stress relief</li>
+                <li>Masking loud conversations</li>
+                <li>Daytime focus with a nature feel</li>
+                <li>Kitchen or workshop background</li>
+                <li>Covering upstairs footsteps</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Enable grey EQ to soften the spray if the top end feels sharp on earbuds.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink (2.8)</dd>
-
-                
-
-                
-
+                <dd>Pink (2.80 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>3 seconds</dd>
-
-                
-
-                
+                <dt>Distribution</dt>
+                <dd>Uniform (slightly grittier texture)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/distant-thunder.html" class="prev-preset">&larr; Distant Thunder</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/windy-day.html" class="next-preset">Windy Day &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

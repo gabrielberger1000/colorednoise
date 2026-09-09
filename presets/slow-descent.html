@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Slow Descent - Free Brown Noise for Sleep | Colored Noise</title>
-    <meta name="description" content="Slow Descent: A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 45 seconds for a smooth transitio... Free online noise generator.">
+    <title>Slow Descent – Free Brown Noise Preset (Sleep) | Colored Noise</title>
+    <meta name="description" content="Slow Descent: Noise at 3.75 that takes 45 seconds to arrive and swells every 25 seconds. Free brown noise preset for sleep, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/slow-descent.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/slow-descent.html">
-    <meta property="og:title" content="Slow Descent - Free brown Noise Generator">
-    <meta property="og:description" content="Slow Descent: A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 45 seconds for a smooth transitio... Free online noise generator.">
+    <meta property="og:title" content="Slow Descent – Free Brown Noise Generator">
+    <meta property="og:description" content="Slow Descent: Noise at 3.75 that takes 45 seconds to arrive and swells every 25 seconds. Free brown noise preset for sleep, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Slow Descent",
-        "description": "A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 45 seconds for a smooth transition.",
+        "description": "Noise at 3.75 that takes 45 seconds to arrive and swells every 25 seconds",
         "url": "https://colorednoise.app/presets/slow-descent.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Slow Descent"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Slow Descent",
-            "description": "A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 45 seconds for a smooth transition.",
+            "description": "Slow Descent is designed around patience. It sounds like a distant weir or a far-off wind that leans in and backs off so slowly you will lose track of where it is in the cycle. The overall tone is warm and slightly textured, a step brighter than pure brown. The color is 3.75, and a triangle-shaped pulse at 0.04 Hz makes one straight ramp up and one down every 25 seconds. The fade-in is 45 seconds, the longest of any built-in preset, so the first swell does not even reach full volume until you are well into settling down. Grey EQ is off. It tends to be picked by people who put the sound on while they are still reading or stretching, rather than at the moment they close their eyes. Night Cocoon has a similar triangle swell on a 20-second cycle with grey EQ, and Deep Sleep is darker and cycles three times as fast.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Sleep noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Slow Descent</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #8b5cf6">Sleep</span>
             <h1>Slow Descent</h1>
-            <p class="preset-tagline">brown noise (deep, rumbling bass)</p>
+            <p class="preset-tagline">Noise at 3.75 that takes 45 seconds to arrive and swells every 25 seconds</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=8" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Slow Descent loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="8"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=8" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 45 seconds for a smooth transition.</p>
+            <p>Slow Descent is designed around patience. It sounds like a distant weir or a far-off wind that leans in and backs off so slowly you will lose track of where it is in the cycle. The overall tone is warm and slightly textured, a step brighter than pure brown.</p>
+            <p>The color is 3.75, and a triangle-shaped pulse at 0.04 Hz makes one straight ramp up and one down every 25 seconds. The fade-in is 45 seconds, the longest of any built-in preset, so the first swell does not even reach full volume until you are well into settling down. Grey EQ is off.</p>
+            <p>It tends to be picked by people who put the sound on while they are still reading or stretching, rather than at the moment they close their eyes. <a href='/presets/night-cocoon.html'>Night Cocoon</a> has a similar triangle swell on a 20-second cycle with grey EQ, and <a href='/presets/deep-sleep.html'>Deep Sleep</a> is darker and cycles three times as fast.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Falling asleep</li>
-                <li>Staying asleep</li>
-                <li>Blocking nighttime disturbances</li>
-                <li>Creating a calming bedtime routine</li>
+                <li>A long wind-down routine</li>
+                <li>Slow stretching before bed</li>
+                <li>Falling asleep with a book</li>
+                <li>Guided relaxation recordings</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Pair it with the sleep timer set to 60 minutes and let the long fade-out mirror the long fade-in.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Brown (3.8)</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.04 Hz triangle</dd>
-
-                
-
+                <dd>Brown (3.75 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>45 seconds</dd>
-
-                
-
-                
+                <dt>Modulation</dt>
+                <dd>0.04 Hz triangle (one cycle every 25 s)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/brown-noise.html">Learn more about brown noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/delta-waves.html" class="prev-preset">&larr; Delta Waves</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/focus-zone.html" class="next-preset">Focus Zone &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

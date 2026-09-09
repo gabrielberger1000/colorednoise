@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Pulse Rhythm - Free White Noise for Textured | Colored Noise</title>
-    <meta name="description" content="Pulse Rhythm: A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies. Features a ... Free online noise generator.">
+    <title>Pulse Rhythm – Free White Noise Preset (Textured) | Colored Noise</title>
+    <meta name="description" content="Pulse Rhythm: Grey-equalized white-pink noise gated in a 1.7-second cycle, a slow steady pulse. Free white noise preset for textured, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/pulse-rhythm.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/pulse-rhythm.html">
-    <meta property="og:title" content="Pulse Rhythm - Free white Noise Generator">
-    <meta property="og:description" content="Pulse Rhythm: A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies. Features a ... Free online noise generator.">
+    <meta property="og:title" content="Pulse Rhythm – Free White Noise Generator">
+    <meta property="og:description" content="Pulse Rhythm: Grey-equalized white-pink noise gated in a 1.7-second cycle, a slow steady pulse. Free white noise preset for textured, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Pulse Rhythm",
-        "description": "A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies. Features a 0.1s fade-in and 0.8s fade-out in a repeating cycle.",
+        "description": "Grey-equalized white-pink noise gated in a 1.7-second cycle, a slow steady pulse",
         "url": "https://colorednoise.app/presets/pulse-rhythm.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Pulse Rhythm"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Pulse Rhythm",
-            "description": "A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies. Features a 0.1s fade-in and 0.8s fade-out in a repeating cycle.",
+            "description": "Pulse Rhythm is a soft, regular thump of noise, like a slow heartbeat or a washing machine on a gentle cycle heard from another room. Each pulse arrives quickly, drops to a quieter tail and fades, then the next one comes. It is calm rather than driving. The color is 2.5, between white and pink, with grey EQ on so the pulse feels full rather than hissy. The envelope loop attacks in 0.1 seconds, decays over 0.3 to a 50 percent sustain, holds for 0.5 and releases over 0.8, a cycle of 1.7 seconds, or about 35 pulses a minute. There is no LFO pulse. It suits people who like a rhythmic anchor without the aggression of the mechanical presets. Diesel Engine is the darker, faster chug at full brown, and Machine Rhythm in the experimental category multiplies this idea into four interlocking gated voices. At low volume it can also serve as a loose timekeeper for slow breathing or walking.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Textured noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Pulse Rhythm</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ec4899">Textured</span>
             <h1>Pulse Rhythm</h1>
-            <p class="preset-tagline">white noise (balanced frequencies)</p>
+            <p class="preset-tagline">Grey-equalized white-pink noise gated in a 1.7-second cycle, a slow steady pulse</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=60" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Pulse Rhythm loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="60"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=60" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies. Features a 0.1s fade-in and 0.8s fade-out in a repeating cycle.</p>
+            <p>Pulse Rhythm is a soft, regular thump of noise, like a slow heartbeat or a washing machine on a gentle cycle heard from another room. Each pulse arrives quickly, drops to a quieter tail and fades, then the next one comes. It is calm rather than driving.</p>
+            <p>The color is 2.5, between white and pink, with grey EQ on so the pulse feels full rather than hissy. The envelope loop attacks in 0.1 seconds, decays over 0.3 to a 50 percent sustain, holds for 0.5 and releases over 0.8, a cycle of 1.7 seconds, or about 35 pulses a minute. There is no LFO pulse.</p>
+            <p>It suits people who like a rhythmic anchor without the aggression of the mechanical presets. <a href='/presets/diesel-engine.html'>Diesel Engine</a> is the darker, faster chug at full brown, and <a href='/presets/machine-rhythm.html'>Machine Rhythm</a> in the experimental category multiplies this idea into four interlocking gated voices. At low volume it can also serve as a loose timekeeper for slow breathing or walking.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Meditation</li>
-                <li>Sound design</li>
-                <li>Immersive experiences</li>
-                <li>Ambient music production</li>
+                <li>Slow rhythmic grounding</li>
+                <li>Walking meditation pace</li>
+                <li>Rocking infants to sleep</li>
+                <li>Metronome-like background</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Set the duration to 0.2 and the release to 0.4 for a cycle near one second, about the pace of a resting heartbeat.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>White (2.5)</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>White (2.50 on the 0–4 scale)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 0.1s, Sustain: 0.5, Release: 0.8s</dd>
-
-                
-
-                
+                <dd>0.1s in, hold 0.5s, 0.8s out (1.7s cycle)</dd>
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/waves-loop.html" class="prev-preset">&larr; Waves Loop</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/slow-swell.html" class="next-preset">Slow Swell &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

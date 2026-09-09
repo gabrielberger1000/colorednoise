@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Pure White - Free White Noise for Ambient | Colored Noise</title>
-    <meta name="description" content="Pure White: White noise. Free online noise generator.">
+    <title>Pure White – Free White Noise Preset (Ambient) | Colored Noise</title>
+    <meta name="description" content="Pure White: Flat white noise at exactly 2, Gaussian, no EQ, one-second fade, the reference sound. Free white noise preset for ambient, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/pure-white.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/pure-white.html">
-    <meta property="og:title" content="Pure White - Free white Noise Generator">
-    <meta property="og:description" content="Pure White: White noise. Free online noise generator.">
+    <meta property="og:title" content="Pure White – Free White Noise Generator">
+    <meta property="og:description" content="Pure White: Flat white noise at exactly 2, Gaussian, no EQ, one-second fade, the reference sound. Free white noise preset for ambient, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Pure White",
-        "description": "White noise.",
+        "description": "Flat white noise at exactly 2, Gaussian, no EQ, one-second fade, the reference sound",
         "url": "https://colorednoise.app/presets/pure-white.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Pure White"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Pure White",
-            "description": "White noise.",
+            "description": "Pure White is the classic hiss of an untuned analogue television or a radio between stations: equal energy at every frequency, which the ear hears as bright and slightly sharp because there are so many more audible frequencies in the upper octaves than the lower ones. The color is set to exactly 2, white, with a flat power spectrum. The distribution is Gaussian, grey EQ is off, the pulse is off, and the fade-in is one second. There is no processing of any kind, which makes it the baseline against which every other preset can be compared. It is used mostly by people who already know they like white noise, and by anyone testing headphones or a room. Grey Noise is the same color with perceptual EQ applied, and Standard Pink is the warmer -3 dB per octave version. The physics page explains the maths.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Ambient noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Pure White</span>
         </nav>
@@ -62,42 +66,42 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #10b981">Ambient</span>
             <h1>Pure White</h1>
-            <p class="preset-tagline">white noise (balanced frequencies)</p>
+            <p class="preset-tagline">Flat white noise at exactly 2, Gaussian, no EQ, one-second fade, the reference sound</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=26" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Pure White loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="26"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=26" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>White noise.</p>
+            <p>Pure White is the classic hiss of an untuned analogue television or a radio between stations: equal energy at every frequency, which the ear hears as bright and slightly sharp because there are so many more audible frequencies in the upper octaves than the lower ones.</p>
+            <p>The color is set to exactly 2, white, with a flat power spectrum. The distribution is Gaussian, grey EQ is off, the pulse is off, and the fade-in is one second. There is no processing of any kind, which makes it the baseline against which every other preset can be compared.</p>
+            <p>It is used mostly by people who already know they like white noise, and by anyone testing headphones or a room. <a href='/presets/grey-noise.html'>Grey Noise</a> is the same color with perceptual EQ applied, and <a href='/presets/standard-pink.html'>Standard Pink</a> is the warmer -3 dB per octave version. The <a href='/physics.html'>physics page</a> explains the maths.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Background noise</li>
-                <li>Masking distractions</li>
-                <li>Tinnitus relief</li>
-                <li>General relaxation</li>
+                <li>Testing speakers and headphones</li>
+                <li>Classic white-noise sleepers</li>
+                <li>Masking a wide range of sounds</li>
+                <li>Comparing noise colors</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> If it feels harsh, try Grey Noise first before reaching for pink; the EQ alone fixes it for many people.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>White</dd>
-
-                
-
-                
-
+                <dd>White (2)</dd>
                 <dt>Fade In</dt>
                 <dd>1 seconds</dd>
-
-                
-
-                
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +119,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/seaside-cave.html" class="prev-preset">&larr; Seaside Cave</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/standard-pink.html" class="next-preset">Standard Pink &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

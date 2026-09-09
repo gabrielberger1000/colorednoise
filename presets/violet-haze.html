@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Violet Haze - Free Violet Noise for Ambient | Colored Noise</title>
-    <meta name="description" content="Violet Haze: A blend of violet and blue noise. Free online noise generator.">
+    <title>Violet Haze – Free Violet Noise Preset (Ambient) | Colored Noise</title>
+    <meta name="description" content="Violet Haze: Near-pure violet noise at 0.2, rising 6 dB per octave, very bright and glassy. Free violet noise preset for ambient, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/violet-haze.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/violet-haze.html">
-    <meta property="og:title" content="Violet Haze - Free violet Noise Generator">
-    <meta property="og:description" content="Violet Haze: A blend of violet and blue noise. Free online noise generator.">
+    <meta property="og:title" content="Violet Haze – Free Violet Noise Generator">
+    <meta property="og:description" content="Violet Haze: Near-pure violet noise at 0.2, rising 6 dB per octave, very bright and glassy. Free violet noise preset for ambient, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Violet Haze",
-        "description": "A blend of violet and blue noise.",
+        "description": "Near-pure violet noise at 0.2, rising 6 dB per octave, very bright and glassy",
         "url": "https://colorednoise.app/presets/violet-haze.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Violet Haze"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Violet Haze",
-            "description": "A blend of violet and blue noise.",
+            "description": "Violet Haze is the brightest sound in the collection, like the sizzle of a hot pan or a very high, glassy hiss with nothing underneath it. It has practically no mid or low content, and most of what you hear sits in the top two octaves of your hearing. The color is 0.2, almost pure violet, with a spectral slope close to +6 dB per octave. It is the derivative of white noise, the inverse of brown, and it is left completely unprocessed: no grey EQ, no pulse, Gaussian distribution and a two-second fade-in. Few people use this for hours, but it is useful for masking very high-pitched tones and for exploring the extremes of the color scale. Blue Sky is a step warmer at 1, and ASMR Static in the experimental category tames a similar 0.3 with grey EQ and uniform texture.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Ambient noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Violet Haze</span>
         </nav>
@@ -62,42 +66,42 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #10b981">Ambient</span>
             <h1>Violet Haze</h1>
-            <p class="preset-tagline">violet noise (high-frequency emphasis)</p>
+            <p class="preset-tagline">Near-pure violet noise at 0.2, rising 6 dB per octave, very bright and glassy</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=30" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Violet Haze loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="30"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=30" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of violet and blue noise.</p>
+            <p>Violet Haze is the brightest sound in the collection, like the sizzle of a hot pan or a very high, glassy hiss with nothing underneath it. It has practically no mid or low content, and most of what you hear sits in the top two octaves of your hearing.</p>
+            <p>The color is 0.2, almost pure violet, with a spectral slope close to +6 dB per octave. It is the derivative of white noise, the inverse of brown, and it is left completely unprocessed: no grey EQ, no pulse, Gaussian distribution and a two-second fade-in.</p>
+            <p>Few people use this for hours, but it is useful for masking very high-pitched tones and for exploring the extremes of the color scale. <a href='/presets/blue-sky.html'>Blue Sky</a> is a step warmer at 1, and <a href='/presets/asmr-static.html'>ASMR Static</a> in the experimental category tames a similar 0.3 with grey EQ and uniform texture.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Background noise</li>
-                <li>Masking distractions</li>
-                <li>Tinnitus relief</li>
-                <li>General relaxation</li>
+                <li>Masking high-frequency ringing</li>
+                <li>Exploring the color extremes</li>
+                <li>Sound design ingredients</li>
+                <li>Short bursts of alertness</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Enable grey EQ and slide the color to 0.5 for a version that keeps the sparkle without the sting.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Violet (0.2)</dd>
-
-                
-
-                
-
+                <dd>Violet (0.20 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>2 seconds</dd>
-
-                
-
-                
             </dl>
+            <p class="learn-more-link"><a href="/violet-noise.html">Learn more about violet noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +119,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/blue-sky.html" class="prev-preset">&larr; Blue Sky</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/grey-noise.html" class="next-preset">Grey Noise &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Warm Hiss - Free White Noise for Textured | Colored Noise</title>
-    <meta name="description" content="Warm Hiss: A blend of white and pink noise. with warm analog-style saturation. Free online noise generator.">
+    <title>Warm Hiss – Free White Noise Preset (Textured) | Colored Noise</title>
+    <meta name="description" content="Warm Hiss: White-pink noise at 2.5 through warm saturation, a softened tape-like hiss. Free white noise preset for textured, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/warm-hiss.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/warm-hiss.html">
-    <meta property="og:title" content="Warm Hiss - Free white Noise Generator">
-    <meta property="og:description" content="Warm Hiss: A blend of white and pink noise. with warm analog-style saturation. Free online noise generator.">
+    <meta property="og:title" content="Warm Hiss – Free White Noise Generator">
+    <meta property="og:description" content="Warm Hiss: White-pink noise at 2.5 through warm saturation, a softened tape-like hiss. Free white noise preset for textured, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Warm Hiss",
-        "description": "A blend of white and pink noise. with warm analog-style saturation.",
+        "description": "White-pink noise at 2.5 through warm saturation, a softened tape-like hiss",
         "url": "https://colorednoise.app/presets/warm-hiss.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Warm Hiss"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Warm Hiss",
-            "description": "A blend of white and pink noise. with warm analog-style saturation.",
+            "description": "Warm Hiss is the sound of an analogue tape machine or a valve amplifier idling: a bright noise floor that has been gently squashed so the edges are rounded and the tone feels thicker. It is brighter than the pink presets but far less spiky than plain white noise. The color is 2.5, halfway between white and pink. Warm-mode saturation at 0.6 compresses the peaks and adds low-order harmonics, which fattens the sound and takes the sting out of the treble. There is no pulse, EQ or envelope, and the fade-in is two seconds before it settles. It suits people who like a bright noise for focus but find white or blue tiring after an hour. Beta Boost in the focus category is the same color without saturation, and Lo-Fi Crunch takes a different route to warmth through bit reduction rather than saturation.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Textured noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Warm Hiss</span>
         </nav>
@@ -62,42 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ec4899">Textured</span>
             <h1>Warm Hiss</h1>
-            <p class="preset-tagline">white noise (balanced frequencies)</p>
+            <p class="preset-tagline">White-pink noise at 2.5 through warm saturation, a softened tape-like hiss</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=64" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Warm Hiss loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="64"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=64" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of white and pink noise. with warm analog-style saturation.</p>
+            <p>Warm Hiss is the sound of an analogue tape machine or a valve amplifier idling: a bright noise floor that has been gently squashed so the edges are rounded and the tone feels thicker. It is brighter than the pink presets but far less spiky than plain white noise.</p>
+            <p>The color is 2.5, halfway between white and pink. Warm-mode saturation at 0.6 compresses the peaks and adds low-order harmonics, which fattens the sound and takes the sting out of the treble. There is no pulse, EQ or envelope, and the fade-in is two seconds before it settles.</p>
+            <p>It suits people who like a bright noise for focus but find white or blue tiring after an hour. <a href='/presets/beta-boost.html'>Beta Boost</a> in the focus category is the same color without saturation, and <a href='/presets/lo-fi-crunch.html'>Lo-Fi Crunch</a> takes a different route to warmth through bit reduction rather than saturation.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Meditation</li>
-                <li>Sound design</li>
-                <li>Immersive experiences</li>
-                <li>Ambient music production</li>
+                <li>Tape-machine studio atmosphere</li>
+                <li>Bright focus without fatigue</li>
+                <li>Lo-fi music beds</li>
+                <li>Masking on cheap earbuds</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Raise the saturation toward 0.9 for a thicker, more compressed hiss that sits further back in the mix.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>White (2.5)</dd>
-
-                
-
-                
-
+                <dd>White (2.50 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>2 seconds</dd>
-
-                
-
-                
+                <dt>Saturation</dt>
+                <dd>60% (warm)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/layered-depths.html" class="prev-preset">&larr; Layered Depths</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/lo-fi-crunch.html" class="next-preset">Lo-Fi Crunch &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

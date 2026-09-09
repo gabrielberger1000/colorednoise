@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Machine Rhythm - Free Mixed Noise for Experimental | Colored Noise</title>
-    <meta name="description" content="Machine Rhythm: A multi-voice layered soundscape combining 4 independent noise generators. processed through a lo-fi bitcrusher effect. Free online noise generator.">
+    <title>Machine Rhythm – Free White Noise Preset (Experimental) | Colored Noise</title>
+    <meta name="description" content="Machine Rhythm: Four bit-reduced gated voices at different rates interlocking into an industrial pattern. Free white noise preset for experimental, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/machine-rhythm.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/machine-rhythm.html">
-    <meta property="og:title" content="Machine Rhythm - Free mixed Noise Generator">
-    <meta property="og:description" content="Machine Rhythm: A multi-voice layered soundscape combining 4 independent noise generators. processed through a lo-fi bitcrusher effect. Free online noise generator.">
+    <meta property="og:title" content="Machine Rhythm – Free White Noise Generator">
+    <meta property="og:description" content="Machine Rhythm: Four bit-reduced gated voices at different rates interlocking into an industrial pattern. Free white noise preset for experimental, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Machine Rhythm",
-        "description": "A multi-voice layered soundscape combining 4 independent noise generators. processed through a lo-fi bitcrusher effect.",
+        "description": "Four bit-reduced gated voices at different rates interlocking into an industrial pattern",
         "url": "https://colorednoise.app/presets/machine-rhythm.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Machine Rhythm"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Machine Rhythm",
-            "description": "A multi-voice layered soundscape combining 4 independent noise generators. processed through a lo-fi bitcrusher effect.",
+            "description": "Machine Rhythm is a factory floor of small machines each running at its own pace: a stamping press on the left, a slower one on the right, a deep thump in the centre and a fast tick underneath. Because none of the cycles line up, the pattern keeps shifting without ever quite repeating. Four voices run at once: white noise on the left cycling every 0.65 seconds, a 2.5 color on the right every second, full brown in the centre every 2.2 seconds, and a quiet blue tick every 0.37 seconds. The mix is bit-reduced to 10 bits with 2x sample-rate reduction and uses uniform distribution for grit. This is a sound-design and creative preset rather than a sleep sound. Static TV is the single-voice gated ancestor, and Pulse Rhythm in the textured category is a single clean gated voice at 2.5 with grey EQ and no bit reduction. Because the voices live in the generator, you can mute or retune any of them while it runs.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Experimental noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Machine Rhythm</span>
         </nav>
@@ -62,42 +66,52 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ef4444">Experimental</span>
             <h1>Machine Rhythm</h1>
-            <p class="preset-tagline">multi-voice layered noise</p>
+            <p class="preset-tagline">Four bit-reduced gated voices at different rates interlocking into an industrial pattern</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=69" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Machine Rhythm loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="69"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=69" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A multi-voice layered soundscape combining 4 independent noise generators. processed through a lo-fi bitcrusher effect.</p>
+            <p>Machine Rhythm is a factory floor of small machines each running at its own pace: a stamping press on the left, a slower one on the right, a deep thump in the centre and a fast tick underneath. Because none of the cycles line up, the pattern keeps shifting without ever quite repeating.</p>
+            <p>Four voices run at once: white noise on the left cycling every 0.65 seconds, a 2.5 color on the right every second, full brown in the centre every 2.2 seconds, and a quiet blue tick every 0.37 seconds. The mix is bit-reduced to 10 bits with 2x sample-rate reduction and uses uniform distribution for grit.</p>
+            <p>This is a sound-design and creative preset rather than a sleep sound. <a href='/presets/static-tv.html'>Static TV</a> is the single-voice gated ancestor, and <a href='/presets/pulse-rhythm.html'>Pulse Rhythm</a> in the textured category is a single clean gated voice at 2.5 with grey EQ and no bit reduction. Because the voices live in the generator, you can mute or retune any of them while it runs.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Creative projects</li>
-                <li>Unique soundscapes</li>
-                <li>ASMR</li>
-                <li>Artistic expression</li>
+                <li>Industrial and techno sketches</li>
+                <li>Polyrhythm experiments</li>
+                <li>Game and film sound assets</li>
+                <li>Rhythmic energy while working</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Mute the fast blue voice and the pattern immediately feels heavier and slower without changing anything else.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
-                <dt>Noise Color</dt>
-                <dd>Mixed</dd>
-
-                
-
-                
-
-                
-
-                
-
                 <dt>Voices</dt>
                 <dd>4 independent layers</dd>
+                <dt>Voice 1</dt>
+                <dd>White (2), 60% left, 0.7s cycle</dd>
+                <dt>Voice 2</dt>
+                <dd>White (2.5), 60% right, 1.0s cycle</dd>
+                <dt>Voice 3</dt>
+                <dd>Brown (4), center, 2.2s cycle</dd>
+                <dt>Voice 4</dt>
+                <dd>Blue (1), center, 0.4s cycle</dd>
+                <dt>Distribution</dt>
+                <dd>Uniform (slightly grittier texture)</dd>
+                <dt>Bitcrusher</dt>
+                <dd>10-bit, 2x sample rate reduction</dd>
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +129,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/breathing-room.html" class="prev-preset">&larr; Breathing Room</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/stereo-clouds.html" class="next-preset">Stereo Clouds &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

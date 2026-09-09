@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Cave Ambience - Free Brown Noise for Textured | Colored Noise</title>
-    <meta name="description" content="Cave Ambience: Brown noise. with slow, gentle modulation. using perceptual equalization for balanced loudness across all frequencies. F... Free online noise generator.">
+    <title>Cave Ambience – Free Brown Noise Preset (Textured) | Colored Noise</title>
+    <meta name="description" content="Cave Ambience: Full brown noise with grey EQ, comb and resonant filters, in a slow sixteen-second cycle. Free brown noise preset for textured, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/cave-ambience.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/cave-ambience.html">
-    <meta property="og:title" content="Cave Ambience - Free brown Noise Generator">
-    <meta property="og:description" content="Cave Ambience: Brown noise. with slow, gentle modulation. using perceptual equalization for balanced loudness across all frequencies. F... Free online noise generator.">
+    <meta property="og:title" content="Cave Ambience – Free Brown Noise Generator">
+    <meta property="og:description" content="Cave Ambience: Full brown noise with grey EQ, comb and resonant filters, in a slow sixteen-second cycle. Free brown noise preset for textured, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Cave Ambience",
-        "description": "Brown noise. with slow, gentle modulation. using perceptual equalization for balanced loudness across all frequencies. Features a 4s fade-in and 5s fade-out in a repeating cycle. featuring resonant harmonic filtering. with metallic comb filter texture.",
+        "description": "Full brown noise with grey EQ, comb and resonant filters, in a slow sixteen-second cycle",
         "url": "https://colorednoise.app/presets/cave-ambience.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Cave Ambience"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Cave Ambience",
-            "description": "Brown noise. with slow, gentle modulation. using perceptual equalization for balanced loudness across all frequencies. Features a 4s fade-in and 5s fade-out in a repeating cycle. featuring resonant harmonic filtering. with metallic comb filter texture.",
+            "description": "Cave Ambience is the deep, echoing hush of a large underground chamber: a low rumble with a hollow, resonant color, swelling and fading so slowly it feels like the rock itself breathing. Water drips and wind are implied by the filtering rather than spelled out. The color is full brown at 4 with grey EQ on. A comb filter with a 25 millisecond delay and 60 percent feedback adds resonances spaced about 40 Hz apart, and resonant filters at 100, 150 and 200 Hz with a Q of 12 add a low chamber tone. The envelope rises over 4 seconds, holds for 6 at 50 percent and releases over 5, a sixteen-second cycle, with a sine pulse at 0.05 Hz swelling every twenty seconds. It suits sleep, meditation and anyone who wants the darkest textured preset. Seaside Cave in the nature category is the unfiltered, wetter cousin at 3.8, and Spaceship Hull is the same filter recipe tuned brighter and more metallic. Of the three it is the darkest and slowest, and the most likely to disappear into the background over a long night.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Textured noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Cave Ambience</span>
         </nav>
@@ -62,44 +66,50 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ec4899">Textured</span>
             <h1>Cave Ambience</h1>
-            <p class="preset-tagline">brown noise (deep, rumbling bass)</p>
+            <p class="preset-tagline">Full brown noise with grey EQ, comb and resonant filters, in a slow sixteen-second cycle</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=57" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Cave Ambience loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="57"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=57" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>Brown noise. with slow, gentle modulation. using perceptual equalization for balanced loudness across all frequencies. Features a 4s fade-in and 5s fade-out in a repeating cycle. featuring resonant harmonic filtering. with metallic comb filter texture.</p>
+            <p>Cave Ambience is the deep, echoing hush of a large underground chamber: a low rumble with a hollow, resonant color, swelling and fading so slowly it feels like the rock itself breathing. Water drips and wind are implied by the filtering rather than spelled out.</p>
+            <p>The color is full brown at 4 with grey EQ on. A comb filter with a 25 millisecond delay and 60 percent feedback adds resonances spaced about 40 Hz apart, and resonant filters at 100, 150 and 200 Hz with a Q of 12 add a low chamber tone. The envelope rises over 4 seconds, holds for 6 at 50 percent and releases over 5, a sixteen-second cycle, with a sine pulse at 0.05 Hz swelling every twenty seconds.</p>
+            <p>It suits sleep, meditation and anyone who wants the darkest textured preset. <a href='/presets/seaside-cave.html'>Seaside Cave</a> in the nature category is the unfiltered, wetter cousin at 3.8, and <a href='/presets/spaceship-hull.html'>Spaceship Hull</a> is the same filter recipe tuned brighter and more metallic. Of the three it is the darkest and slowest, and the most likely to disappear into the background over a long night.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Meditation</li>
-                <li>Sound design</li>
-                <li>Immersive experiences</li>
-                <li>Ambient music production</li>
+                <li>Spacious deep sleep sound</li>
+                <li>Meditation in darkness</li>
+                <li>Underground film atmosphere</li>
+                <li>Masking deep rumble</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Add large reverb at 40 percent on top of the comb filter to make the chamber feel enormous.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Brown</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.05 Hz sine</dd>
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>Brown (4)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 4s, Sustain: 0.5, Release: 5s</dd>
-
-                
-
-                
+                <dd>4s in, hold 6s, 5s out (16.0s cycle)</dd>
+                <dt>Modulation</dt>
+                <dd>0.05 Hz sine (one cycle every 20 s)</dd>
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
+                <dt>Resonant Filter</dt>
+                <dd>100, 150, 200 Hz, Q 12, 25% mix</dd>
+                <dt>Comb Filter</dt>
+                <dd>25 ms delay, 60% feedback</dd>
             </dl>
+            <p class="learn-more-link"><a href="/brown-noise.html">Learn more about brown noise &rarr;</a></p>
         </section>
 
         
@@ -117,9 +127,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/wind-chimes.html" class="prev-preset">&larr; Wind Chimes</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/breathing.html" class="next-preset">Breathing &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

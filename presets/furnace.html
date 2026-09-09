@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Furnace - Free Brown Noise for Mechanical | Colored Noise</title>
-    <meta name="description" content="Furnace: A blend of pink and brown noise. with rhythmic pulsing. Features a 1s fade-in and 2s fade-out in a repeating cycle. Free online noise generator.">
+    <title>Furnace – Free Brown Noise Preset (Mechanical) | Colored Noise</title>
+    <meta name="description" content="Furnace: Warm brown-leaning roar at 3.7 in seven-second cycles with a fast 0.7 Hz flicker. Free brown noise preset for mechanical, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/furnace.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/furnace.html">
-    <meta property="og:title" content="Furnace - Free brown Noise Generator">
-    <meta property="og:description" content="Furnace: A blend of pink and brown noise. with rhythmic pulsing. Features a 1s fade-in and 2s fade-out in a repeating cycle. Free online noise generator.">
+    <meta property="og:title" content="Furnace – Free Brown Noise Generator">
+    <meta property="og:description" content="Furnace: Warm brown-leaning roar at 3.7 in seven-second cycles with a fast 0.7 Hz flicker. Free brown noise preset for mechanical, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Furnace",
-        "description": "A blend of pink and brown noise. with rhythmic pulsing. Features a 1s fade-in and 2s fade-out in a repeating cycle.",
+        "description": "Warm brown-leaning roar at 3.7 in seven-second cycles with a fast 0.7 Hz flicker",
         "url": "https://colorednoise.app/presets/furnace.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Furnace"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Furnace",
-            "description": "A blend of pink and brown noise. with rhythmic pulsing. Features a 1s fade-in and 2s fade-out in a repeating cycle.",
+            "description": "Furnace is the roar of a gas burner or a basement boiler kicking on, holding for a few seconds and easing off, with a fast flicker inside the flame. It is warm and enveloping, and the flicker gives it a restless, physical quality that steady presets do not have. The color is 3.7, well toward brown. The envelope rises over 1 second, decays to 70 percent, holds for 4 seconds and releases over 2, a cycle of about seven and a half seconds. A triangle pulse at 0.7 Hz flickers the level roughly every 1.4 seconds on top. Grey EQ is off. It suits people who like the feel of a heating system cycling on a cold night. Diesel Engine is the faster, darker mechanical throb at 4, and Distant Thunder in the nature category is a similar slow-cycle brown sound with a much softer attack. It is a daytime and evening sound more than an overnight one.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Mechanical noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Furnace</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #f59e0b">Mechanical</span>
             <h1>Furnace</h1>
-            <p class="preset-tagline">brown noise (deep, rumbling bass)</p>
+            <p class="preset-tagline">Warm brown-leaning roar at 3.7 in seven-second cycles with a fast 0.7 Hz flicker</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=41" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Furnace loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="41"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=41" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise. with rhythmic pulsing. Features a 1s fade-in and 2s fade-out in a repeating cycle.</p>
+            <p>Furnace is the roar of a gas burner or a basement boiler kicking on, holding for a few seconds and easing off, with a fast flicker inside the flame. It is warm and enveloping, and the flicker gives it a restless, physical quality that steady presets do not have.</p>
+            <p>The color is 3.7, well toward brown. The envelope rises over 1 second, decays to 70 percent, holds for 4 seconds and releases over 2, a cycle of about seven and a half seconds. A triangle pulse at 0.7 Hz flickers the level roughly every 1.4 seconds on top. Grey EQ is off.</p>
+            <p>It suits people who like the feel of a heating system cycling on a cold night. <a href='/presets/diesel-engine.html'>Diesel Engine</a> is the faster, darker mechanical throb at 4, and <a href='/presets/distant-thunder.html'>Distant Thunder</a> in the nature category is a similar slow-cycle brown sound with a much softer attack. It is a daytime and evening sound more than an overnight one.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Creating familiar comfort sounds</li>
-                <li>Travel simulation</li>
-                <li>Industrial ambience</li>
-                <li>White noise alternatives</li>
+                <li>Cold-weather cosiness</li>
+                <li>Basement or workshop atmosphere</li>
+                <li>Masking a noisy radiator</li>
+                <li>Winter reading nooks</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Set the pulse to 0 to remove the flicker if you want the burner roar without the restlessness.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Brown (3.7)</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.70 Hz triangle</dd>
-
-                
-
+                <dd>Brown (3.70 on the 0–4 scale)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 1s, Sustain: 0.7, Release: 2s</dd>
-
-                
-
-                
+                <dd>1s in, hold 4s, 2s out (7.5s cycle)</dd>
+                <dt>Modulation</dt>
+                <dd>0.7 Hz triangle (one cycle every 1.4 s)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/brown-noise.html">Learn more about brown noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/cpu-fan.html" class="prev-preset">&larr; CPU Fan</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/submarine.html" class="next-preset">Submarine &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

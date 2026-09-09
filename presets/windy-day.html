@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Windy Day - Free Pink Noise for Nature | Colored Noise</title>
-    <meta name="description" content="Windy Day: A blend of pink and brown noise. with rhythmic pulsing. Features a 2s fade-in and 3s fade-out in a repeating cycle. Free online noise generator.">
+    <title>Windy Day – Free Pink Noise Preset (Nature) | Colored Noise</title>
+    <meta name="description" content="Windy Day: Pink noise shaped into nine-second gusts with a quicker three-second flutter. Free pink noise preset for nature, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/windy-day.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/windy-day.html">
-    <meta property="og:title" content="Windy Day - Free pink Noise Generator">
-    <meta property="og:description" content="Windy Day: A blend of pink and brown noise. with rhythmic pulsing. Features a 2s fade-in and 3s fade-out in a repeating cycle. Free online noise generator.">
+    <meta property="og:title" content="Windy Day – Free Pink Noise Generator">
+    <meta property="og:description" content="Windy Day: Pink noise shaped into nine-second gusts with a quicker three-second flutter. Free pink noise preset for nature, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Windy Day",
-        "description": "A blend of pink and brown noise. with rhythmic pulsing. Features a 2s fade-in and 3s fade-out in a repeating cycle.",
+        "description": "Pink noise shaped into nine-second gusts with a quicker three-second flutter",
         "url": "https://colorednoise.app/presets/windy-day.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Windy Day"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Windy Day",
-            "description": "A blend of pink and brown noise. with rhythmic pulsing. Features a 2s fade-in and 3s fade-out in a repeating cycle.",
+            "description": "Windy Day sounds like a steady breeze pushing through trees and around the corners of a house, with gusts that build, hold and subside, and a faster flutter inside each one. It has more motion than most nature presets and feels like being outdoors rather than sheltered. The color is 3.1, just warmer than pink. An envelope loop rises over 2 seconds, settles to a 60 percent sustain, holds for 4 seconds and releases over 3, giving a cycle of about nine and a half seconds. A triangle pulse at 0.35 Hz adds a flutter roughly every three seconds on top. It is chosen by people who want a lively sound for daytime rather than sleep. Mountain Wind is much brighter at 1.8 with shorter, sharper gusts, and Night Forest is the darker, slower sibling at 3.65 with a fourteen-second sway and no envelope. Of the three, Windy Day has the most obvious sense of weather changing.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Nature noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Windy Day</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #22c55e">Nature</span>
             <h1>Windy Day</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Pink noise shaped into nine-second gusts with a quicker three-second flutter</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=21" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Windy Day loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="21"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=21" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise. with rhythmic pulsing. Features a 2s fade-in and 3s fade-out in a repeating cycle.</p>
+            <p>Windy Day sounds like a steady breeze pushing through trees and around the corners of a house, with gusts that build, hold and subside, and a faster flutter inside each one. It has more motion than most nature presets and feels like being outdoors rather than sheltered.</p>
+            <p>The color is 3.1, just warmer than pink. An envelope loop rises over 2 seconds, settles to a 60 percent sustain, holds for 4 seconds and releases over 3, giving a cycle of about nine and a half seconds. A triangle pulse at 0.35 Hz adds a flutter roughly every three seconds on top.</p>
+            <p>It is chosen by people who want a lively sound for daytime rather than sleep. <a href='/presets/mountain-wind.html'>Mountain Wind</a> is much brighter at 1.8 with shorter, sharper gusts, and <a href='/presets/night-forest.html'>Night Forest</a> is the darker, slower sibling at 3.65 with a fourteen-second sway and no envelope. Of the three, Windy Day has the most obvious sense of weather changing.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Relaxation</li>
-                <li>Meditation</li>
-                <li>Creating a peaceful atmosphere</li>
-                <li>Stress relief</li>
+                <li>Daydreaming by a window</li>
+                <li>Nature ambience while working</li>
+                <li>Background for outdoor scenes</li>
+                <li>A cooling feel on hot nights</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Drop the pulse to 0.15 Hz for slower, lazier flutter inside each gust, or raise the sustain to 0.8 for steadier wind.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink (3.1)</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.35 Hz triangle</dd>
-
-                
-
+                <dd>Pink (3.10 on the 0–4 scale)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 2s, Sustain: 0.6, Release: 3s</dd>
-
-                
-
-                
+                <dd>2s in, hold 4s, 3s out (9.5s cycle)</dd>
+                <dt>Modulation</dt>
+                <dd>0.35 Hz triangle (one cycle every 2.9 s)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/waterfall.html" class="prev-preset">&larr; Waterfall</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/mountain-wind.html" class="next-preset">Mountain Wind &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

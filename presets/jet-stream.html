@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Jet Stream - Free Blue Noise for Mechanical | Colored Noise</title>
-    <meta name="description" content="Jet Stream: A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <title>Jet Stream – Free Blue Noise Preset (Mechanical) | Colored Noise</title>
+    <meta name="description" content="Jet Stream: Grey-equalized near-violet noise at 0.8, a jet passing high overhead. Free blue noise preset for mechanical, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/jet-stream.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/jet-stream.html">
-    <meta property="og:title" content="Jet Stream - Free blue Noise Generator">
-    <meta property="og:description" content="Jet Stream: A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <meta property="og:title" content="Jet Stream – Free Blue Noise Generator">
+    <meta property="og:description" content="Jet Stream: Grey-equalized near-violet noise at 0.8, a jet passing high overhead. Free blue noise preset for mechanical, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Jet Stream",
-        "description": "A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies.",
+        "description": "Grey-equalized near-violet noise at 0.8, a jet passing high overhead",
         "url": "https://colorednoise.app/presets/jet-stream.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Jet Stream"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Jet Stream",
-            "description": "A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies.",
+            "description": "Jet Stream is the tearing hiss of an aircraft heard from the ground, or the outside of the fuselage rather than the cabin: very bright, thin and continuous. The grey EQ lends it enough body that it does not feel like pure treble, but it remains one of the brightest presets available. The color is 0.8, between violet and blue, so the spectrum climbs steeply into the high frequencies. Grey equalization is on, which lifts the bass and eases the mids to make it more tolerable. There is no pulse, the distribution is Gaussian and the fade-in is three seconds. It is picked for masking very high-pitched sounds and for people who like a bright, open hiss for daytime alertness. Airplane Cabin is the inside-the-plane version at 3.5, and Mountain Wind in the nature category is a gusting sibling at 1.8. Most people use it in short sessions rather than for hours at a time.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Mechanical noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Jet Stream</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #f59e0b">Mechanical</span>
             <h1>Jet Stream</h1>
-            <p class="preset-tagline">blue noise (bright, airy texture)</p>
+            <p class="preset-tagline">Grey-equalized near-violet noise at 0.8, a jet passing high overhead</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=44" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Jet Stream loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="44"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=44" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of violet and blue noise. using perceptual equalization for balanced loudness across all frequencies.</p>
+            <p>Jet Stream is the tearing hiss of an aircraft heard from the ground, or the outside of the fuselage rather than the cabin: very bright, thin and continuous. The grey EQ lends it enough body that it does not feel like pure treble, but it remains one of the brightest presets available.</p>
+            <p>The color is 0.8, between violet and blue, so the spectrum climbs steeply into the high frequencies. Grey equalization is on, which lifts the bass and eases the mids to make it more tolerable. There is no pulse, the distribution is Gaussian and the fade-in is three seconds.</p>
+            <p>It is picked for masking very high-pitched sounds and for people who like a bright, open hiss for daytime alertness. <a href='/presets/airplane-cabin.html'>Airplane Cabin</a> is the inside-the-plane version at 3.5, and <a href='/presets/mountain-wind.html'>Mountain Wind</a> in the nature category is a gusting sibling at 1.8. Most people use it in short sessions rather than for hours at a time.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Creating familiar comfort sounds</li>
-                <li>Travel simulation</li>
-                <li>Industrial ambience</li>
-                <li>White noise alternatives</li>
+                <li>Masking high-pitched whine</li>
+                <li>Bright daytime background</li>
+                <li>Airport atmosphere</li>
+                <li>Ear-training comparisons</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Blend a second color of 3.5 at 0.4 to put the cabin back around the engine hiss.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Blue (0.8)</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>Blue (0.80 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>3 seconds</dd>
-
-                
-
-                
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/blue-noise.html">Learn more about blue noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/electric-hum.html" class="prev-preset">&larr; Electric Hum</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/static-tv.html" class="next-preset">Static TV &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

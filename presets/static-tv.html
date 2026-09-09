@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Static TV - Free White Noise for Experimental | Colored Noise</title>
-    <meta name="description" content="Static TV: White noise. with fast modulation. Features a 0.02s fade-in and 0.1s fade-out in a repeating cycle. Free online noise generator.">
+    <title>Static TV – Free White Noise Preset (Experimental) | Colored Noise</title>
+    <meta name="description" content="Static TV: White noise with uniform grain, hard-gated nearly three times a second. Free white noise preset for experimental, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/static-tv.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/static-tv.html">
-    <meta property="og:title" content="Static TV - Free white Noise Generator">
-    <meta property="og:description" content="Static TV: White noise. with fast modulation. Features a 0.02s fade-in and 0.1s fade-out in a repeating cycle. Free online noise generator.">
+    <meta property="og:title" content="Static TV – Free White Noise Generator">
+    <meta property="og:description" content="Static TV: White noise with uniform grain, hard-gated nearly three times a second. Free white noise preset for experimental, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Static TV",
-        "description": "White noise. with fast modulation. Features a 0.02s fade-in and 0.1s fade-out in a repeating cycle.",
+        "description": "White noise with uniform grain, hard-gated nearly three times a second",
         "url": "https://colorednoise.app/presets/static-tv.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Static TV"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Static TV",
-            "description": "White noise. with fast modulation. Features a 0.02s fade-in and 0.1s fade-out in a repeating cycle.",
+            "description": "Static TV is the sound of an old set losing its signal and stuttering: raw white hiss chopped into fast, hard bursts. It is abrasive by design, with the uniform distribution adding a crackly grain and the square-shaped pulse switching it on and off like a faulty relay. The color is exactly 2, white, with uniform distribution. The envelope loop is tiny, attacking in 0.02 seconds, holding for 0.2 and releasing in 0.1, so it cycles almost three times a second. A square pulse at 2.5 Hz gates the level at a similar rate, so the two rhythms interfere and stutter. Grey EQ is off. This is a sound-design and novelty preset rather than a sleep aid. Electric Hum in the mechanical category is the slower, warmer gated cousin, and Machine Rhythm layers four independent gated voices for a more complex industrial pattern. Turn the volume down before pressing play; it arrives instantly and at full intensity, with a fade-in of only two hundredths of a second.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Experimental noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Static TV</span>
         </nav>
@@ -62,43 +66,46 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ef4444">Experimental</span>
             <h1>Static TV</h1>
-            <p class="preset-tagline">white noise (balanced frequencies)</p>
+            <p class="preset-tagline">White noise with uniform grain, hard-gated nearly three times a second</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=45" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Static TV loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="45"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=45" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>White noise. with fast modulation. Features a 0.02s fade-in and 0.1s fade-out in a repeating cycle.</p>
+            <p>Static TV is the sound of an old set losing its signal and stuttering: raw white hiss chopped into fast, hard bursts. It is abrasive by design, with the uniform distribution adding a crackly grain and the square-shaped pulse switching it on and off like a faulty relay.</p>
+            <p>The color is exactly 2, white, with uniform distribution. The envelope loop is tiny, attacking in 0.02 seconds, holding for 0.2 and releasing in 0.1, so it cycles almost three times a second. A square pulse at 2.5 Hz gates the level at a similar rate, so the two rhythms interfere and stutter. Grey EQ is off.</p>
+            <p>This is a sound-design and novelty preset rather than a sleep aid. <a href='/presets/electric-hum.html'>Electric Hum</a> in the mechanical category is the slower, warmer gated cousin, and <a href='/presets/machine-rhythm.html'>Machine Rhythm</a> layers four independent gated voices for a more complex industrial pattern. Turn the volume down before pressing play; it arrives instantly and at full intensity, with a fade-in of only two hundredths of a second.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Creative projects</li>
-                <li>Unique soundscapes</li>
-                <li>ASMR</li>
-                <li>Artistic expression</li>
+                <li>Retro television effects</li>
+                <li>Glitch and industrial sound design</li>
+                <li>Video and game audio assets</li>
+                <li>Testing envelope settings</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Lengthen the duration to 1 second and the release to 0.5 and the stutter turns into a slow signal drop-out.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>White</dd>
-
-                <dt>Modulation</dt>
-                <dd>2.50 Hz square</dd>
-
-                
-
+                <dd>White (2)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 0.02s, Sustain: 0.8, Release: 0.1s</dd>
-
-                
-
-                
+                <dd>0.02s in, hold 0.2s, 0.1s out (0.4s cycle)</dd>
+                <dt>Modulation</dt>
+                <dd>2.5 Hz square (2.5 cycles per second)</dd>
+                <dt>Distribution</dt>
+                <dd>Uniform (slightly grittier texture)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +123,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/jet-stream.html" class="prev-preset">&larr; Jet Stream</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/vinyl-crackle.html" class="next-preset">Vinyl Crackle &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

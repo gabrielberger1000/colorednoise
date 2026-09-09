@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Blue Sky - Free Blue Noise for Ambient | Colored Noise</title>
-    <meta name="description" content="Blue Sky: Blue noise. Free online noise generator.">
+    <title>Blue Sky – Free Blue Noise Preset (Ambient) | Colored Noise</title>
+    <meta name="description" content="Blue Sky: Pure blue noise at 1, rising 3 dB per octave, light and airy with no low end. Free blue noise preset for ambient, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/blue-sky.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/blue-sky.html">
-    <meta property="og:title" content="Blue Sky - Free blue Noise Generator">
-    <meta property="og:description" content="Blue Sky: Blue noise. Free online noise generator.">
+    <meta property="og:title" content="Blue Sky – Free Blue Noise Generator">
+    <meta property="og:description" content="Blue Sky: Pure blue noise at 1, rising 3 dB per octave, light and airy with no low end. Free blue noise preset for ambient, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Blue Sky",
-        "description": "Blue noise.",
+        "description": "Pure blue noise at 1, rising 3 dB per octave, light and airy with no low end",
         "url": "https://colorednoise.app/presets/blue-sky.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Blue Sky"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Blue Sky",
-            "description": "Blue noise.",
+            "description": "Blue Sky is a thin, bright hiss like air escaping from a tyre valve or a steam radiator at a distance. It has almost no bass at all, and the energy climbs steadily into the treble, which makes it feel light and open but also quite forward on headphones. The color is exactly 1, blue, with a spectral slope of +3 dB per octave, the mirror image of pink. Grey EQ is off, the pulse is off and the fade-in is one second. It is generated as the derivative of pink noise, which is why it sounds like pink turned inside out. It is used for masking high-pitched sounds, for dithering experiments and by people who simply prefer a lighter texture. Violet Haze is the even brighter sibling at 0.2, and Tinnitus Mask is a softened version at 1.5 with grey EQ. Most listeners find it more comfortable in short sessions than as an all-day background sound.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Ambient noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Blue Sky</span>
         </nav>
@@ -62,42 +66,42 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #10b981">Ambient</span>
             <h1>Blue Sky</h1>
-            <p class="preset-tagline">blue noise (bright, airy texture)</p>
+            <p class="preset-tagline">Pure blue noise at 1, rising 3 dB per octave, light and airy with no low end</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=29" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Blue Sky loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="29"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=29" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>Blue noise.</p>
+            <p>Blue Sky is a thin, bright hiss like air escaping from a tyre valve or a steam radiator at a distance. It has almost no bass at all, and the energy climbs steadily into the treble, which makes it feel light and open but also quite forward on headphones.</p>
+            <p>The color is exactly 1, blue, with a spectral slope of +3 dB per octave, the mirror image of pink. Grey EQ is off, the pulse is off and the fade-in is one second. It is generated as the derivative of pink noise, which is why it sounds like pink turned inside out.</p>
+            <p>It is used for masking high-pitched sounds, for dithering experiments and by people who simply prefer a lighter texture. <a href='/presets/violet-haze.html'>Violet Haze</a> is the even brighter sibling at 0.2, and <a href='/presets/tinnitus-mask.html'>Tinnitus Mask</a> is a softened version at 1.5 with grey EQ. Most listeners find it more comfortable in short sessions than as an all-day background sound.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Background noise</li>
-                <li>Masking distractions</li>
-                <li>Tinnitus relief</li>
-                <li>General relaxation</li>
+                <li>Masking tinnitus-range whine</li>
+                <li>Covering high-pitched electronics</li>
+                <li>Audio dithering tests</li>
+                <li>A lighter alternative to white</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Keep the volume modest; blue noise is bright enough that it can fatigue your ears sooner than pink or brown.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Blue</dd>
-
-                
-
-                
-
+                <dd>Blue (1)</dd>
                 <dt>Fade In</dt>
                 <dd>1 seconds</dd>
-
-                
-
-                
             </dl>
+            <p class="learn-more-link"><a href="/blue-noise.html">Learn more about blue noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +119,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/deep-brown.html" class="prev-preset">&larr; Deep Brown</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/violet-haze.html" class="next-preset">Violet Haze &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

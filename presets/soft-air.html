@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Soft Air - Free Pink Noise for Ambient | Colored Noise</title>
-    <meta name="description" content="Soft Air: A blend of pink and brown noise. Free online noise generator.">
+    <title>Soft Air – Free Pink Noise Preset (Ambient) | Colored Noise</title>
+    <meta name="description" content="Soft Air: Gentle warm noise at 3.4 with no EQ or modulation, like air through a vent. Free pink noise preset for ambient, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/soft-air.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/soft-air.html">
-    <meta property="og:title" content="Soft Air - Free pink Noise Generator">
-    <meta property="og:description" content="Soft Air: A blend of pink and brown noise. Free online noise generator.">
+    <meta property="og:title" content="Soft Air – Free Pink Noise Generator">
+    <meta property="og:description" content="Soft Air: Gentle warm noise at 3.4 with no EQ or modulation, like air through a vent. Free pink noise preset for ambient, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Soft Air",
-        "description": "A blend of pink and brown noise.",
+        "description": "Gentle warm noise at 3.4 with no EQ or modulation, like air through a vent",
         "url": "https://colorednoise.app/presets/soft-air.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Soft Air"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Soft Air",
-            "description": "A blend of pink and brown noise.",
+            "description": "Soft Air is the sound of a heating vent in a quiet room, or a fan on its lowest setting across the hall. It is warmer than pink but far from brown, with a smooth, unobtrusive hush that fills a space without ever calling attention to itself. The color is 3.4, and everything else is left plain: no grey EQ, no pulse, Gaussian distribution and a two-second fade-in. That makes it a good gauge of what the color slider alone does between pink at 3 and brown at 4, with nothing else changing. It is a general-purpose choice for people who want a comfortable background at any time of day. Standard Pink is the slightly brighter reference at 3, and Deep Brown is the full-bass extreme at 4. Box Fan is a similar color with grey EQ and grainier texture.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Ambient noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Soft Air</span>
         </nav>
@@ -62,42 +66,42 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #10b981">Ambient</span>
             <h1>Soft Air</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Gentle warm noise at 3.4 with no EQ or modulation, like air through a vent</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=32" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Soft Air loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="32"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=32" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise.</p>
+            <p>Soft Air is the sound of a heating vent in a quiet room, or a fan on its lowest setting across the hall. It is warmer than pink but far from brown, with a smooth, unobtrusive hush that fills a space without ever calling attention to itself.</p>
+            <p>The color is 3.4, and everything else is left plain: no grey EQ, no pulse, Gaussian distribution and a two-second fade-in. That makes it a good gauge of what the color slider alone does between pink at 3 and brown at 4, with nothing else changing.</p>
+            <p>It is a general-purpose choice for people who want a comfortable background at any time of day. <a href='/presets/standard-pink.html'>Standard Pink</a> is the slightly brighter reference at 3, and <a href='/presets/deep-brown.html'>Deep Brown</a> is the full-bass extreme at 4. <a href='/presets/box-fan.html'>Box Fan</a> is a similar color with grey EQ and grainier texture.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Background noise</li>
-                <li>Masking distractions</li>
-                <li>Tinnitus relief</li>
-                <li>General relaxation</li>
+                <li>All-day home office background</li>
+                <li>Light sleepers who dislike rumble</li>
+                <li>Living room ambience</li>
+                <li>Covering fridge and fan noise</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Add stereo auto-pan at 0.03 Hz with low depth for a subtle sense of air moving around the room.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink (3.4)</dd>
-
-                
-
-                
-
+                <dd>Pink (3.40 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>2 seconds</dd>
-
-                
-
-                
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +119,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/grey-noise.html" class="prev-preset">&larr; Grey Noise</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/coffee-shop.html" class="next-preset">Coffee Shop &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

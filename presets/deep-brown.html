@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Deep Brown - Free Brown Noise for Ambient | Colored Noise</title>
-    <meta name="description" content="Deep Brown: Brown noise. Free online noise generator.">
+    <title>Deep Brown – Free Brown Noise Preset (Ambient) | Colored Noise</title>
+    <meta name="description" content="Deep Brown: Full brown noise at 4 with no EQ, no pulse, and a two-second fade, pure rumble. Free brown noise preset for ambient, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/deep-brown.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/deep-brown.html">
-    <meta property="og:title" content="Deep Brown - Free brown Noise Generator">
-    <meta property="og:description" content="Deep Brown: Brown noise. Free online noise generator.">
+    <meta property="og:title" content="Deep Brown – Free Brown Noise Generator">
+    <meta property="og:description" content="Deep Brown: Full brown noise at 4 with no EQ, no pulse, and a two-second fade, pure rumble. Free brown noise preset for ambient, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Deep Brown",
-        "description": "Brown noise.",
+        "description": "Full brown noise at 4 with no EQ, no pulse, and a two-second fade, pure rumble",
         "url": "https://colorednoise.app/presets/deep-brown.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Deep Brown"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Deep Brown",
-            "description": "Brown noise.",
+            "description": "Deep Brown is the sound of a waterfall heard from inside a cave, or a very large aircraft taxiing far away: almost entirely low end, with a soft, rolling rumble and hardly any hiss. It is the darkest single-color preset and the closest to a physical, felt sound. The color is set to the full brown value of 4, which rolls off at roughly 6 dB per octave and is generated as a random walk, each sample being the last plus a small random step. Grey EQ is off, so the natural bass weight is left intact. There is no pulse and the fade-in is two seconds. It is popular for sleep, for masking low-frequency noise and for people who find any hiss uncomfortable. Heavy Blanket is the same color with grey EQ and a longer fade, and Soft Air is the next step brighter at 3.4. It also serves as the bottom layer in Layered Depths, which blends a blue hiss over the top.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Ambient noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Deep Brown</span>
         </nav>
@@ -62,42 +66,42 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #10b981">Ambient</span>
             <h1>Deep Brown</h1>
-            <p class="preset-tagline">brown noise (deep, rumbling bass)</p>
+            <p class="preset-tagline">Full brown noise at 4 with no EQ, no pulse, and a two-second fade, pure rumble</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=28" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Deep Brown loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="28"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=28" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>Brown noise.</p>
+            <p>Deep Brown is the sound of a waterfall heard from inside a cave, or a very large aircraft taxiing far away: almost entirely low end, with a soft, rolling rumble and hardly any hiss. It is the darkest single-color preset and the closest to a physical, felt sound.</p>
+            <p>The color is set to the full brown value of 4, which rolls off at roughly 6 dB per octave and is generated as a random walk, each sample being the last plus a small random step. Grey EQ is off, so the natural bass weight is left intact. There is no pulse and the fade-in is two seconds.</p>
+            <p>It is popular for sleep, for masking low-frequency noise and for people who find any hiss uncomfortable. <a href='/presets/heavy-blanket.html'>Heavy Blanket</a> is the same color with grey EQ and a longer fade, and <a href='/presets/soft-air.html'>Soft Air</a> is the next step brighter at 3.4. It also serves as the bottom layer in Layered Depths, which blends a blue hiss over the top.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Background noise</li>
-                <li>Masking distractions</li>
-                <li>Tinnitus relief</li>
-                <li>General relaxation</li>
+                <li>Masking low traffic rumble</li>
+                <li>Listeners sensitive to hiss</li>
+                <li>Studio subwoofer checks</li>
+                <li>Deep relaxation</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> On laptop speakers this can nearly vanish; enable grey EQ or lower the color to 3.7 so there is something left to hear.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Brown</dd>
-
-                
-
-                
-
+                <dd>Brown (4)</dd>
                 <dt>Fade In</dt>
                 <dd>2 seconds</dd>
-
-                
-
-                
             </dl>
+            <p class="learn-more-link"><a href="/brown-noise.html">Learn more about brown noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +119,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/standard-pink.html" class="prev-preset">&larr; Standard Pink</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/blue-sky.html" class="next-preset">Blue Sky &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

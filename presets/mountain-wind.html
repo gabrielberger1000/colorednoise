@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Mountain Wind - Free White Noise for Nature | Colored Noise</title>
-    <meta name="description" content="Mountain Wind: A blend of blue and white noise. with rhythmic pulsing. Features a 1.5s fade-in and 2s fade-out in a repeating cycle. Free online noise generator.">
+    <title>Mountain Wind – Free White Noise Preset (Nature) | Colored Noise</title>
+    <meta name="description" content="Mountain Wind: Bright blue-white noise at 1.8 with sharp seven-second gusts and a two-second flicker. Free white noise preset for nature, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/mountain-wind.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/mountain-wind.html">
-    <meta property="og:title" content="Mountain Wind - Free white Noise Generator">
-    <meta property="og:description" content="Mountain Wind: A blend of blue and white noise. with rhythmic pulsing. Features a 1.5s fade-in and 2s fade-out in a repeating cycle. Free online noise generator.">
+    <meta property="og:title" content="Mountain Wind – Free White Noise Generator">
+    <meta property="og:description" content="Mountain Wind: Bright blue-white noise at 1.8 with sharp seven-second gusts and a two-second flicker. Free white noise preset for nature, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Mountain Wind",
-        "description": "A blend of blue and white noise. with rhythmic pulsing. Features a 1.5s fade-in and 2s fade-out in a repeating cycle.",
+        "description": "Bright blue-white noise at 1.8 with sharp seven-second gusts and a two-second flicker",
         "url": "https://colorednoise.app/presets/mountain-wind.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Mountain Wind"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Mountain Wind",
-            "description": "A blend of blue and white noise. with rhythmic pulsing. Features a 1.5s fade-in and 2s fade-out in a repeating cycle.",
+            "description": "Mountain Wind is a thin, high, whistling wind across an exposed ridge, all treble and very little body. Gusts arrive quickly, hold for a few seconds and fall away, with a fast flicker running through them that suggests wind catching on rock and grass. It is a cold, exposed sound rather than a cosy one, and it is meant to be. The color is 1.8, between blue and white, so the spectrum tilts firmly upward. The envelope attacks in 1.5 seconds, decays briefly to 70 percent, holds for 3 seconds and releases over 2, a cycle of just under seven seconds. A triangle pulse at 0.5 Hz adds a flicker every two seconds. It is a niche pick, used for immersive atmosphere or as a bright masking sound rather than for sleep. Windy Day is the warmer, slower sibling at 3.1, and Jet Stream in the mechanical category is even brighter at 0.8 but steady rather than gusting.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Nature noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Mountain Wind</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #22c55e">Nature</span>
             <h1>Mountain Wind</h1>
-            <p class="preset-tagline">white noise (balanced frequencies)</p>
+            <p class="preset-tagline">Bright blue-white noise at 1.8 with sharp seven-second gusts and a two-second flicker</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=22" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Mountain Wind loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="22"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=22" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of blue and white noise. with rhythmic pulsing. Features a 1.5s fade-in and 2s fade-out in a repeating cycle.</p>
+            <p>Mountain Wind is a thin, high, whistling wind across an exposed ridge, all treble and very little body. Gusts arrive quickly, hold for a few seconds and fall away, with a fast flicker running through them that suggests wind catching on rock and grass. It is a cold, exposed sound rather than a cosy one, and it is meant to be.</p>
+            <p>The color is 1.8, between blue and white, so the spectrum tilts firmly upward. The envelope attacks in 1.5 seconds, decays briefly to 70 percent, holds for 3 seconds and releases over 2, a cycle of just under seven seconds. A triangle pulse at 0.5 Hz adds a flicker every two seconds.</p>
+            <p>It is a niche pick, used for immersive atmosphere or as a bright masking sound rather than for sleep. <a href='/presets/windy-day.html'>Windy Day</a> is the warmer, slower sibling at 3.1, and <a href='/presets/jet-stream.html'>Jet Stream</a> in the mechanical category is even brighter at 0.8 but steady rather than gusting.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Relaxation</li>
-                <li>Meditation</li>
-                <li>Creating a peaceful atmosphere</li>
-                <li>Stress relief</li>
+                <li>Masking high-pitched noise</li>
+                <li>Alpine or winter atmosphere</li>
+                <li>Sound design sketches</li>
+                <li>Short alertness breaks</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Slide the color to 2.5 and enable grey EQ for a warmer wind that keeps the gusting but loses the whistle.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>White (1.8)</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.50 Hz triangle</dd>
-
-                
-
+                <dd>White (1.80 on the 0–4 scale)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 1.5s, Sustain: 0.7, Release: 2s</dd>
-
-                
-
-                
+                <dd>1.5s in, hold 3s, 2s out (6.8s cycle)</dd>
+                <dt>Modulation</dt>
+                <dd>0.5 Hz triangle (one cycle every 2.0 s)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/windy-day.html" class="prev-preset">&larr; Windy Day</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/rain-on-tent.html" class="next-preset">Rain on Tent &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Concentration - Free Pink Noise for Focus | Colored Noise</title>
-    <meta name="description" content="Concentration: A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <title>Concentration – Free Pink Noise Preset (Focus) | Colored Noise</title>
+    <meta name="description" content="Concentration: Grey-equalized noise at 2.8 with uniform distribution for a grittier texture. Free pink noise preset for focus, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/concentration.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/concentration.html">
-    <meta property="og:title" content="Concentration - Free pink Noise Generator">
-    <meta property="og:description" content="Concentration: A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <meta property="og:title" content="Concentration – Free Pink Noise Generator">
+    <meta property="og:description" content="Concentration: Grey-equalized noise at 2.8 with uniform distribution for a grittier texture. Free pink noise preset for focus, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Concentration",
-        "description": "A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies.",
+        "description": "Grey-equalized noise at 2.8 with uniform distribution for a grittier texture",
         "url": "https://colorednoise.app/presets/concentration.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Concentration"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Concentration",
-            "description": "A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies.",
+            "description": "Concentration has a slightly rough, sandy quality, like rain hitting gravel rather than grass. It sits close to white with the harshness taken out by grey EQ, and the uniform random distribution gives it a faintly grainy texture that some people find more engaging than the smoother presets. The color is 2.8, just below pink, and grey equalization is on so the treble does not bite. The distribution is set to uniform rather than Gaussian, which changes the fine-grained character of the noise without altering its overall color. The fade-in is two seconds and there is no pulse. This preset suits people who find pink too soft and white too sharp. Beta Boost is brighter at 2.5 without EQ or texture, and Deep Work is warmer at 3.4 with the same grey EQ but a smooth Gaussian texture. It also works as a daytime alternative to Coffee Shop when you want the grain without the busyness.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Focus noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Concentration</span>
         </nav>
@@ -62,43 +66,46 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #3b82f6">Focus</span>
             <h1>Concentration</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Grey-equalized noise at 2.8 with uniform distribution for a grittier texture</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=13" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Concentration loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="13"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=13" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of white and pink noise. using perceptual equalization for balanced loudness across all frequencies.</p>
+            <p>Concentration has a slightly rough, sandy quality, like rain hitting gravel rather than grass. It sits close to white with the harshness taken out by grey EQ, and the uniform random distribution gives it a faintly grainy texture that some people find more engaging than the smoother presets.</p>
+            <p>The color is 2.8, just below pink, and grey equalization is on so the treble does not bite. The distribution is set to uniform rather than Gaussian, which changes the fine-grained character of the noise without altering its overall color. The fade-in is two seconds and there is no pulse.</p>
+            <p>This preset suits people who find pink too soft and white too sharp. <a href='/presets/beta-boost.html'>Beta Boost</a> is brighter at 2.5 without EQ or texture, and <a href='/presets/deep-work.html'>Deep Work</a> is warmer at 3.4 with the same grey EQ but a smooth Gaussian texture. It also works as a daytime alternative to Coffee Shop when you want the grain without the busyness.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Deep work sessions</li>
-                <li>Studying</li>
-                <li>Blocking office noise</li>
-                <li>Maintaining concentration</li>
+                <li>Detail-heavy proofreading</li>
+                <li>Data entry and admin</li>
+                <li>Noisy coworking spaces</li>
+                <li>Staying alert late afternoon</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Flip the distribution back to Gaussian and compare; the difference is subtle but noticeable over a long session.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink (2.8)</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>Pink (2.80 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>2 seconds</dd>
-
-                
-
-                
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
+                <dt>Distribution</dt>
+                <dd>Uniform (slightly grittier texture)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +123,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/deep-work.html" class="prev-preset">&larr; Deep Work</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/beta-boost.html" class="next-preset">Beta Boost &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

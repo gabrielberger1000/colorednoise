@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Deep Work - Free Pink Noise for Focus | Colored Noise</title>
-    <meta name="description" content="Deep Work: A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <title>Deep Work – Free Pink Noise Preset (Focus) | Colored Noise</title>
+    <meta name="description" content="Deep Work: Grey-equalized noise at 3.4, slightly brighter than Focus Zone, steady level. Free pink noise preset for focus, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/deep-work.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/deep-work.html">
-    <meta property="og:title" content="Deep Work - Free pink Noise Generator">
-    <meta property="og:description" content="Deep Work: A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <meta property="og:title" content="Deep Work – Free Pink Noise Generator">
+    <meta property="og:description" content="Deep Work: Grey-equalized noise at 3.4, slightly brighter than Focus Zone, steady level. Free pink noise preset for focus, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Deep Work",
-        "description": "A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies.",
+        "description": "Grey-equalized noise at 3.4, slightly brighter than Focus Zone, steady level",
         "url": "https://colorednoise.app/presets/deep-work.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Deep Work"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Deep Work",
-            "description": "A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies.",
+            "description": "Deep Work sounds like a heavy rain shower heard through double glazing, evenly spread across the spectrum thanks to the grey equalization. It is a hair lighter than Focus Zone, with a touch more upper texture, and that small difference is what makes some people prefer one over the other for hours-long sessions. The color is 3.4, forty percent of the way from pink toward brown, with grey EQ on. The pulse is off and there is no envelope loop, so once the three-second fade completes the level is fixed. Gaussian distribution keeps the texture smooth, and nothing else is applied, so the small color difference from Focus Zone is the whole story. People tend to settle on Deep Work when they want slightly more presence than Focus Zone without stepping all the way to the brighter Concentration. If you find yourself turning Focus Zone up to cover voices, try this at the same volume first. Both keep the same grey EQ, so the change is purely in the color slider.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Focus noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Deep Work</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #3b82f6">Focus</span>
             <h1>Deep Work</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Grey-equalized noise at 3.4, slightly brighter than Focus Zone, steady level</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=12" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Deep Work loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="12"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=12" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies.</p>
+            <p>Deep Work sounds like a heavy rain shower heard through double glazing, evenly spread across the spectrum thanks to the grey equalization. It is a hair lighter than Focus Zone, with a touch more upper texture, and that small difference is what makes some people prefer one over the other for hours-long sessions.</p>
+            <p>The color is 3.4, forty percent of the way from pink toward brown, with grey EQ on. The pulse is off and there is no envelope loop, so once the three-second fade completes the level is fixed. Gaussian distribution keeps the texture smooth, and nothing else is applied, so the small color difference from Focus Zone is the whole story.</p>
+            <p>People tend to settle on Deep Work when they want slightly more presence than <a href='/presets/focus-zone.html'>Focus Zone</a> without stepping all the way to the brighter <a href='/presets/concentration.html'>Concentration</a>. If you find yourself turning Focus Zone up to cover voices, try this at the same volume first. Both keep the same grey EQ, so the change is purely in the color slider.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Deep work sessions</li>
-                <li>Studying</li>
-                <li>Blocking office noise</li>
-                <li>Maintaining concentration</li>
+                <li>Programming and debugging</li>
+                <li>Two-hour focus blocks</li>
+                <li>Masking HVAC and printers</li>
+                <li>Afternoon energy dips</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Set the sleep timer to 50 minutes and use its fade-out as your cue to take a break.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink (3.4)</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>Pink (3.40 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>3 seconds</dd>
-
-                
-
-                
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/alpha-waves.html" class="prev-preset">&larr; Alpha Waves</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/concentration.html" class="next-preset">Concentration &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

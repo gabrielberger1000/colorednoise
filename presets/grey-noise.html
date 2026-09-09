@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Grey Noise - Free White Noise for Ambient | Colored Noise</title>
-    <meta name="description" content="Grey Noise: White noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <title>Grey Noise – Free White Noise Preset (Ambient) | Colored Noise</title>
+    <meta name="description" content="Grey Noise: White noise with perceptual equalization so every frequency sounds equally loud. Free white noise preset for ambient, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/grey-noise.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/grey-noise.html">
-    <meta property="og:title" content="Grey Noise - Free white Noise Generator">
-    <meta property="og:description" content="Grey Noise: White noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <meta property="og:title" content="Grey Noise – Free White Noise Generator">
+    <meta property="og:description" content="Grey Noise: White noise with perceptual equalization so every frequency sounds equally loud. Free white noise preset for ambient, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Grey Noise",
-        "description": "White noise. using perceptual equalization for balanced loudness across all frequencies.",
+        "description": "White noise with perceptual equalization so every frequency sounds equally loud",
         "url": "https://colorednoise.app/presets/grey-noise.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Grey Noise"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Grey Noise",
-            "description": "White noise. using perceptual equalization for balanced loudness across all frequencies.",
+            "description": "Grey Noise is white noise adjusted to the ear rather than to the meter. Where Pure White sounds bright because we hear the upper octaves more readily, Grey Noise compensates with an inverse equal-loudness curve, so the result feels spread evenly from a soft bass floor up to a smooth, unexaggerated top. The color is 2, white, with grey equalization switched on. The EQ boosts the low and very high frequencies where hearing is less sensitive and eases back the mids where it is most sensitive. The pulse is off, the distribution is Gaussian and the fade-in is one second. Many people who tried white noise and found it harsh end up here. Pure White is the untreated version for direct comparison, and Concentration in the focus category applies the same EQ to a slightly warmer 2.8 with uniform texture. See the physics page for the equal-loudness idea.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Ambient noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Grey Noise</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #10b981">Ambient</span>
             <h1>Grey Noise</h1>
-            <p class="preset-tagline">white noise (balanced frequencies)</p>
+            <p class="preset-tagline">White noise with perceptual equalization so every frequency sounds equally loud</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=31" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Grey Noise loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="31"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=31" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>White noise. using perceptual equalization for balanced loudness across all frequencies.</p>
+            <p>Grey Noise is white noise adjusted to the ear rather than to the meter. Where Pure White sounds bright because we hear the upper octaves more readily, Grey Noise compensates with an inverse equal-loudness curve, so the result feels spread evenly from a soft bass floor up to a smooth, unexaggerated top.</p>
+            <p>The color is 2, white, with grey equalization switched on. The EQ boosts the low and very high frequencies where hearing is less sensitive and eases back the mids where it is most sensitive. The pulse is off, the distribution is Gaussian and the fade-in is one second.</p>
+            <p>Many people who tried white noise and found it harsh end up here. <a href='/presets/pure-white.html'>Pure White</a> is the untreated version for direct comparison, and <a href='/presets/concentration.html'>Concentration</a> in the focus category applies the same EQ to a slightly warmer 2.8 with uniform texture. See <a href='/physics.html'>the physics page</a> for the equal-loudness idea.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Background noise</li>
-                <li>Masking distractions</li>
-                <li>Tinnitus relief</li>
-                <li>General relaxation</li>
+                <li>Long white-noise sessions</li>
+                <li>Fuller sound on small speakers</li>
+                <li>Even masking across pitches</li>
+                <li>Listeners bothered by hiss</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Pair grey EQ with a color of 2.5 if you want a touch of warmth while keeping the balanced feel.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>White</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>White (2)</dd>
                 <dt>Fade In</dt>
                 <dd>1 seconds</dd>
-
-                
-
-                
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/white-noise.html">Learn more about white noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/violet-haze.html" class="prev-preset">&larr; Violet Haze</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/soft-air.html" class="next-preset">Soft Air &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

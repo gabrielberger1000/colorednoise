@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Blue Noise Generator - What Blue Noise Sounds Like and Why It Is Used</title>
+    <meta name="description" content="Free blue noise generator online. Hear what blue noise sounds like, why it rises 3 dB per octave, and how it is used for masking. No ads, no signup.">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://colorednoise.app/blue-noise.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://colorednoise.app/blue-noise.html">
+    <meta property="og:title" content="Blue Noise Generator - What Blue Noise Sounds Like and Why It Is Used">
+    <meta property="og:description" content="Free blue noise generator online. Hear what blue noise sounds like, why it rises 3 dB per octave, and how it is used for masking. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
+    <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blue Noise Generator - What Blue Noise Sounds Like and Why It Is Used">
+    <meta name="twitter:description" content="Free blue noise generator online. Hear what blue noise sounds like, why it rises 3 dB per octave, and how it is used for masking. No ads, no signup.">
+    <meta name="twitter:image" content="https://colorednoise.app/social-card.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Article",
+            "@id": "https://colorednoise.app/blue-noise.html#article",
+            "headline": "Blue Noise Generator",
+            "description": "Free blue noise generator online. Hear what blue noise sounds like, why it rises 3 dB per octave, and how it is used for masking. No ads, no signup.",
+            "url": "https://colorednoise.app/blue-noise.html",
+            "image": "https://colorednoise.app/social-card.png",
+            "wordCount": 1092,
+            "author": {
+                "@type": "Person",
+                "name": "Gabriel Berger"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Colored Noise",
+                "url": "https://colorednoise.app"
+            },
+            "isPartOf": {
+                "@type": "WebApplication",
+                "@id": "https://colorednoise.app/#website",
+                "name": "Colored Noise"
+            },
+            "mainEntityOfPage": "https://colorednoise.app/blue-noise.html"
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://colorednoise.app/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Blue Noise Generator"
+                }
+            ]
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Is blue noise good for sleep?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Not usually. Its energy sits in the high frequencies that most people find alerting rather than calming, and it does little to cover low rumbles like traffic. Pink or brown noise are far more common choices for sleep. Blue noise is worth trying at night only if you are specifically trying to cover a high-pitched sound."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is the difference between blue noise and white noise?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "White noise has equal power at every frequency. Blue noise rises 3 dB per octave, so it has less bass and more treble than white. Side by side, white sounds like radio static and blue sounds thinner and sharper, like a fine spray of water. Both are hisses; blue is the brighter one."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Why is blue noise used for dithering?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "When you reduce the bit depth or resolution of a signal, adding a small amount of random noise hides the quantization error. Shaping that noise toward blue pushes it to high frequencies where the ear is less sensitive, or, in images, spreads it so evenly that no clumps or patterns are visible."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Is blue noise harmful to hearing?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No more than any other sound at the same loudness. The concern is volume, not color. Because high frequencies sound louder than their measured level, it is easy to play blue noise louder than you intend, particularly on earbuds. Keep it at a level where speech is still easy to hear and take breaks during long sessions."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does blue noise help with tinnitus?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Many people whose tinnitus is a high-pitched tone find that blue or white noise covers it well at a low volume. It is not a treatment and this site is not medical advice. The tinnitus masking page explains how to match the color to your pitch and why to keep the volume just below the ringing."
+                    }
+                }
+            ]
+        }
+    ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="content-page landing-page">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Colored Noise</a>
+            <span class="separator">/</span>
+            <span>Blue Noise Generator</span>
+        </nav>
+
+        <header class="landing-header">
+            <h1>Blue Noise Generator</h1>
+            <div class="landing-intro">
+                <p>Blue noise is random sound whose power increases by 3 dB with every octave, the exact opposite of pink noise, so it emphasizes high frequencies and sounds like a fine, bright hiss. Real-world comparisons include water spraying from a hose nozzle, steam escaping under pressure, or the top end of heavy rain on a tin roof with the bass removed.</p>
+                <p>This page opens a free, open-source blue noise generator that synthesizes the sound in your browser using the Web Audio API. There is no signup, no advertising and no tracking. Because the noise is computed rather than looped from a file, it never repeats. It is mostly used for masking high-pitched sounds and as a technical signal in dithering, and you can blend it toward white with the color slider.</p>
+            </div>
+        </header>
+
+        <div class="preset-cta">
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="29"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview Blue Sky</span></button>
+                <a href="/?preset=29" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Free, no ads, no signup. Runs entirely in your browser.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
+        </div>
+
+        <section>
+            <h2>What blue noise sounds like</h2>
+            <p>Compared with white noise, blue noise is thinner and sharper. The low end is almost gone and the hiss sits high, somewhere around the sound of the letter S held for a long time. It has an airy, almost weightless quality. Played quietly it can pass for the sound of a distant sprinkler or a kettle just before it whistles; played loudly it becomes fatiguing quickly, so keep the volume low.</p>
+            <p>It is not a color most people choose for sleep. Its practical value is that it sits exactly where high-frequency intruders sit, so it covers a ringing in the ears or a whining fan more efficiently than a darker color would at the same volume. It also disappears completely on small speakers that cannot reproduce high frequencies well, so use headphones or a decent speaker to hear it properly.</p>
+        </section>
+
+        <section>
+            <h2>The blue noise spectrum</h2>
+            <p>Blue noise has a power spectral density proportional to frequency, S(f) &prop; f. Each doubling of frequency doubles the power, a rise of 3 dB per octave on a linear analyzer. On a logarithmic, per-octave analyzer it rises 6 dB per octave, because each higher octave is also wider. Blue and pink are mirror images: multiply their spectra together and you get flat white noise.</p>
+            <p>The name follows the light analogy. Blue light is at the short-wavelength, high-frequency end of the visible spectrum, and blue noise is tilted toward the high-frequency end of the audio spectrum. Violet noise tilts further still, at plus 6 dB per octave. The relationships between all five colors, with the equations behind them, are on <a href="/physics.html">the physics page</a>.</p>
+        </section>
+
+        <section>
+            <h2>How this site generates blue noise</h2>
+            <p>White noise is generated first as a stream of Gaussian random samples. Blue noise is then produced by differentiation, the inverse of the integration that makes brown noise: the generator takes the difference between successive samples and shapes the result so the slope lands at plus 3 dB per octave rather than plus 6. The color slider treats the range continuously, so a value of 1 is blue, 1.5 is halfway to white, and 0.5 is halfway to violet.</p>
+            <p>The processing happens in an audio worklet on every sample, so the output is continuous and non-repeating for as long as the page is open. No audio file is downloaded and nothing is looped, which also means the page loads instantly and works offline once installed as an app, since there is no media to cache beyond the code itself.</p>
+        </section>
+
+        <section>
+            <h2>Where blue noise is used</h2>
+            <p>Outside of listening, blue noise is a workhorse in signal processing. When audio is reduced from 24 to 16 bits, a tiny amount of noise called dither is added to prevent distortion, and the dither is shaped toward blue so that it sits at high frequencies where the ear is least sensitive. In computer graphics, blue-noise patterns are used to place samples and dither images because their energy is spread evenly without visible clumps.</p>
+            <p>As a sound to listen to, its main uses are <a href="/tinnitus-masking.html">tinnitus masking</a> for high-pitched ringing, covering the whine of fans or electronics, and as a bright component in focus mixes. The <a href="/presets/study-hall.html">Study Hall</a> preset uses a blue-white blend for exactly that, since the added treble covers consonants, the part of speech that carries most of its intelligibility, at a lower overall volume than pink noise would need.</p>
+        </section>
+
+        <section>
+            <h2>Using the blue noise generator</h2>
+            <p>The play button loads <a href="/presets/blue-sky.html">Blue Sky</a>, which is unmodified blue noise. Start with the volume low; high-frequency noise sounds louder than its meter reading suggests. If it is too sharp, move the color slider up toward 1.5 or 2 to bring back some body. The grey toggle applies a perceptual EQ that tames the top end and restores a little bass, which most people find easier on the ears.</p>
+            <p>Everything else on the site applies: the sleep timer fades the sound out, the URL holds your settings, WAV export writes a file of any length, and the page can be installed as an app for offline use. If you are using blue noise to cover a specific sound, adjust the slider while that sound is present rather than in silence, since the point where it disappears is easier to find by ear than by guesswork.</p>
+        </section>
+
+        <section>
+            <h2>Recommended presets</h2>
+            <ul class="preset-picks">
+                <li>
+                    <a class="pick-name" href="/presets/blue-sky.html">Blue Sky</a>
+                    <span class="pick-why">Pure blue noise with no EQ or modulation, the reference for this page.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="29"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=29">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/study-hall.html">Study Hall</a>
+                    <span class="pick-why">Blue leaning toward white, bright enough to cover voices without piercing.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="10"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=10">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/jet-stream.html">Jet Stream</a>
+                    <span class="pick-why">Between blue and violet with perceptual EQ, a high thin rush of air.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="44"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=44">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/cpu-fan.html">CPU Fan</a>
+                    <span class="pick-why">Blue noise with EQ and a uniform texture, close to a small computer fan.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="40"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=40">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/tinnitus-mask.html">Tinnitus Mask</a>
+                    <span class="pick-why">Blue-white blend with EQ, built to sit under high-pitched ringing.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="34"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=34">Open &rarr;</a>
+                </li>
+                <li>
+                    <a class="pick-name" href="/presets/wind-chimes.html">Wind Chimes</a>
+                    <span class="pick-why">Blue-white noise through tuned resonators, a lighter and more musical take.</span>
+                    <button type="button" class="preview-btn" data-preview-preset="56"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                    <a class="pick-open" href="/?preset=56">Open &rarr;</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="landing-faq">
+            <h2>Frequently asked questions</h2>
+            <details>
+                <summary>Is blue noise good for sleep?</summary>
+                <p>Not usually. Its energy sits in the high frequencies that most people find alerting rather than calming, and it does little to cover low rumbles like traffic. Pink or brown noise are far more common choices for sleep. Blue noise is worth trying at night only if you are specifically trying to cover a high-pitched sound.</p>
+            </details>
+            <details>
+                <summary>What is the difference between blue noise and white noise?</summary>
+                <p>White noise has equal power at every frequency. Blue noise rises 3 dB per octave, so it has less bass and more treble than white. Side by side, white sounds like radio static and blue sounds thinner and sharper, like a fine spray of water. Both are hisses; blue is the brighter one.</p>
+            </details>
+            <details>
+                <summary>Why is blue noise used for dithering?</summary>
+                <p>When you reduce the bit depth or resolution of a signal, adding a small amount of random noise hides the quantization error. Shaping that noise toward blue pushes it to high frequencies where the ear is less sensitive, or, in images, spreads it so evenly that no clumps or patterns are visible.</p>
+            </details>
+            <details>
+                <summary>Is blue noise harmful to hearing?</summary>
+                <p>No more than any other sound at the same loudness. The concern is volume, not color. Because high frequencies sound louder than their measured level, it is easy to play blue noise louder than you intend, particularly on earbuds. Keep it at a level where speech is still easy to hear and take breaks during long sessions.</p>
+            </details>
+            <details>
+                <summary>Does blue noise help with tinnitus?</summary>
+                <p>Many people whose tinnitus is a high-pitched tone find that blue or white noise covers it well at a low volume. It is not a treatment and this site is not medical advice. The <a href="/tinnitus-masking.html">tinnitus masking page</a> explains how to match the color to your pitch and why to keep the volume just below the ringing.</p>
+            </details>
+        </section>
+
+        <aside class="landing-related">
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="/violet-noise.html">Violet Noise Generator</a></li>
+                <li><a href="/white-noise.html">White Noise Generator</a></li>
+                <li><a href="/tinnitus-masking.html">Tinnitus Masking Sound</a></li>
+                <li><a href="/presets/">All 71 presets</a></li>
+                <li><a href="/physics.html">The physics of noise</a></li>
+            </ul>
+        </aside>
+
+        <footer class="landing-footer">
+            <span><a href="/">Colored Noise</a> is free and open source. No ads, no signup, no tracking.</span>
+            <a href="https://github.com/gabrielberger1000/colorednoise">Source on GitHub</a>
+        </footer>
+    </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
+</body>
+</html>

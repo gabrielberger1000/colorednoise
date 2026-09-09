@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Focus Zone - Free Pink Noise for Focus | Colored Noise</title>
-    <meta name="description" content="Focus Zone: A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <title>Focus Zone – Free Pink Noise Preset (Focus) | Colored Noise</title>
+    <meta name="description" content="Focus Zone: Grey-equalized pink-brown noise at 3.5, steady, with a three-second fade. Free pink noise preset for focus, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/focus-zone.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/focus-zone.html">
-    <meta property="og:title" content="Focus Zone - Free pink Noise Generator">
-    <meta property="og:description" content="Focus Zone: A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies. Free online noise generator.">
+    <meta property="og:title" content="Focus Zone – Free Pink Noise Generator">
+    <meta property="og:description" content="Focus Zone: Grey-equalized pink-brown noise at 3.5, steady, with a three-second fade. Free pink noise preset for focus, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Focus Zone",
-        "description": "A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies.",
+        "description": "Grey-equalized pink-brown noise at 3.5, steady, with a three-second fade",
         "url": "https://colorednoise.app/presets/focus-zone.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Focus Zone"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Focus Zone",
-            "description": "A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies.",
+            "description": "Focus Zone is a balanced, even hush a lot like the ventilation in a quiet library: present enough to cover conversation two desks over, but with no harsh top end that would tire you out. Grey EQ makes it feel evenly loud from bass to treble rather than weighted to either end. The color sits at exactly 3.5, halfway between pink and brown, and grey equalization is enabled. There is no pulse and no envelope; the level is constant once the three-second fade-in completes. It is deliberately plain so it can run for hours without drawing attention to itself. This is the default for many people starting a work block. Deep Work is nearly identical but sits a touch brighter at 3.4, and Theta Meditation uses the same color and EQ with a ten-second fade for a gentler start. If you find yourself adjusting it, the color slider is the first thing to move.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Focus noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Focus Zone</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #3b82f6">Focus</span>
             <h1>Focus Zone</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Grey-equalized pink-brown noise at 3.5, steady, with a three-second fade</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=9" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Focus Zone loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="9"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=9" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise. using perceptual equalization for balanced loudness across all frequencies.</p>
+            <p>Focus Zone is a balanced, even hush a lot like the ventilation in a quiet library: present enough to cover conversation two desks over, but with no harsh top end that would tire you out. Grey EQ makes it feel evenly loud from bass to treble rather than weighted to either end.</p>
+            <p>The color sits at exactly 3.5, halfway between pink and brown, and grey equalization is enabled. There is no pulse and no envelope; the level is constant once the three-second fade-in completes. It is deliberately plain so it can run for hours without drawing attention to itself.</p>
+            <p>This is the default for many people starting a work block. <a href='/presets/deep-work.html'>Deep Work</a> is nearly identical but sits a touch brighter at 3.4, and <a href='/presets/theta-meditation.html'>Theta Meditation</a> uses the same color and EQ with a ten-second fade for a gentler start. If you find yourself adjusting it, the color slider is the first thing to move.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Deep work sessions</li>
-                <li>Studying</li>
-                <li>Blocking office noise</li>
-                <li>Maintaining concentration</li>
+                <li>Open-plan office masking</li>
+                <li>Writing and editing</li>
+                <li>Long spreadsheet sessions</li>
+                <li>Working from a cafe</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Turn on the stereo auto-pan at a very slow rate, around 0.05 Hz, if a fixed centre image starts to feel flat.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink (3.5)</dd>
-
-                
-
-                <dt>Grey Noise EQ</dt>
-                <dd>Enabled (perceptual balance)</dd>
-
+                <dd>Pink (3.50 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>3 seconds</dd>
-
-                
-
-                
+                <dt>Grey Noise EQ</dt>
+                <dd>Enabled (perceptual loudness balance)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/slow-descent.html" class="prev-preset">&larr; Slow Descent</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/study-hall.html" class="next-preset">Study Hall &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

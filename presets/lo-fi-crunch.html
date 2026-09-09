@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Lo-Fi Crunch - Free Pink Noise for Textured | Colored Noise</title>
-    <meta name="description" content="Lo-Fi Crunch: Pink noise. processed through a lo-fi bitcrusher effect. Free online noise generator.">
+    <title>Lo-Fi Crunch – Free Pink Noise Preset (Textured) | Colored Noise</title>
+    <meta name="description" content="Lo-Fi Crunch: Pink noise crushed to 6 bits with 8x sample-rate reduction, a crunchy retro texture. Free pink noise preset for textured, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/lo-fi-crunch.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/lo-fi-crunch.html">
-    <meta property="og:title" content="Lo-Fi Crunch - Free pink Noise Generator">
-    <meta property="og:description" content="Lo-Fi Crunch: Pink noise. processed through a lo-fi bitcrusher effect. Free online noise generator.">
+    <meta property="og:title" content="Lo-Fi Crunch – Free Pink Noise Generator">
+    <meta property="og:description" content="Lo-Fi Crunch: Pink noise crushed to 6 bits with 8x sample-rate reduction, a crunchy retro texture. Free pink noise preset for textured, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Lo-Fi Crunch",
-        "description": "Pink noise. processed through a lo-fi bitcrusher effect.",
+        "description": "Pink noise crushed to 6 bits with 8x sample-rate reduction, a crunchy retro texture",
         "url": "https://colorednoise.app/presets/lo-fi-crunch.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Lo-Fi Crunch"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Lo-Fi Crunch",
-            "description": "Pink noise. processed through a lo-fi bitcrusher effect.",
+            "description": "Lo-Fi Crunch sounds like pink noise played back through an early video-game console or a broken sampler: gritty, aliased and crunchy, with a distinctive digital grain and a rolled-off, muffled top end from the reduced sample rate. It is more character than comfort, and it makes no attempt to hide that. The color is exactly 3, pink, with uniform distribution for extra grit. The bit depth is reduced to 6 bits, which adds quantization noise and a stepped, crunchy texture, and the sample rate is divided by 8, which introduces aliasing and cuts the highest frequencies. There is no pulse or EQ, and the fade-in is two seconds. It is used for retro game and music sound design and by people who simply like the texture. Warm Hiss is the analogue-flavoured alternative using saturation, and Machine Rhythm in the experimental category applies a milder 10-bit crush to a four-voice rhythm. It sits well under chiptune or lo-fi beats where a clean noise would sound out of place.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Textured noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Lo-Fi Crunch</span>
         </nav>
@@ -62,42 +66,46 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ec4899">Textured</span>
             <h1>Lo-Fi Crunch</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Pink noise crushed to 6 bits with 8x sample-rate reduction, a crunchy retro texture</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=65" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Lo-Fi Crunch loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="65"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=65" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>Pink noise. processed through a lo-fi bitcrusher effect.</p>
+            <p>Lo-Fi Crunch sounds like pink noise played back through an early video-game console or a broken sampler: gritty, aliased and crunchy, with a distinctive digital grain and a rolled-off, muffled top end from the reduced sample rate. It is more character than comfort, and it makes no attempt to hide that.</p>
+            <p>The color is exactly 3, pink, with uniform distribution for extra grit. The bit depth is reduced to 6 bits, which adds quantization noise and a stepped, crunchy texture, and the sample rate is divided by 8, which introduces aliasing and cuts the highest frequencies. There is no pulse or EQ, and the fade-in is two seconds.</p>
+            <p>It is used for retro game and music sound design and by people who simply like the texture. <a href='/presets/warm-hiss.html'>Warm Hiss</a> is the analogue-flavoured alternative using saturation, and <a href='/presets/machine-rhythm.html'>Machine Rhythm</a> in the experimental category applies a milder 10-bit crush to a four-voice rhythm. It sits well under chiptune or lo-fi beats where a clean noise would sound out of place.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Meditation</li>
-                <li>Sound design</li>
-                <li>Immersive experiences</li>
-                <li>Ambient music production</li>
+                <li>Retro game sound design</li>
+                <li>Lo-fi hip-hop textures</li>
+                <li>Chiptune noise layers</li>
+                <li>Deliberately rough ambience</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Raise the bit depth to 8 and the sample-rate reduction to 4 for a gentler crunch closer to a 1990s sampler.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink</dd>
-
-                
-
-                
-
+                <dd>Pink (3)</dd>
                 <dt>Fade In</dt>
                 <dd>2 seconds</dd>
-
-                
-
-                
+                <dt>Distribution</dt>
+                <dd>Uniform (slightly grittier texture)</dd>
+                <dt>Bitcrusher</dt>
+                <dd>6-bit, 8x sample rate reduction</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -115,9 +123,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/warm-hiss.html" class="prev-preset">&larr; Warm Hiss</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/cathedral-air.html" class="next-preset">Cathedral Air &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

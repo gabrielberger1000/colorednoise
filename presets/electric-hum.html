@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Electric Hum - Free Pink Noise for Mechanical | Colored Noise</title>
-    <meta name="description" content="Electric Hum: A blend of pink and brown noise. with rhythmic pulsing. Features a 0.05s fade-in and 0.1s fade-out in a repeating cycle. Free online noise generator.">
+    <title>Electric Hum – Free Pink Noise Preset (Mechanical) | Colored Noise</title>
+    <meta name="description" content="Electric Hum: Pink-warm noise at 3.2 gated by a square pulse every two seconds, a mains buzz. Free pink noise preset for mechanical, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/electric-hum.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/electric-hum.html">
-    <meta property="og:title" content="Electric Hum - Free pink Noise Generator">
-    <meta property="og:description" content="Electric Hum: A blend of pink and brown noise. with rhythmic pulsing. Features a 0.05s fade-in and 0.1s fade-out in a repeating cycle. Free online noise generator.">
+    <meta property="og:title" content="Electric Hum – Free Pink Noise Generator">
+    <meta property="og:description" content="Electric Hum: Pink-warm noise at 3.2 gated by a square pulse every two seconds, a mains buzz. Free pink noise preset for mechanical, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Electric Hum",
-        "description": "A blend of pink and brown noise. with rhythmic pulsing. Features a 0.05s fade-in and 0.1s fade-out in a repeating cycle.",
+        "description": "Pink-warm noise at 3.2 gated by a square pulse every two seconds, a mains buzz",
         "url": "https://colorednoise.app/presets/electric-hum.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Electric Hum"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Electric Hum",
-            "description": "A blend of pink and brown noise. with rhythmic pulsing. Features a 0.05s fade-in and 0.1s fade-out in a repeating cycle.",
+            "description": "Electric Hum is the buzz of a transformer or a fluorescent light ballast: a hard-edged on-off pulse over a warm noise bed that reads as electrical rather than mechanical. The square shape gives it sharp corners, and the rapid envelope turns it into a buzz rather than a swell. The color is 3.2, slightly warmer than pink. The envelope loop is extremely short, attacking in 0.05 seconds, holding for 0.3 at 90 percent and releasing in 0.1, so it cycles roughly twice a second. A square-shaped pulse at 0.5 Hz gates the level on and off every two seconds on top of that. It is mostly used for sound design and by people who find the buzz of old electrics oddly soothing. Diesel Engine is the low, chugging equivalent, and Static TV in the experimental category is a faster, brighter version of the same gated idea at white.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Mechanical noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Electric Hum</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #f59e0b">Mechanical</span>
             <h1>Electric Hum</h1>
-            <p class="preset-tagline">pink noise (natural, balanced sound)</p>
+            <p class="preset-tagline">Pink-warm noise at 3.2 gated by a square pulse every two seconds, a mains buzz</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=43" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Electric Hum loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="43"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=43" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise. with rhythmic pulsing. Features a 0.05s fade-in and 0.1s fade-out in a repeating cycle.</p>
+            <p>Electric Hum is the buzz of a transformer or a fluorescent light ballast: a hard-edged on-off pulse over a warm noise bed that reads as electrical rather than mechanical. The square shape gives it sharp corners, and the rapid envelope turns it into a buzz rather than a swell.</p>
+            <p>The color is 3.2, slightly warmer than pink. The envelope loop is extremely short, attacking in 0.05 seconds, holding for 0.3 at 90 percent and releasing in 0.1, so it cycles roughly twice a second. A square-shaped pulse at 0.5 Hz gates the level on and off every two seconds on top of that.</p>
+            <p>It is mostly used for sound design and by people who find the buzz of old electrics oddly soothing. <a href='/presets/diesel-engine.html'>Diesel Engine</a> is the low, chugging equivalent, and <a href='/presets/static-tv.html'>Static TV</a> in the experimental category is a faster, brighter version of the same gated idea at white.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Creating familiar comfort sounds</li>
-                <li>Travel simulation</li>
-                <li>Industrial ambience</li>
-                <li>White noise alternatives</li>
+                <li>Retro electronics atmosphere</li>
+                <li>Sound design for film</li>
+                <li>Masking an actual light buzz</li>
+                <li>Studio experimentation</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Change the pulse shape to sine and the buzz softens into a gentle two-second wobble.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Pink (3.2)</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.50 Hz square</dd>
-
-                
-
+                <dd>Pink (3.20 on the 0–4 scale)</dd>
                 <dt>Envelope</dt>
-                <dd>Attack: 0.05s, Sustain: 0.9, Release: 0.1s</dd>
-
-                
-
-                
+                <dd>0.05s in, hold 0.3s, 0.1s out (0.6s cycle)</dd>
+                <dt>Modulation</dt>
+                <dd>0.5 Hz square (one cycle every 2.0 s)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/submarine.html" class="prev-preset">&larr; Submarine</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/jet-stream.html" class="next-preset">Jet Stream &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

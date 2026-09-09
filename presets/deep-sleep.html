@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Deep Sleep - Free Brown Noise for Sleep | Colored Noise</title>
-    <meta name="description" content="Deep Sleep: A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 30 seconds for a smooth transitio... Free online noise generator.">
+    <title>Deep Sleep – Free Brown Noise Preset (Sleep) | Colored Noise</title>
+    <meta name="description" content="Deep Sleep: Almost pure brown noise that swells and settles once every eight seconds. Free brown noise preset for sleep, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/deep-sleep.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/deep-sleep.html">
-    <meta property="og:title" content="Deep Sleep - Free brown Noise Generator">
-    <meta property="og:description" content="Deep Sleep: A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 30 seconds for a smooth transitio... Free online noise generator.">
+    <meta property="og:title" content="Deep Sleep – Free Brown Noise Generator">
+    <meta property="og:description" content="Deep Sleep: Almost pure brown noise that swells and settles once every eight seconds. Free brown noise preset for sleep, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Deep Sleep",
-        "description": "A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 30 seconds for a smooth transition.",
+        "description": "Almost pure brown noise that swells and settles once every eight seconds",
         "url": "https://colorednoise.app/presets/deep-sleep.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Deep Sleep"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Deep Sleep",
-            "description": "A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 30 seconds for a smooth transition.",
+            "description": "Deep Sleep sounds like a large fan running behind a closed door, or a highway heard from a bedroom half a mile away. There is almost no treble in it at all, just a broad low roar that rises and falls so slowly you tend to stop noticing the movement after a minute or two. The color sits at 3.95 on the scale, one small step short of full brown, so the top end is rolled off at roughly 6 dB per octave. A sine-shaped pulse at 0.12 Hz lifts and lowers the volume once every eight seconds or so, and the whole thing fades in over 30 seconds so nothing startles you as you settle. Most people leave this running all night, either through a speaker or a single earbud. Compared with Heavy Blanket, which is flat and unmodulated, Deep Sleep has a gentle breathing motion. Womb Sound adds grey equalization and pulses more slowly, every twelve and a half seconds.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Sleep noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Deep Sleep</span>
         </nav>
@@ -62,43 +66,44 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #8b5cf6">Sleep</span>
             <h1>Deep Sleep</h1>
-            <p class="preset-tagline">brown noise (deep, rumbling bass)</p>
+            <p class="preset-tagline">Almost pure brown noise that swells and settles once every eight seconds</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=0" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Deep Sleep loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="0"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=0" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A blend of pink and brown noise. with slow, gentle modulation. Gradually fades in over 30 seconds for a smooth transition.</p>
+            <p>Deep Sleep sounds like a large fan running behind a closed door, or a highway heard from a bedroom half a mile away. There is almost no treble in it at all, just a broad low roar that rises and falls so slowly you tend to stop noticing the movement after a minute or two.</p>
+            <p>The color sits at 3.95 on the scale, one small step short of full brown, so the top end is rolled off at roughly 6 dB per octave. A sine-shaped pulse at 0.12 Hz lifts and lowers the volume once every eight seconds or so, and the whole thing fades in over 30 seconds so nothing startles you as you settle.</p>
+            <p>Most people leave this running all night, either through a speaker or a single earbud. Compared with <a href='/presets/heavy-blanket.html'>Heavy Blanket</a>, which is flat and unmodulated, Deep Sleep has a gentle breathing motion. <a href='/presets/womb-sound.html'>Womb Sound</a> adds grey equalization and pulses more slowly, every twelve and a half seconds.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Falling asleep</li>
-                <li>Staying asleep</li>
-                <li>Blocking nighttime disturbances</li>
-                <li>Creating a calming bedtime routine</li>
+                <li>Masking a snoring partner</li>
+                <li>Light sleepers in noisy flats</li>
+                <li>All-night playback</li>
+                <li>Daytime naps</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> If the eight-second swell is too noticeable, lower the pulse rate to 0.05 Hz for a twenty-second cycle that fades into the background.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
                 <dt>Noise Color</dt>
-                <dd>Brown (4.0)</dd>
-
-                <dt>Modulation</dt>
-                <dd>0.12 Hz sine</dd>
-
-                
-
+                <dd>Brown (3.95 on the 0–4 scale)</dd>
                 <dt>Fade In</dt>
                 <dd>30 seconds</dd>
-
-                
-
-                
+                <dt>Modulation</dt>
+                <dd>0.12 Hz sine (one cycle every 8.3 s)</dd>
             </dl>
+            <p class="learn-more-link"><a href="/brown-noise.html">Learn more about brown noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +121,11 @@
 
         <nav class="preset-nav">
             <span></span>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <a href="/presets/womb-sound.html" class="next-preset">Womb Sound &rarr;</a>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

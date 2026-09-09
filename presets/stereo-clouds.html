@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Stereo Clouds - Free Mixed Noise for Textured | Colored Noise</title>
-    <meta name="description" content="Stereo Clouds: A multi-voice layered soundscape combining 2 independent noise generators. Enhanced with large room reverb. Free online noise generator.">
+    <title>Stereo Clouds – Free Pink Noise Preset (Textured) | Colored Noise</title>
+    <meta name="description" content="Stereo Clouds: Two pink voices hard-panned left and right on 16 and 20-second cycles in a large reverb. Free pink noise preset for textured, synthesized in your browser. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://colorednoise.app/presets/stereo-clouds.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app/presets/stereo-clouds.html">
-    <meta property="og:title" content="Stereo Clouds - Free mixed Noise Generator">
-    <meta property="og:description" content="Stereo Clouds: A multi-voice layered soundscape combining 2 independent noise generators. Enhanced with large room reverb. Free online noise generator.">
+    <meta property="og:title" content="Stereo Clouds – Free Pink Noise Generator">
+    <meta property="og:description" content="Stereo Clouds: Two pink voices hard-panned left and right on 16 and 20-second cycles in a large reverb. Free pink noise preset for textured, synthesized in your browser. No ads, no signup.">
+    <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -21,7 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Stereo Clouds",
-        "description": "A multi-voice layered soundscape combining 2 independent noise generators. Enhanced with large room reverb.",
+        "description": "Two pink voices hard-panned left and right on 16 and 20-second cycles in a large reverb",
         "url": "https://colorednoise.app/presets/stereo-clouds.html",
         "isPartOf": {
             "@type": "WebApplication",
@@ -32,14 +36,14 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://colorednoise.app/"},
-                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/#presets"},
+                {"@type": "ListItem", "position": 2, "name": "Presets", "item": "https://colorednoise.app/presets/"},
                 {"@type": "ListItem", "position": 3, "name": "Stereo Clouds"}
             ]
         },
         "mainEntity": {
             "@type": "AudioObject",
             "name": "Stereo Clouds",
-            "description": "A multi-voice layered soundscape combining 2 independent noise generators. Enhanced with large room reverb.",
+            "description": "Stereo Clouds is a slow weather system in headphones: one soft mass of sound swelling on the far left over sixteen seconds, another on the far right over twenty, so the balance keeps tipping gently one way and then the other. A big reverb and a very slow global pan blur the edges. Two voices are active. A pink voice panned hard left rises over 5 seconds, holds for 4 at 60 percent and releases over 6, a sixteen-second cycle. A 3.2 voice panned hard right rises over 6, holds for 5 at 50 percent and releases over 7, a cycle of about twenty seconds. A large reverb at 50 percent and a global auto-pan at 0.05 Hz with 0.3 depth tie them together. It is designed for headphones and long sessions where a static image gets tiring. Drifting is a single voice with faster, deeper panning and no reverb, and Cathedral Air is a single grey-equalized voice in a similar large space without the motion. Because both voices are pink-range, the tone stays soft no matter where the balance sits.",
             "encodingFormat": "audio/wav",
             "isAccessibleForFree": true,
             "genre": "Textured noise"
@@ -47,14 +51,14 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Colored Noise</a>
             <span class="separator">/</span>
-            <a href="/#presets">Presets</a>
+            <a href="/presets/">Presets</a>
             <span class="separator">/</span>
             <span>Stereo Clouds</span>
         </nav>
@@ -62,43 +66,48 @@
         <header class="preset-header">
             <span class="preset-category-badge" style="background: #ec4899">Textured</span>
             <h1>Stereo Clouds</h1>
-            <p class="preset-tagline">multi-voice layered noise</p>
+            <p class="preset-tagline">Two pink voices hard-panned left and right on 16 and 20-second cycles in a large reverb</p>
         </header>
 
         <div class="preset-cta">
-            <a href="/?preset=70" class="play-preset-btn">Play This Preset</a>
-            <p class="cta-hint">Opens the generator with Stereo Clouds loaded</p>
+            <div class="cta-buttons">
+                <button type="button" class="preview-btn" data-preview-preset="70"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
+                <a href="/?preset=70" class="play-preset-btn">Open in Generator</a>
+            </div>
+            <p class="cta-hint">Preview plays right here. The generator adds a sleep timer, full controls, and WAV export.</p>
+            <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 
         <section class="preset-details">
             <h2>About This Sound</h2>
-            <p>A multi-voice layered soundscape combining 2 independent noise generators. Enhanced with large room reverb.</p>
+            <p>Stereo Clouds is a slow weather system in headphones: one soft mass of sound swelling on the far left over sixteen seconds, another on the far right over twenty, so the balance keeps tipping gently one way and then the other. A big reverb and a very slow global pan blur the edges.</p>
+            <p>Two voices are active. A pink voice panned hard left rises over 5 seconds, holds for 4 at 60 percent and releases over 6, a sixteen-second cycle. A 3.2 voice panned hard right rises over 6, holds for 5 at 50 percent and releases over 7, a cycle of about twenty seconds. A large reverb at 50 percent and a global auto-pan at 0.05 Hz with 0.3 depth tie them together.</p>
+            <p>It is designed for headphones and long sessions where a static image gets tiring. <a href='/presets/drifting.html'>Drifting</a> is a single voice with faster, deeper panning and no reverb, and <a href='/presets/cathedral-air.html'>Cathedral Air</a> is a single grey-equalized voice in a similar large space without the motion. Because both voices are pink-range, the tone stays soft no matter where the balance sits.</p>
 
             <h3>Best Used For</h3>
             <ul>
-                <li>Meditation</li>
-                <li>Sound design</li>
-                <li>Immersive experiences</li>
-                <li>Ambient music production</li>
+                <li>Headphone sleep with motion</li>
+                <li>Slow ambient listening</li>
+                <li>Reducing static-image fatigue</li>
+                <li>Wide-field meditation</li>
             </ul>
+
+            <div class="preset-tip"><strong>Try this:</strong> Lower the reverb mix to 0.3 to sharpen the left-right separation and make each cloud more distinct.</div>
 
             <h3>Technical Details</h3>
             <dl class="preset-specs">
-                <dt>Noise Color</dt>
-                <dd>Mixed</dd>
-
-                
-
-                
-
-                
-
-                <dt>Reverb</dt>
-                <dd>50% mix, large room</dd>
-
                 <dt>Voices</dt>
                 <dd>2 independent layers</dd>
+                <dt>Voice 1</dt>
+                <dd>Pink (3), 80% left, 16.0s cycle</dd>
+                <dt>Voice 2</dt>
+                <dd>Pink (3.2), 80% right, 19.5s cycle</dd>
+                <dt>Reverb</dt>
+                <dd>50% mix, large room</dd>
+                <dt>Auto-Pan</dt>
+                <dd>0.05 Hz, 30% width</dd>
             </dl>
+            <p class="learn-more-link"><a href="/pink-noise.html">Learn more about pink noise &rarr;</a></p>
         </section>
 
         
@@ -116,9 +125,11 @@
 
         <nav class="preset-nav">
             <a href="/presets/machine-rhythm.html" class="prev-preset">&larr; Machine Rhythm</a>
-            <a href="/" class="back-to-app">All Presets</a>
+            <a href="/presets/" class="back-to-app">All Presets</a>
             <span></span>
         </nav>
     </div>
+
+    <script type="module" src="/js/preset-preview.js"></script>
 </body>
 </html>

@@ -150,6 +150,27 @@
             border-color: var(--warning);
         }
         
+        .install-btn {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            padding: 0.55rem 1rem;
+            font-size: 0.8rem;
+            font-family: inherit;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .install-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .install-btn[hidden] {
+            display: none;
+        }
+
         .kbd-hint {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.65rem;
@@ -1663,5 +1684,289 @@
             .preset-nav {
                 flex-direction: column;
                 gap: 1rem;
+            }
+        }
+
+        /* In-page preset preview (preset pages, landing pages) */
+        .preview-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preview-btn:hover:not(:disabled) {
+            background: rgba(0, 229, 204, 0.1);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .preview-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .preview-btn.playing {
+            background: var(--accent);
+            color: var(--bg);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .preview-icon::before {
+            content: '▶';
+            font-size: 0.8em;
+        }
+
+        .preview-btn.playing .preview-icon::before {
+            content: '■';
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preview-status {
+            min-height: 1.2em;
+            margin: 0.75rem 0 0 0;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .preset-tip {
+            margin-top: 1.5rem;
+            padding: 1rem 1.25rem;
+            background: rgba(123, 97, 255, 0.08);
+            border-left: 3px solid var(--accent-secondary);
+            border-radius: 0 8px 8px 0;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .preset-tip strong {
+            color: var(--accent-secondary);
+        }
+
+        .learn-more-link {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .learn-more-link a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .learn-more-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Landing pages (brown-noise.html, noise-for-sleep.html, ...) */
+        .landing-page {
+            max-width: 760px;
+        }
+
+        .landing-page .landing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .landing-page .landing-header h1 {
+            font-size: 2.4rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .landing-page .landing-intro p {
+            font-size: 1.05rem;
+            color: var(--text);
+            opacity: 0.85;
+        }
+
+        .landing-page .landing-intro p:first-child {
+            font-size: 1.15rem;
+        }
+
+        .landing-page h2 {
+            color: var(--text);
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .landing-page section p {
+            color: var(--text-dim);
+        }
+
+        .landing-page section a {
+            color: var(--accent);
+        }
+
+        .preset-picks {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0 0;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .preset-picks li {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem 1rem;
+            padding: 0.9rem 1.1rem;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin: 0;
+        }
+
+        .preset-picks .pick-name {
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            min-width: 140px;
+        }
+
+        .preset-picks .pick-name:hover {
+            color: var(--accent);
+        }
+
+        .preset-picks .pick-why {
+            flex: 1 1 240px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .preset-picks .preview-btn {
+            padding: 0.4rem 0.9rem;
+            font-size: 0.8rem;
+        }
+
+        .preset-picks .pick-open {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .preset-picks .pick-open:hover {
+            text-decoration: underline;
+        }
+
+        .landing-faq details {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .landing-faq summary {
+            cursor: pointer;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .landing-faq p {
+            margin: 0.75rem 0 0 0;
+        }
+
+        .landing-related {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .landing-related h2 {
+            font-size: 1.1rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .landing-related ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .landing-related li {
+            margin: 0;
+        }
+
+        .landing-related a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--panel-elevated);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .landing-related a:hover {
+            border-color: var(--accent);
+        }
+
+        .landing-page table {
+            font-size: 0.9rem;
+        }
+
+        .landing-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .landing-footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Footer guide links on the generator page */
+        .guide-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.25rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .guide-nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .guide-nav a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 600px) {
+            .landing-page .landing-header h1 {
+                font-size: 1.8rem;
             }
         }

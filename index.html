@@ -11,19 +11,10 @@
     <meta name="theme-color" content="#0a0a0f">
     <meta name="format-detection" content="telephone=no">
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BNQ3WLE4ME"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BNQ3WLE4ME');
-    </script>
-    
     <!-- Primary Meta Tags -->
     <title>Colored Noise | Programmable Multi-Voice Noise Generator</title>
     <meta name="title" content="Colored Noise | Programmable Multi-Voice Noise Generator">
-    <meta name="description" content="Free online noise generator with 50+ presets and multi-voice polyrhythm. Synthesize white, pink, and brown noise with JSON programmability, ADSR envelopes, and WAV export for sleep or focus.">
+    <meta name="description" content="Free online noise generator with 71 presets and multi-voice polyrhythm. Synthesize white, pink, and brown noise with JSON programmability, ADSR envelopes, and WAV export for sleep or focus.">
     <meta name="keywords" content="white noise generator, pink noise, brown noise, noise generator, noise machine, ambient noise, free noise generator, online sound machine, polyrhythm, multi-voice, reverb, WAV export, noise composition">
     <meta name="author" content="Colored Noise">
     <meta name="robots" content="index, follow">
@@ -33,7 +24,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://colorednoise.app">
     <meta property="og:title" content="Colored Noise | Free Noise Generator with Multi-Voice Polyrhythm">
-    <meta property="og:description" content="Free online noise generator with 50+ presets, 4-voice polyrhythm, reverb, saturation, JSON composition editor, and WAV export.">
+    <meta property="og:description" content="Free online noise generator with 71 presets, 4-voice polyrhythm, reverb, saturation, JSON composition editor, and WAV export.">
     <meta property="og:image" content="https://colorednoise.app/social-card.png">
     <meta property="og:site_name" content="Colored Noise">
     
@@ -41,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://colorednoise.app">
     <meta name="twitter:title" content="Colored Noise | Free Noise Generator for Sleep & Focus">
-    <meta name="twitter:description" content="50+ noise presets: white, pink, brown, blue & violet. Sleep timer, custom fades, multi-voice layering. 100% free.">
+    <meta name="twitter:description" content="71 noise presets: white, pink, brown, blue & violet. Sleep timer, custom fades, multi-voice layering. 100% free.">
     <meta name="twitter:image" content="https://colorednoise.app/social-card.png">
     
     <!-- Structured Data for Rich Results -->
@@ -134,7 +125,7 @@
 			  "name": "Is Colored Noise free?",
 			  "acceptedAnswer": {
 			      "@type": "Answer",
-			      "text": "Yes, completely free with no ads, no signup, and no tracking. The generator runs entirely in your browser. iOS and Android apps are also available with offline support."
+			      "text": "Yes, completely free with no ads, no signup, and no tracking. The generator runs entirely in your browser and can be installed as an app on your phone or desktop, with offline support."
 			  }
 		      }
 		  ]
@@ -226,18 +217,23 @@
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
+        script-src 'self' 'unsafe-inline';
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        img-src 'self' data: https://www.google-analytics.com;
-        connect-src 'self' https://www.google-analytics.com https://analytics.google.com;
+        img-src 'self' data:;
+        connect-src 'self';
         worker-src 'self' blob:;
         media-src 'self' blob:;
         font-src 'self' https://fonts.gstatic.com;
     ">
     
-    <!-- Favicon -->
+    <!-- Favicon & App Icons -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Colored Noise">
+
+    <!-- Progressive Web App -->
+    <link rel="manifest" href="/manifest.webmanifest">
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -246,7 +242,7 @@
 <!-- Hidden SEO content - visible to search engines, visually hidden -->
 <header class="seo-header" aria-hidden="true">
     <h1>Colored Noise - Free Online Noise Generator</h1>
-    <p>Generate white noise, pink noise, brown noise, blue noise, and violet noise for free. Perfect for sleep, focus, studying, meditation, and tinnitus masking. Features 50+ presets, multi-voice layering, sleep timer, and customizable settings.</p>
+    <p>Generate white noise, pink noise, brown noise, blue noise, and violet noise for free. Perfect for sleep, focus, studying, meditation, and tinnitus masking. Features 71 presets, multi-voice layering, sleep timer, and customizable settings.</p>
 </header>
 
 <main>
@@ -259,6 +255,7 @@
                 <div class="status" id="statusDisplay">System Standby</div>
             </div>
             <div class="header-controls">
+                <button id="installBtn" class="install-btn" hidden aria-label="Install Colored Noise as an app">⤓ Install app</button>
                 <span class="kbd-hint">Space</span>
                 <button id="powerBtn" aria-label="Power toggle">⏻ Power On</button>
             </div>
@@ -626,11 +623,25 @@
             </details>
             <details class="faq-section">
                 <summary>Is this really free?</summary>
-                <p>Yes, completely free with no ads, no signup, and no tracking. The generator runs entirely in your browser. We also offer iOS and Android apps with offline support.</p>
+                <p>Yes, completely free with no ads, no signup, and no tracking. The generator runs entirely in your browser. Install it as an app on your phone or desktop for offline use.</p>
             </details>
         </nav>
 
         <p class="tagline">Free noise generator for sleep, focus & relaxation. No ads, no signup.</p>
+
+        <nav class="guide-nav" aria-label="Noise guides">
+            <a href="/brown-noise.html">Brown Noise</a>
+            <a href="/pink-noise.html">Pink Noise</a>
+            <a href="/white-noise.html">White Noise</a>
+            <a href="/blue-noise.html">Blue Noise</a>
+            <a href="/violet-noise.html">Violet Noise</a>
+            <a href="/grey-noise.html">Grey Noise</a>
+            <a href="/noise-for-sleep.html">Noise for Sleep</a>
+            <a href="/noise-for-focus.html">Noise for Focus</a>
+            <a href="/brown-noise-adhd.html">Brown Noise &amp; ADHD</a>
+            <a href="/tinnitus-masking.html">Tinnitus Masking</a>
+            <a href="/white-vs-pink-vs-brown-noise.html">White vs Pink vs Brown</a>
+        </nav>
 
         <div class="tech-nav">
             <a href="/presets/" class="nav-item">Preset Guide</a>
