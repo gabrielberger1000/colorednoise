@@ -344,6 +344,17 @@ export class AudioEngine {
         this.gainNode = null;
         this.postSaturation = null;
 
+        // Background playback: the master output is routed through a
+        // MediaStream into a hidden <audio> element. Browsers (iOS Safari in
+        // particular) keep media elements playing when the screen locks or the
+        // tab is backgrounded, whereas a bare AudioContext gets suspended.
+        // The same element is what the Media Session API (lock-screen
+        // controls) attaches to.
+        this.streamDest = null;
+        this.outputEl = null;
+        this.nowPlayingTitle = 'Colored Noise';
+        this.onMediaAction = null; // set by the UI: (action) => void
+
         // State
         this.initialized = false;
         this.isPlaying = false;
@@ -368,6 +379,11 @@ export class AudioEngine {
 
         try {
             this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+            // Set up the media element output while we are still inside the
+            // user gesture that called init(); play() must start here or iOS
+            // will refuse it later.
+            this._initBackgroundOutput();
 
             // Load worklet with error handling
             try {
@@ -419,6 +435,89 @@ export class AudioEngine {
     _initVoiceMerger() {
         this.voiceMerger = this.ctx.createGain();
         this.voiceMerger.gain.value = 1;
+    }
+
+    _initBackgroundOutput() {
+        if (typeof this.ctx.createMediaStreamDestination !== 'function' || typeof Audio === 'undefined') {
+            return; // fall back to ctx.destination in _connectSignalChain
+        }
+        try {
+            this.streamDest = this.ctx.createMediaStreamDestination();
+            const el = new Audio();
+            el.srcObject = this.streamDest.stream;
+            el.playsInline = true;
+            el.setAttribute('playsinline', '');
+            el.setAttribute('aria-hidden', 'true');
+            el.style.display = 'none';
+            el.volume = 1;
+            document.body.appendChild(el);
+            this.outputEl = el;
+            // Start the (currently silent) element inside the user gesture.
+            el.play().catch(() => { /* retried in start() */ });
+        } catch (e) {
+            console.warn('Background audio output unavailable, using direct output:', e);
+            this.streamDest = null;
+            this.outputEl = null;
+        }
+
+        // If the OS interrupts the context (phone call, Siri, another app),
+        // resume when we regain focus and were meant to be playing.
+        this.ctx.addEventListener('statechange', () => this._resumeIfInterrupted());
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) this._resumeIfInterrupted();
+        });
+
+        this._initMediaSession();
+    }
+
+    _resumeIfInterrupted() {
+        if (!this.ctx || !this.isPlaying) return;
+        if (this.ctx.state === 'interrupted' || this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => {});
+        }
+        if (this.outputEl && this.outputEl.paused) {
+            this.outputEl.play().catch(() => {});
+        }
+    }
+
+    _initMediaSession() {
+        if (!('mediaSession' in navigator)) return;
+        const ms = navigator.mediaSession;
+        const forward = (action) => () => {
+            if (typeof this.onMediaAction === 'function') this.onMediaAction(action);
+        };
+        for (const action of ['play', 'pause', 'stop']) {
+            try { ms.setActionHandler(action, forward(action)); } catch (e) { /* unsupported action */ }
+        }
+        // Explicitly unsupported: seeking makes no sense for endless noise.
+        for (const action of ['seekbackward', 'seekforward', 'seekto', 'previoustrack', 'nexttrack']) {
+            try { ms.setActionHandler(action, null); } catch (e) { /* ignore */ }
+        }
+        this._updateMediaSession();
+    }
+
+    _updateMediaSession() {
+        if (!('mediaSession' in navigator)) return;
+        try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: this.nowPlayingTitle,
+                artist: 'Colored Noise',
+                album: 'colorednoise.app',
+                artwork: [
+                    { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+                    { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' }
+                ]
+            });
+            navigator.mediaSession.playbackState = this.isPlaying ? 'playing' : 'paused';
+        } catch (e) { /* ignore */ }
+    }
+
+    /**
+     * Set the title shown on the lock screen / media controls.
+     */
+    setNowPlaying(title) {
+        this.nowPlayingTitle = title || 'Colored Noise';
+        this._updateMediaSession();
     }
 
     async _initVoices() {
@@ -604,7 +703,12 @@ export class AudioEngine {
         this.reverbMix.connect(this.globalPanner);
         this.globalPanner.connect(this.analyser);
         this.analyser.connect(this.gainNode);
-        this.gainNode.connect(this.ctx.destination);
+        if (this.streamDest) {
+            // Output via the media element (see _initBackgroundOutput)
+            this.gainNode.connect(this.streamDest);
+        } else {
+            this.gainNode.connect(this.ctx.destination);
+        }
     }
     
     createSaturationCurves() {
@@ -857,18 +961,23 @@ export class AudioEngine {
     start() {
         if (!this.initialized) return;
         
-        if (this.ctx.state === 'suspended') {
+        if (this.ctx.state === 'suspended' || this.ctx.state === 'interrupted') {
             this.ctx.resume();
         }
-        
+
         // Start all enabled voices
         for (const voice of this.voices) {
             if (voice.enabled && voice.initialized) {
                 voice.start();
             }
         }
-        
+
         this.isPlaying = true;
+
+        if (this.outputEl && this.outputEl.paused) {
+            this.outputEl.play().catch((e) => console.warn('Media element play failed:', e));
+        }
+        this._updateMediaSession();
     }
     
     stop(release = 0.1, onComplete = null) {
@@ -882,19 +991,25 @@ export class AudioEngine {
         }
         
         this.isPlaying = false;
-        
+        this._updateMediaSession();
+
         if (onComplete) {
             setTimeout(onComplete, release * 1000 + 50);
         }
     }
-    
+
     stopImmediate() {
         this.stop(0.05);
     }
-    
+
     suspend() {
         if (this.ctx && this.ctx.state === 'running') {
             this.ctx.suspend();
+        }
+        // Pausing the element releases the OS "now playing" slot so the
+        // lock screen no longer shows us once we have actually stopped.
+        if (this.outputEl && !this.outputEl.paused) {
+            this.outputEl.pause();
         }
     }
 

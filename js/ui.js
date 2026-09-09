@@ -308,6 +308,7 @@ async function activatePreset(preset, btnElem) {
 
     // Always start/restart when activating a preset
     audioEngine.start();
+    audioEngine.setNowPlaying(preset.name);
     updatePlayingUI(true);
     startVisualizer();
 
@@ -637,11 +638,18 @@ async function togglePower() {
     } else {
         await audioEngine.applySettings(buildFullSettings(), true);
         audioEngine.start();
+        audioEngine.setNowPlaying(currentPresetName);
         updatePlayingUI(true);
         startVisualizer();
         elements.statusDisplay.textContent = "Playing: " + currentPresetName;
     }
 }
+
+// Lock-screen / headset controls (Media Session API) map onto the power toggle.
+audioEngine.onMediaAction = (action) => {
+    if (action === 'play' && !audioEngine.isPlaying) togglePower();
+    if ((action === 'pause' || action === 'stop') && audioEngine.isPlaying) togglePower();
+};
 
 function updatePlayingUI(playing) {
     if (!elements.powerBtn) return; // Guard against uninitialized UI

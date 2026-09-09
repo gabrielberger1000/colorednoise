@@ -77,12 +77,13 @@ async function startPreview(btn) {
 
     await audioEngine.applySettings(buildSettings(preset), true);
     audioEngine.start();
+    audioEngine.setNowPlaying(preset.name + ' (preview)');
     activeButton = btn;
     setState(btn, 'playing', 'Playing ' + preset.name + ' at half volume. Open the generator for full controls.');
 }
 
 function stopPreview(btn) {
-    audioEngine.stop(0.3);
+    audioEngine.stop(0.3, () => audioEngine.suspend());
     activeButton = null;
     setState(btn, 'idle', '');
 }
@@ -108,6 +109,11 @@ function init() {
             }
         });
     });
+
+    // Lock-screen / headset pause stops the preview.
+    audioEngine.onMediaAction = (action) => {
+        if ((action === 'pause' || action === 'stop') && activeButton) stopPreview(activeButton);
+    };
 
     // Stop when the page is hidden (tab switch, navigation) to avoid a
     // preview running in the background.
