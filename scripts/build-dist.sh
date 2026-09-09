@@ -11,7 +11,7 @@ rm -rf "$DIST"
 mkdir -p "$DIST"
 
 # Root files
-for f in "$ROOT"/*.html "$ROOT"/manifest.webmanifest "$ROOT"/sw.js "$ROOT"/_headers \
+for f in "$ROOT"/*.html "$ROOT"/manifest.webmanifest "$ROOT"/sw.js "$ROOT"/_headers "$ROOT"/_redirects \
          "$ROOT"/sitemap.xml "$ROOT"/robots.txt "$ROOT"/favicon.svg "$ROOT"/social-card.png; do
     [ -f "$f" ] && cp "$f" "$DIST/"
 done

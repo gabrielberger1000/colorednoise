@@ -1,0 +1,2 @@
+# Canonical host: send www to the apex domain (Cloudflare Pages and Netlify both honor this file)
+https://www.colorednoise.app/* https://colorednoise.app/:splat 301
