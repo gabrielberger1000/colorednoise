@@ -28,8 +28,8 @@ No ads, no signup, no tracking. The sound is synthesized in real time, so it
 never loops or repeats. Includes 71 presets, a sleep timer with fade-out, and
 the option to install it as an app that works offline.
 
-This video: https://colorednoise.app/presets/<slug>.html
-Learn about noise colors: https://colorednoise.app/white-vs-pink-vs-brown-noise.html
+This video: https://colorednoise.app/presets/<slug>
+Learn about noise colors: https://colorednoise.app/white-vs-pink-vs-brown-noise
 
 Source code (MIT): https://github.com/gabrielberger1000/colorednoise
 ```
@@ -56,7 +56,7 @@ treatment.
 Keep the volume low enough that you could still hold a conversation over it.
 
 Prefer it without YouTube? The same sound, with a sleep timer and offline
-support, is free at https://colorednoise.app/brown-noise.html
+support, is free at https://colorednoise.app/brown-noise
 ```
 
 Tags: brown noise, brown noise 8 hours, brown noise for sleep, brown noise adhd, brown noise for studying, deep brown noise, brown noise no ads, sleep sounds, focus sounds, noise generator, colorednoise
@@ -79,7 +79,7 @@ No music, no ads, no loop point. The sound is synthesized continuously rather
 than played from a recording.
 
 The same sound with a sleep timer and offline support is free at
-https://colorednoise.app/pink-noise.html
+https://colorednoise.app/pink-noise
 ```
 
 Tags: pink noise, pink noise 8 hours, pink noise for sleep, pink noise for studying, pink noise sleep, pink noise no ads, sleep sounds, study sounds, noise generator, colorednoise
@@ -102,7 +102,7 @@ No music, no ads, no loop point. The sound is synthesized continuously rather
 than played from a recording.
 
 The same sound with a sleep timer and offline support is free at
-https://colorednoise.app/white-noise.html
+https://colorednoise.app/white-noise
 ```
 
 Tags: white noise, white noise 8 hours, white noise for sleep, white noise for babies, white noise for studying, white noise no ads, sleep sounds, tinnitus masking, noise generator, colorednoise
@@ -122,7 +122,7 @@ never loops and there is no seam to wake you up.
 Good for sleep, reading, and blocking out a noisy street.
 
 The same sound with a sleep timer and offline support is free at
-https://colorednoise.app/presets/heavy-rain.html
+https://colorednoise.app/presets/heavy-rain
 ```
 
 Tags: rain sounds, rain sounds for sleeping, heavy rain 8 hours, rain no thunder, rain sounds no ads, rain for studying, sleep sounds, colorednoise
@@ -140,7 +140,7 @@ Synthesized pink-brown noise with a perceptual EQ curve that matches the warm,
 slightly textured sound of a real fan. No loop point, no ads, no music.
 
 The same sound with a sleep timer and offline support is free at
-https://colorednoise.app/presets/box-fan.html
+https://colorednoise.app/presets/box-fan
 ```
 
 Tags: box fan sound, fan noise for sleeping, fan sound 8 hours, fan white noise, fan noise no ads, sleep sounds, colorednoise
@@ -161,7 +161,7 @@ enough movement that it does not feel like a wall of sound.
 No music, no ads, no loop point.
 
 The same preset with a sleep timer and offline support is free at
-https://colorednoise.app/presets/deep-sleep.html
+https://colorednoise.app/presets/deep-sleep
 ```
 
 Tags: brown noise for sleep, brown noise 10 hours, deep sleep sounds, brown noise sleep no ads, sleep sounds, deep brown noise, colorednoise

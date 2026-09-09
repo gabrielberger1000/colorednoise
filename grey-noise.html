@@ -7,13 +7,13 @@
     <meta name="description" content="Free grey noise (gray noise) generator. White noise shaped by an equal-loudness curve so every frequency sounds equally loud. No ads, no signup.">
     <meta name="theme-color" content="#0a0a0f">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://colorednoise.app/grey-noise.html">
+    <link rel="canonical" href="https://colorednoise.app/grey-noise">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="manifest" href="/manifest.webmanifest">
 
     <!-- Open Graph -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://colorednoise.app/grey-noise.html">
+    <meta property="og:url" content="https://colorednoise.app/grey-noise">
     <meta property="og:title" content="Grey Noise Generator - Gray Noise Online, Equal Loudness Noise">
     <meta property="og:description" content="Free grey noise (gray noise) generator. White noise shaped by an equal-loudness curve so every frequency sounds equally loud. No ads, no signup.">
     <meta property="og:image" content="https://colorednoise.app/social-card.png">
@@ -30,10 +30,10 @@
     "@graph": [
         {
             "@type": "Article",
-            "@id": "https://colorednoise.app/grey-noise.html#article",
+            "@id": "https://colorednoise.app/grey-noise#article",
             "headline": "Grey Noise Generator",
             "description": "Free grey noise (gray noise) generator. White noise shaped by an equal-loudness curve so every frequency sounds equally loud. No ads, no signup.",
-            "url": "https://colorednoise.app/grey-noise.html",
+            "url": "https://colorednoise.app/grey-noise",
             "image": "https://colorednoise.app/social-card.png",
             "wordCount": 1062,
             "author": {
@@ -50,7 +50,7 @@
                 "@id": "https://colorednoise.app/#website",
                 "name": "Colored Noise"
             },
-            "mainEntityOfPage": "https://colorednoise.app/grey-noise.html"
+            "mainEntityOfPage": "https://colorednoise.app/grey-noise"
         },
         {
             "@type": "BreadcrumbList",
@@ -153,19 +153,19 @@
         <section>
             <h2>The idea behind grey noise</h2>
             <p>Human hearing is not flat. Equal-loudness contours, first measured by Fletcher and Munson in the 1930s and refined in the ISO 226 standard, show that a 50 Hz tone needs roughly 30 dB more sound pressure than a 3 kHz tone to sound as loud. The ear is also less sensitive above about 10 kHz. White noise, being flat in power, therefore sounds midrange-heavy.</p>
-            <p>Grey noise inverts one of these contours and applies it to white noise. Where the ear is insensitive, the noise gets a boost; where the ear is sensitive, it is cut. Unlike the other colors, grey noise is not a power law and cannot be described by a single dB-per-octave slope. It is defined by psychoacoustics rather than by mathematics, which is why it is a modifier rather than a point on the color slider. See <a href="/physics.html">the physics page</a> for how it relates to the others.</p>
+            <p>Grey noise inverts one of these contours and applies it to white noise. Where the ear is insensitive, the noise gets a boost; where the ear is sensitive, it is cut. Unlike the other colors, grey noise is not a power law and cannot be described by a single dB-per-octave slope. It is defined by psychoacoustics rather than by mathematics, which is why it is a modifier rather than a point on the color slider. See <a href="/physics">the physics page</a> for how it relates to the others.</p>
         </section>
 
         <section>
             <h2>How this site generates grey noise</h2>
             <p>The generator first produces the base color you have selected, from violet to brown, using white noise and the appropriate integration, differentiation or Kellett filter. With the grey toggle on, that signal then passes through a fixed equalization stage that approximates the inverse of a mid-level equal-loudness contour: a bass shelf, a broad cut around 3 to 4 kHz, and a treble lift. The curve is applied in an audio worklet on every sample, so the output is continuous.</p>
-            <p>Because it is a modifier, grey noise on this site is really a family. The <a href="/presets/grey-noise.html">Grey Noise</a> preset applies the curve to white noise, which is the textbook definition. <a href="/presets/heavy-blanket.html">Heavy Blanket</a> applies it to brown, and <a href="/presets/focus-zone.html">Focus Zone</a> to pink-brown. Fifteen of the seventy-one presets use it, across the sleep, focus, mechanical and ambient categories.</p>
+            <p>Because it is a modifier, grey noise on this site is really a family. The <a href="/presets/grey-noise">Grey Noise</a> preset applies the curve to white noise, which is the textbook definition. <a href="/presets/heavy-blanket">Heavy Blanket</a> applies it to brown, and <a href="/presets/focus-zone">Focus Zone</a> to pink-brown. Fifteen of the seventy-one presets use it, across the sleep, focus, mechanical and ambient categories.</p>
         </section>
 
         <section>
             <h2>Who uses grey noise</h2>
             <p>People who find white noise harsh but pink noise too dull often settle on grey. It is well suited to masking at low volume, since its balance survives being turned down, and its broad coverage makes it a common choice for tinnitus masking where the ringing pitch is unknown or changes. Audio engineers use equal-loudness-weighted noise to judge the perceived balance of headphones and rooms.</p>
-            <p>It is also the default EQ on many of this site's mechanical presets, such as <a href="/presets/airplane-cabin.html">Airplane Cabin</a> and <a href="/presets/box-fan.html">Box Fan</a>, because the real sounds they imitate are heard through the ear's own curve and the EQ brings the synthetic version closer to that impression. Without it, a synthesized fan sounds like a hiss; with it, it gains the low-frequency body of the real thing.</p>
+            <p>It is also the default EQ on many of this site's mechanical presets, such as <a href="/presets/airplane-cabin">Airplane Cabin</a> and <a href="/presets/box-fan">Box Fan</a>, because the real sounds they imitate are heard through the ear's own curve and the EQ brings the synthetic version closer to that impression. Without it, a synthesized fan sounds like a hiss; with it, it gains the low-frequency body of the real thing.</p>
         </section>
 
         <section>
@@ -178,37 +178,37 @@
             <h2>Recommended presets</h2>
             <ul class="preset-picks">
                 <li>
-                    <a class="pick-name" href="/presets/grey-noise.html">Grey Noise</a>
+                    <a class="pick-name" href="/presets/grey-noise">Grey Noise</a>
                     <span class="pick-why">The perceptual curve applied to pure white noise, the reference for this page.</span>
                     <button type="button" class="preview-btn" data-preview-preset="31"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
                     <a class="pick-open" href="/?preset=31">Open &rarr;</a>
                 </li>
                 <li>
-                    <a class="pick-name" href="/presets/heavy-blanket.html">Heavy Blanket</a>
+                    <a class="pick-name" href="/presets/heavy-blanket">Heavy Blanket</a>
                     <span class="pick-why">Grey EQ on brown noise, deep and even, the most popular grey preset for sleep.</span>
                     <button type="button" class="preview-btn" data-preview-preset="5"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
                     <a class="pick-open" href="/?preset=5">Open &rarr;</a>
                 </li>
                 <li>
-                    <a class="pick-name" href="/presets/focus-zone.html">Focus Zone</a>
+                    <a class="pick-name" href="/presets/focus-zone">Focus Zone</a>
                     <span class="pick-why">Grey EQ on a pink-brown blend, balanced masking for work.</span>
                     <button type="button" class="preview-btn" data-preview-preset="9"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
                     <a class="pick-open" href="/?preset=9">Open &rarr;</a>
                 </li>
                 <li>
-                    <a class="pick-name" href="/presets/airplane-cabin.html">Airplane Cabin</a>
+                    <a class="pick-name" href="/presets/airplane-cabin">Airplane Cabin</a>
                     <span class="pick-why">Grey EQ on pink-brown, the steady cabin roar many people sleep well to.</span>
                     <button type="button" class="preview-btn" data-preview-preset="35"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
                     <a class="pick-open" href="/?preset=35">Open &rarr;</a>
                 </li>
                 <li>
-                    <a class="pick-name" href="/presets/box-fan.html">Box Fan</a>
+                    <a class="pick-name" href="/presets/box-fan">Box Fan</a>
                     <span class="pick-why">Grey EQ with a uniform texture, close to a fan running in the next room.</span>
                     <button type="button" class="preview-btn" data-preview-preset="36"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
                     <a class="pick-open" href="/?preset=36">Open &rarr;</a>
                 </li>
                 <li>
-                    <a class="pick-name" href="/presets/tinnitus-mask.html">Tinnitus Mask</a>
+                    <a class="pick-name" href="/presets/tinnitus-mask">Tinnitus Mask</a>
                     <span class="pick-why">Grey EQ on a blue-white blend, spread wide to cover an unknown ringing pitch.</span>
                     <button type="button" class="preview-btn" data-preview-preset="34"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
                     <a class="pick-open" href="/?preset=34">Open &rarr;</a>
@@ -243,11 +243,11 @@
         <aside class="landing-related">
             <h2>Related guides</h2>
             <ul>
-                <li><a href="/white-noise.html">White Noise Generator</a></li>
-                <li><a href="/pink-noise.html">Pink Noise Generator</a></li>
-                <li><a href="/tinnitus-masking.html">Tinnitus Masking Sound</a></li>
+                <li><a href="/white-noise">White Noise Generator</a></li>
+                <li><a href="/pink-noise">Pink Noise Generator</a></li>
+                <li><a href="/tinnitus-masking">Tinnitus Masking Sound</a></li>
                 <li><a href="/presets/">All 71 presets</a></li>
-                <li><a href="/physics.html">The physics of noise</a></li>
+                <li><a href="/physics">The physics of noise</a></li>
             </ul>
         </aside>
 

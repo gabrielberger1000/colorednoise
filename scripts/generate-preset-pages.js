@@ -149,7 +149,7 @@ function generatePresetPage(preset, index) {
     const related = getRelatedPresets(index, preset.category);
     const specs = specRows(preset);
     const landing = colorLanding[colorName];
-    const url = `${SITE}/presets/${slug}.html`;
+    const url = `${SITE}/presets/${slug}`;
 
     const title = `${preset.name} – Free ${capitalize(colorName)} Noise Preset (${categoryInfo.label}) | Colored Noise`;
     const metaDesc = `${preset.name}: ${stripTags(content.tagline)}. Free ${colorName} noise preset for ${categoryInfo.label.toLowerCase()}, synthesized in your browser. No ads, no signup.`;
@@ -250,22 +250,22 @@ function generatePresetPage(preset, index) {
             <dl class="preset-specs">
                 ${specs.map(([dt, dd]) => `<dt>${dt}</dt>\n                <dd>${dd}</dd>`).join('\n                ')}
             </dl>
-            ${landing ? `<p class="learn-more-link"><a href="/${landing.slug}.html">Learn more about ${colorName} noise &rarr;</a></p>` : ''}
+            ${landing ? `<p class="learn-more-link"><a href="/${landing.slug}">Learn more about ${colorName} noise &rarr;</a></p>` : ''}
         </section>
 
         ${related.length > 0 ? `
         <section class="related-presets">
             <h2>Similar ${categoryInfo.label} Presets</h2>
             <ul>
-                ${related.map(r => `<li><a href="/presets/${toSlug(r.preset.name)}.html">${r.preset.name}</a></li>`).join('\n                ')}
+                ${related.map(r => `<li><a href="/presets/${toSlug(r.preset.name)}">${r.preset.name}</a></li>`).join('\n                ')}
             </ul>
         </section>
         ` : ''}
 
         <nav class="preset-nav">
-            ${index > 0 ? `<a href="/presets/${toSlug(builtInPresets[index - 1].name)}.html" class="prev-preset">&larr; ${builtInPresets[index - 1].name}</a>` : '<span></span>'}
+            ${index > 0 ? `<a href="/presets/${toSlug(builtInPresets[index - 1].name)}" class="prev-preset">&larr; ${builtInPresets[index - 1].name}</a>` : '<span></span>'}
             <a href="/presets/" class="back-to-app">All Presets</a>
-            ${index < builtInPresets.length - 1 ? `<a href="/presets/${toSlug(builtInPresets[index + 1].name)}.html" class="next-preset">${builtInPresets[index + 1].name} &rarr;</a>` : '<span></span>'}
+            ${index < builtInPresets.length - 1 ? `<a href="/presets/${toSlug(builtInPresets[index + 1].name)}" class="next-preset">${builtInPresets[index + 1].name} &rarr;</a>` : '<span></span>'}
         </nav>
     </div>
 

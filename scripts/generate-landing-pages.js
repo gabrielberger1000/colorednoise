@@ -48,7 +48,7 @@ function faqJsonLd(page) {
 }
 
 function generateLandingPage(page) {
-    const url = `${SITE}/${page.slug}.html`;
+    const url = `${SITE}/${page.slug}`;
     const primaryIdx = presetIndex(page.primaryPreset);
     const wordCount = [...page.intro, ...page.sections.flatMap(s => s.paragraphs), ...page.faq.map(f => f.a)]
         .map(stripTags).join(' ').split(/\s+/).length;
@@ -83,7 +83,7 @@ function generateLandingPage(page) {
     const presetsHtml = page.presets.map(p => {
         const idx = presetIndex(p.name);
         return `                <li>
-                    <a class="pick-name" href="/presets/${toSlug(p.name)}.html">${p.name}</a>
+                    <a class="pick-name" href="/presets/${toSlug(p.name)}">${p.name}</a>
                     <span class="pick-why">${p.why}</span>
                     <button type="button" class="preview-btn" data-preview-preset="${idx}"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview</span></button>
                     <a class="pick-open" href="/?preset=${idx}">Open &rarr;</a>
@@ -105,7 +105,7 @@ function generateLandingPage(page) {
     const relatedHtml = page.related.map(slug => {
         const target = bySlug[slug];
         if (!target) throw new Error(`Unknown related slug "${slug}" on page ${page.slug}`);
-        return `<li><a href="/${slug}.html">${target.h1}</a></li>`;
+        return `<li><a href="/${slug}">${target.h1}</a></li>`;
     }).join('\n                ');
 
     return `<!DOCTYPE html>
@@ -181,7 +181,7 @@ ${presetsHtml}
             <ul>
                 ${relatedHtml}
                 <li><a href="/presets/">All 71 presets</a></li>
-                <li><a href="/physics.html">The physics of noise</a></li>
+                <li><a href="/physics">The physics of noise</a></li>
             </ul>
         </aside>
 

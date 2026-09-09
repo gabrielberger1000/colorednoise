@@ -7,12 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/physics.html</loc>
+    <loc>https://colorednoise.app/physics</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/docs.html</loc>
+    <loc>https://colorednoise.app/docs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -24,426 +24,426 @@
 
   <!-- Noise guides (landing pages) -->
   <url>
-    <loc>https://colorednoise.app/brown-noise.html</loc>
+    <loc>https://colorednoise.app/brown-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/pink-noise.html</loc>
+    <loc>https://colorednoise.app/pink-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/white-noise.html</loc>
+    <loc>https://colorednoise.app/white-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/blue-noise.html</loc>
+    <loc>https://colorednoise.app/blue-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/violet-noise.html</loc>
+    <loc>https://colorednoise.app/violet-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/grey-noise.html</loc>
+    <loc>https://colorednoise.app/grey-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/noise-for-sleep.html</loc>
+    <loc>https://colorednoise.app/noise-for-sleep</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/noise-for-focus.html</loc>
+    <loc>https://colorednoise.app/noise-for-focus</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/brown-noise-adhd.html</loc>
+    <loc>https://colorednoise.app/brown-noise-adhd</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/tinnitus-masking.html</loc>
+    <loc>https://colorednoise.app/tinnitus-masking</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/white-vs-pink-vs-brown-noise.html</loc>
+    <loc>https://colorednoise.app/white-vs-pink-vs-brown-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Sleep Presets -->
   <url>
-    <loc>https://colorednoise.app/presets/deep-sleep.html</loc>
+    <loc>https://colorednoise.app/presets/deep-sleep</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/womb-sound.html</loc>
+    <loc>https://colorednoise.app/presets/womb-sound</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/lucid-dream.html</loc>
+    <loc>https://colorednoise.app/presets/lucid-dream</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/night-cocoon.html</loc>
+    <loc>https://colorednoise.app/presets/night-cocoon</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/drift-away.html</loc>
+    <loc>https://colorednoise.app/presets/drift-away</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/heavy-blanket.html</loc>
+    <loc>https://colorednoise.app/presets/heavy-blanket</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/midnight-hum.html</loc>
+    <loc>https://colorednoise.app/presets/midnight-hum</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/delta-waves.html</loc>
+    <loc>https://colorednoise.app/presets/delta-waves</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/slow-descent.html</loc>
+    <loc>https://colorednoise.app/presets/slow-descent</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Focus Presets -->
   <url>
-    <loc>https://colorednoise.app/presets/focus-zone.html</loc>
+    <loc>https://colorednoise.app/presets/focus-zone</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/study-hall.html</loc>
+    <loc>https://colorednoise.app/presets/study-hall</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/alpha-waves.html</loc>
+    <loc>https://colorednoise.app/presets/alpha-waves</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/deep-work.html</loc>
+    <loc>https://colorednoise.app/presets/deep-work</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/concentration.html</loc>
+    <loc>https://colorednoise.app/presets/concentration</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/beta-boost.html</loc>
+    <loc>https://colorednoise.app/presets/beta-boost</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/flow-state.html</loc>
+    <loc>https://colorednoise.app/presets/flow-state</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/theta-meditation.html</loc>
+    <loc>https://colorednoise.app/presets/theta-meditation</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Nature Presets -->
   <url>
-    <loc>https://colorednoise.app/presets/ocean-waves.html</loc>
+    <loc>https://colorednoise.app/presets/ocean-waves</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/heavy-rain.html</loc>
+    <loc>https://colorednoise.app/presets/heavy-rain</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/distant-thunder.html</loc>
+    <loc>https://colorednoise.app/presets/distant-thunder</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/waterfall.html</loc>
+    <loc>https://colorednoise.app/presets/waterfall</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/windy-day.html</loc>
+    <loc>https://colorednoise.app/presets/windy-day</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/mountain-wind.html</loc>
+    <loc>https://colorednoise.app/presets/mountain-wind</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/rain-on-tent.html</loc>
+    <loc>https://colorednoise.app/presets/rain-on-tent</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/night-forest.html</loc>
+    <loc>https://colorednoise.app/presets/night-forest</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/seaside-cave.html</loc>
+    <loc>https://colorednoise.app/presets/seaside-cave</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Ambient Presets -->
   <url>
-    <loc>https://colorednoise.app/presets/pure-white.html</loc>
+    <loc>https://colorednoise.app/presets/pure-white</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/standard-pink.html</loc>
+    <loc>https://colorednoise.app/presets/standard-pink</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/deep-brown.html</loc>
+    <loc>https://colorednoise.app/presets/deep-brown</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/blue-sky.html</loc>
+    <loc>https://colorednoise.app/presets/blue-sky</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/violet-haze.html</loc>
+    <loc>https://colorednoise.app/presets/violet-haze</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/grey-noise.html</loc>
+    <loc>https://colorednoise.app/presets/grey-noise</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/soft-air.html</loc>
+    <loc>https://colorednoise.app/presets/soft-air</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/coffee-shop.html</loc>
+    <loc>https://colorednoise.app/presets/coffee-shop</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/tinnitus-mask.html</loc>
+    <loc>https://colorednoise.app/presets/tinnitus-mask</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Mechanical Presets -->
   <url>
-    <loc>https://colorednoise.app/presets/airplane-cabin.html</loc>
+    <loc>https://colorednoise.app/presets/airplane-cabin</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/box-fan.html</loc>
+    <loc>https://colorednoise.app/presets/box-fan</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/space-station.html</loc>
+    <loc>https://colorednoise.app/presets/space-station</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/server-room.html</loc>
+    <loc>https://colorednoise.app/presets/server-room</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/diesel-engine.html</loc>
+    <loc>https://colorednoise.app/presets/diesel-engine</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/cpu-fan.html</loc>
+    <loc>https://colorednoise.app/presets/cpu-fan</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/furnace.html</loc>
+    <loc>https://colorednoise.app/presets/furnace</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/submarine.html</loc>
+    <loc>https://colorednoise.app/presets/submarine</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/electric-hum.html</loc>
+    <loc>https://colorednoise.app/presets/electric-hum</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/jet-stream.html</loc>
+    <loc>https://colorednoise.app/presets/jet-stream</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Experimental Presets -->
   <url>
-    <loc>https://colorednoise.app/presets/static-tv.html</loc>
+    <loc>https://colorednoise.app/presets/static-tv</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/vinyl-crackle.html</loc>
+    <loc>https://colorednoise.app/presets/vinyl-crackle</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/cicadas.html</loc>
+    <loc>https://colorednoise.app/presets/cicadas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/asmr-static.html</loc>
+    <loc>https://colorednoise.app/presets/asmr-static</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/breath-work.html</loc>
+    <loc>https://colorednoise.app/presets/breath-work</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/machine-rhythm.html</loc>
+    <loc>https://colorednoise.app/presets/machine-rhythm</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Textured Presets -->
   <url>
-    <loc>https://colorednoise.app/presets/resonant-drone.html</loc>
+    <loc>https://colorednoise.app/presets/resonant-drone</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/singing-pipes.html</loc>
+    <loc>https://colorednoise.app/presets/singing-pipes</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/tibetan-bowl.html</loc>
+    <loc>https://colorednoise.app/presets/tibetan-bowl</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/metal-wind.html</loc>
+    <loc>https://colorednoise.app/presets/metal-wind</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/hollow-tube.html</loc>
+    <loc>https://colorednoise.app/presets/hollow-tube</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/spaceship-hull.html</loc>
+    <loc>https://colorednoise.app/presets/spaceship-hull</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/wind-chimes.html</loc>
+    <loc>https://colorednoise.app/presets/wind-chimes</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/cave-ambience.html</loc>
+    <loc>https://colorednoise.app/presets/cave-ambience</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/breathing.html</loc>
+    <loc>https://colorednoise.app/presets/breathing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/waves-loop.html</loc>
+    <loc>https://colorednoise.app/presets/waves-loop</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/pulse-rhythm.html</loc>
+    <loc>https://colorednoise.app/presets/pulse-rhythm</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/slow-swell.html</loc>
+    <loc>https://colorednoise.app/presets/slow-swell</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/drifting.html</loc>
+    <loc>https://colorednoise.app/presets/drifting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/layered-depths.html</loc>
+    <loc>https://colorednoise.app/presets/layered-depths</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/warm-hiss.html</loc>
+    <loc>https://colorednoise.app/presets/warm-hiss</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/lo-fi-crunch.html</loc>
+    <loc>https://colorednoise.app/presets/lo-fi-crunch</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/cathedral-air.html</loc>
+    <loc>https://colorednoise.app/presets/cathedral-air</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/ocean-drift.html</loc>
+    <loc>https://colorednoise.app/presets/ocean-drift</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/breathing-room.html</loc>
+    <loc>https://colorednoise.app/presets/breathing-room</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colorednoise.app/presets/stereo-clouds.html</loc>
+    <loc>https://colorednoise.app/presets/stereo-clouds</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

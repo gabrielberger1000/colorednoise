@@ -30,7 +30,7 @@ export const landingPages = [
                 heading: "The brown noise spectrum",
                 paragraphs: [
                     "Brown noise has a power spectral density proportional to 1/f&sup2;. In practical terms, every time the frequency doubles the power drops by 6 dB, which is twice the slope of pink noise. Going from 100 Hz to 1600 Hz, four octaves, the power falls by 24 dB. That is why the sound is so heavily weighted toward the bottom of the audible range.",
-                    "The name has nothing to do with the color brown. It comes from Robert Brown, the botanist who described Brownian motion, the random jitter of pollen grains in water. Brown noise is the sound of a signal doing a random walk: each sample is the previous sample plus a small random step. You will also see it called red noise or Brownian noise. The full derivation is on <a href=\"/physics.html\">the physics page</a>."
+                    "The name has nothing to do with the color brown. It comes from Robert Brown, the botanist who described Brownian motion, the random jitter of pollen grains in water. Brown noise is the sound of a signal doing a random walk: each sample is the previous sample plus a small random step. You will also see it called red noise or Brownian noise. The full derivation is on <a href=\"/physics\">the physics page</a>."
                 ]
             },
             {
@@ -43,14 +43,14 @@ export const landingPages = [
             {
                 heading: "Who uses brown noise and why",
                 paragraphs: [
-                    "The most common use is sleep. Brown noise masks the sudden sounds that wake people, such as doors, traffic and neighbors, without adding the bright hiss that some find irritating. The second most common use is concentration. A steady low rumble covers speech in an open office or a shared apartment, and a large number of adults with ADHD say it helps them settle into work; see <a href=\"/brown-noise-adhd.html\">brown noise and ADHD</a> for what the evidence does and does not show.",
+                    "The most common use is sleep. Brown noise masks the sudden sounds that wake people, such as doors, traffic and neighbors, without adding the bright hiss that some find irritating. The second most common use is concentration. A steady low rumble covers speech in an open office or a shared apartment, and a large number of adults with ADHD say it helps them settle into work; see <a href=\"/brown-noise-adhd\">brown noise and ADHD</a> for what the evidence does and does not show.",
                     "It is also used for masking low-frequency tinnitus, for calming anxious pets during fireworks and thunderstorms, and as a bed layer in ambient music and sound design where a recording would be too recognizable. Parents use it in nurseries, travelers use it in hotel rooms, and people in apartments use it to cover the bass from a neighbor's speakers, which brighter colors cannot reach."
                 ]
             },
             {
                 heading: "How to use the brown noise generator",
                 paragraphs: [
-                    "Press the play button above to open the generator with the <a href=\"/presets/deep-brown.html\">Deep Brown</a> preset loaded. Set the volume so the noise sits just behind whatever you are trying to ignore; if you would need to raise your voice over it, it is too loud. The color slider runs from violet at 0 to brown at 4, so nudging it down toward 3.6 or 3.7 mixes in a little pink and adds some air if pure brown feels muffled.",
+                    "Press the play button above to open the generator with the <a href=\"/presets/deep-brown\">Deep Brown</a> preset loaded. Set the volume so the noise sits just behind whatever you are trying to ignore; if you would need to raise your voice over it, it is too loud. The color slider runs from violet at 0 to brown at 4, so nudging it down toward 3.6 or 3.7 mixes in a little pink and adds some air if pure brown feels muffled.",
                     "For sleep, open the sleep timer and choose a duration; the sound fades out gently at the end rather than cutting off. You can install the site as an app on your phone or desktop for offline use, copy the URL to save or share your exact settings, or export a WAV of any length for devices that cannot run a browser."
                 ]
             }
@@ -70,7 +70,7 @@ export const landingPages = [
             },
             {
                 q: "What is the difference between brown noise and pink noise?",
-                a: "Both fall off toward high frequencies, but brown noise falls twice as fast: 6 dB per octave instead of 3 dB. Pink noise still has audible hiss and sounds like steady rain. Brown noise sounds like wind or distant thunder with almost no hiss. See the full <a href=\"/white-vs-pink-vs-brown-noise.html\">white vs pink vs brown comparison</a>."
+                a: "Both fall off toward high frequencies, but brown noise falls twice as fast: 6 dB per octave instead of 3 dB. Pink noise still has audible hiss and sounds like steady rain. Brown noise sounds like wind or distant thunder with almost no hiss. See the full <a href=\"/white-vs-pink-vs-brown-noise\">white vs pink vs brown comparison</a>."
             },
             {
                 q: "Why is it called brown noise?",
@@ -78,7 +78,7 @@ export const landingPages = [
             },
             {
                 q: "Does brown noise help with ADHD?",
-                a: "Many adults with ADHD report that it helps them focus, and the trend was large on social media in 2022. The controlled research is thin: a handful of small studies on white and pink noise show mixed results, and there is very little on brown noise specifically. It is cheap and harmless to try. Read more on the <a href=\"/brown-noise-adhd.html\">brown noise and ADHD</a> page."
+                a: "Many adults with ADHD report that it helps them focus, and the trend was large on social media in 2022. The controlled research is thin: a handful of small studies on white and pink noise show mixed results, and there is very little on brown noise specifically. It is cheap and harmless to try. Read more on the <a href=\"/brown-noise-adhd\">brown noise and ADHD</a> page."
             },
             {
                 q: "Can I download brown noise from this site?",
@@ -117,7 +117,7 @@ export const landingPages = [
                 heading: "The pink noise spectrum",
                 paragraphs: [
                     "Pink noise has a power spectral density proportional to 1/f. Each octave, from 100 to 200 Hz or from 4 to 8 kHz, carries the same total power, so on a spectrum analyzer with logarithmic frequency bins pink noise draws a flat line. On a linear plot it slopes down by 3 dB per octave, or 10 dB per decade. It is sometimes called 1/f noise or flicker noise.",
-                    "1/f behavior turns up all over nature: the timing of heartbeats, the flicker of a candle, river discharge, and the loudness fluctuations of most music. This is part of why pink noise sounds natural to us. It is also the standard test signal for tuning loudspeaker systems in rooms, because a flat pink response on a log analyzer means the system is balanced per octave. More on <a href=\"/physics.html\">the physics page</a>."
+                    "1/f behavior turns up all over nature: the timing of heartbeats, the flicker of a candle, river discharge, and the loudness fluctuations of most music. This is part of why pink noise sounds natural to us. It is also the standard test signal for tuning loudspeaker systems in rooms, because a flat pink response on a log analyzer means the system is balanced per octave. More on <a href=\"/physics\">the physics page</a>."
                 ]
             },
             {
@@ -131,13 +131,13 @@ export const landingPages = [
                 heading: "Pink noise and sleep",
                 paragraphs: [
                     "Pink noise is one of the two most popular colors for sleep, alongside brown. It works mainly by masking: a steady sound raises the floor so that a car door or a barking dog stands out less. A few small laboratory studies have gone further and played brief pink noise pulses timed to slow-wave sleep, reporting deeper slow waves and modest memory improvements in the following morning. Those studies used precise timing and small groups, so they do not show that continuous pink noise all night has the same effect.",
-                    "What can be said with confidence is that many people fall asleep faster with a steady sound in the room, and that pink noise is a comfortable choice for it. If you find it slightly bright at night, move the color slider toward 3.5 to lean toward brown, or try the <a href=\"/noise-for-sleep.html\">sleep presets</a>."
+                    "What can be said with confidence is that many people fall asleep faster with a steady sound in the room, and that pink noise is a comfortable choice for it. If you find it slightly bright at night, move the color slider toward 3.5 to lean toward brown, or try the <a href=\"/noise-for-sleep\">sleep presets</a>."
                 ]
             },
             {
                 heading: "Using the pink noise generator",
                 paragraphs: [
-                    "The play button above loads <a href=\"/presets/standard-pink.html\">Standard Pink</a>, which is unmodified pink noise. The color slider sits at 3 for pink; values between 2 and 3 blend toward white, values between 3 and 4 blend toward brown. The grey toggle applies a perceptual EQ that lifts the extremes so the sound feels even at low volume. A slow pulse rate adds a gentle swell, which turns flat pink noise into something closer to waves.",
+                    "The play button above loads <a href=\"/presets/standard-pink\">Standard Pink</a>, which is unmodified pink noise. The color slider sits at 3 for pink; values between 2 and 3 blend toward white, values between 3 and 4 blend toward brown. The grey toggle applies a perceptual EQ that lifts the extremes so the sound feels even at low volume. A slow pulse rate adds a gentle swell, which turns flat pink noise into something closer to waves.",
                     "Keyboard shortcuts cover the basics: space to play or pause, arrow keys for volume, number keys for the first nine presets. The sleep timer fades out rather than stopping abruptly. You can install the page as an app for offline use and copy the URL to keep your exact settings."
                 ]
             }
@@ -200,7 +200,7 @@ export const landingPages = [
                 heading: "The white noise spectrum",
                 paragraphs: [
                     "The defining property of white noise is a flat power spectral density: the same power in each hertz of bandwidth, whether you look at 50 Hz or 15 kHz. On a linear-frequency analyzer it draws a horizontal line. On a logarithmic analyzer, the kind that shows octaves as equal widths, it rises 3 dB per octave, because each octave is twice as wide as the previous one and gathers twice as much power.",
-                    "It is called white by analogy with white light, which contains all visible wavelengths. Every colored noise on this site is a filtered version of white: pink and brown roll the highs off, blue and violet roll the lows off, and grey reshapes it to match how loud the ear perceives each band. The mathematics is laid out on <a href=\"/physics.html\">the physics page</a>."
+                    "It is called white by analogy with white light, which contains all visible wavelengths. Every colored noise on this site is a filtered version of white: pink and brown roll the highs off, blue and violet roll the lows off, and grey reshapes it to match how loud the ear perceives each band. The mathematics is laid out on <a href=\"/physics\">the physics page</a>."
                 ]
             },
             {
@@ -214,13 +214,13 @@ export const landingPages = [
                 heading: "White noise as a masking sound",
                 paragraphs: [
                     "Masking works by raising the floor. A quiet room lets every small sound stand out; a room with a steady background makes the same sounds a smaller fraction of what you are hearing, so they draw less attention and are less likely to wake you. White noise is a good general-purpose masker because it covers the whole range. It is commonly used in open offices, nurseries, shared apartments, hotel rooms, and by people with tinnitus.",
-                    "The trade-off is that pure white noise has more treble than most people want for sleep. If you are choosing a color for overnight use, the <a href=\"/noise-for-sleep.html\">sleep page</a> covers the options. If you are trying to cover a specific pitch, such as tinnitus, the <a href=\"/tinnitus-masking.html\">tinnitus masking page</a> explains how to match it."
+                    "The trade-off is that pure white noise has more treble than most people want for sleep. If you are choosing a color for overnight use, the <a href=\"/noise-for-sleep\">sleep page</a> covers the options. If you are trying to cover a specific pitch, such as tinnitus, the <a href=\"/tinnitus-masking\">tinnitus masking page</a> explains how to match it."
                 ]
             },
             {
                 heading: "A white noise machine in your browser",
                 paragraphs: [
-                    "Everything a hardware white noise machine does is available here without buying anything. Press play to start <a href=\"/presets/pure-white.html\">Pure White</a>. The sleep timer fades the sound out at the time you choose. The volume keys and the space bar work as shortcuts. Install it as an app from your browser's menu and it will open full-screen and play offline, on Android, iOS, Windows, macOS and Linux, in Chrome, Firefox, Safari or Edge.",
+                    "Everything a hardware white noise machine does is available here without buying anything. Press play to start <a href=\"/presets/pure-white\">Pure White</a>. The sleep timer fades the sound out at the time you choose. The volume keys and the space bar work as shortcuts. Install it as an app from your browser's menu and it will open full-screen and play offline, on Android, iOS, Windows, macOS and Linux, in Chrome, Firefox, Safari or Edge.",
                     "If you want a file for a device that cannot run a browser, the export button writes a WAV of any duration you choose. A shareable URL carries your exact settings, so you can bookmark a favorite or send it to someone else. There is no account to create and nothing is stored on a server; custom presets you save live in your own browser."
                 ]
             }
@@ -287,7 +287,7 @@ export const landingPages = [
                 heading: "The blue noise spectrum",
                 paragraphs: [
                     "Blue noise has a power spectral density proportional to frequency, S(f) &prop; f. Each doubling of frequency doubles the power, a rise of 3 dB per octave on a linear analyzer. On a logarithmic, per-octave analyzer it rises 6 dB per octave, because each higher octave is also wider. Blue and pink are mirror images: multiply their spectra together and you get flat white noise.",
-                    "The name follows the light analogy. Blue light is at the short-wavelength, high-frequency end of the visible spectrum, and blue noise is tilted toward the high-frequency end of the audio spectrum. Violet noise tilts further still, at plus 6 dB per octave. The relationships between all five colors, with the equations behind them, are on <a href=\"/physics.html\">the physics page</a>."
+                    "The name follows the light analogy. Blue light is at the short-wavelength, high-frequency end of the visible spectrum, and blue noise is tilted toward the high-frequency end of the audio spectrum. Violet noise tilts further still, at plus 6 dB per octave. The relationships between all five colors, with the equations behind them, are on <a href=\"/physics\">the physics page</a>."
                 ]
             },
             {
@@ -301,13 +301,13 @@ export const landingPages = [
                 heading: "Where blue noise is used",
                 paragraphs: [
                     "Outside of listening, blue noise is a workhorse in signal processing. When audio is reduced from 24 to 16 bits, a tiny amount of noise called dither is added to prevent distortion, and the dither is shaped toward blue so that it sits at high frequencies where the ear is least sensitive. In computer graphics, blue-noise patterns are used to place samples and dither images because their energy is spread evenly without visible clumps.",
-                    "As a sound to listen to, its main uses are <a href=\"/tinnitus-masking.html\">tinnitus masking</a> for high-pitched ringing, covering the whine of fans or electronics, and as a bright component in focus mixes. The <a href=\"/presets/study-hall.html\">Study Hall</a> preset uses a blue-white blend for exactly that, since the added treble covers consonants, the part of speech that carries most of its intelligibility, at a lower overall volume than pink noise would need."
+                    "As a sound to listen to, its main uses are <a href=\"/tinnitus-masking\">tinnitus masking</a> for high-pitched ringing, covering the whine of fans or electronics, and as a bright component in focus mixes. The <a href=\"/presets/study-hall\">Study Hall</a> preset uses a blue-white blend for exactly that, since the added treble covers consonants, the part of speech that carries most of its intelligibility, at a lower overall volume than pink noise would need."
                 ]
             },
             {
                 heading: "Using the blue noise generator",
                 paragraphs: [
-                    "The play button loads <a href=\"/presets/blue-sky.html\">Blue Sky</a>, which is unmodified blue noise. Start with the volume low; high-frequency noise sounds louder than its meter reading suggests. If it is too sharp, move the color slider up toward 1.5 or 2 to bring back some body. The grey toggle applies a perceptual EQ that tames the top end and restores a little bass, which most people find easier on the ears.",
+                    "The play button loads <a href=\"/presets/blue-sky\">Blue Sky</a>, which is unmodified blue noise. Start with the volume low; high-frequency noise sounds louder than its meter reading suggests. If it is too sharp, move the color slider up toward 1.5 or 2 to bring back some body. The grey toggle applies a perceptual EQ that tames the top end and restores a little bass, which most people find easier on the ears.",
                     "Everything else on the site applies: the sleep timer fades the sound out, the URL holds your settings, WAV export writes a file of any length, and the page can be installed as an app for offline use. If you are using blue noise to cover a specific sound, adjust the slider while that sound is present rather than in silence, since the point where it disappears is easier to find by ear than by guesswork."
                 ]
             }
@@ -339,7 +339,7 @@ export const landingPages = [
             },
             {
                 q: "Does blue noise help with tinnitus?",
-                a: "Many people whose tinnitus is a high-pitched tone find that blue or white noise covers it well at a low volume. It is not a treatment and this site is not medical advice. The <a href=\"/tinnitus-masking.html\">tinnitus masking page</a> explains how to match the color to your pitch and why to keep the volume just below the ringing."
+                a: "Many people whose tinnitus is a high-pitched tone find that blue or white noise covers it well at a low volume. It is not a treatment and this site is not medical advice. The <a href=\"/tinnitus-masking\">tinnitus masking page</a> explains how to match the color to your pitch and why to keep the volume just below the ringing."
             }
         ],
         related: ["violet-noise", "white-noise", "tinnitus-masking"]
@@ -370,7 +370,7 @@ export const landingPages = [
                 heading: "The violet noise spectrum",
                 paragraphs: [
                     "Violet noise has a power spectral density proportional to f&sup2;. Doubling the frequency quadruples the power, a rise of 6 dB per octave. Between 1 kHz and 16 kHz, four octaves, the power climbs by 24 dB, so the top octave dominates everything below it. This is the exact inverse of brown noise, whose power falls by 6 dB per octave.",
-                    "Mathematically, violet noise is the derivative of white noise, just as brown noise is its integral. Its name comes from violet light being the highest-frequency visible color. Some sources call it purple noise; the two terms mean the same thing. The complete set of power-law relationships is described on <a href=\"/physics.html\">the physics page</a>."
+                    "Mathematically, violet noise is the derivative of white noise, just as brown noise is its integral. Its name comes from violet light being the highest-frequency visible color. Some sources call it purple noise; the two terms mean the same thing. The complete set of power-law relationships is described on <a href=\"/physics\">the physics page</a>."
                 ]
             },
             {
@@ -383,14 +383,14 @@ export const landingPages = [
             {
                 heading: "What violet noise is used for",
                 paragraphs: [
-                    "Its most practical use is <a href=\"/tinnitus-masking.html\">tinnitus masking</a> for people whose tinnitus is a very high tone, above roughly 8 kHz, where pink and brown noise have almost no energy to cover it. A few minutes of quiet violet noise can take the edge off such a tone in a way darker colors cannot. In audio engineering, violet-shaped dither is used in some analog-to-digital converters, and audio technicians use violet noise to check tweeters and high-frequency response.",
-                    "It also appears in sound design as a bright texture layer, and some listeners use it very quietly for ASMR-style tingles. The <a href=\"/presets/asmr-static.html\">ASMR Static</a> preset is built for that, pairing violet noise with a uniform texture and the grey EQ so the crackle is fine-grained rather than harsh. <a href=\"/presets/vinyl-crackle.html\">Vinyl Crackle</a> gates the same noise into short bursts to mimic the surface noise of a record."
+                    "Its most practical use is <a href=\"/tinnitus-masking\">tinnitus masking</a> for people whose tinnitus is a very high tone, above roughly 8 kHz, where pink and brown noise have almost no energy to cover it. A few minutes of quiet violet noise can take the edge off such a tone in a way darker colors cannot. In audio engineering, violet-shaped dither is used in some analog-to-digital converters, and audio technicians use violet noise to check tweeters and high-frequency response.",
+                    "It also appears in sound design as a bright texture layer, and some listeners use it very quietly for ASMR-style tingles. The <a href=\"/presets/asmr-static\">ASMR Static</a> preset is built for that, pairing violet noise with a uniform texture and the grey EQ so the crackle is fine-grained rather than harsh. <a href=\"/presets/vinyl-crackle\">Vinyl Crackle</a> gates the same noise into short bursts to mimic the surface noise of a record."
                 ]
             },
             {
                 heading: "A note on volume, and how to use it",
                 paragraphs: [
-                    "Start with the volume lower than you would for any other color. The ear is most sensitive between about 2 and 5 kHz, and violet noise places a lot of energy right there and above it, so it sounds louder than its meter level. The <a href=\"/presets/violet-haze.html\">Violet Haze</a> preset fades in over two seconds for this reason. The grey toggle applies a perceptual EQ that pulls the top end down and makes violet noise considerably more comfortable.",
+                    "Start with the volume lower than you would for any other color. The ear is most sensitive between about 2 and 5 kHz, and violet noise places a lot of energy right there and above it, so it sounds louder than its meter level. The <a href=\"/presets/violet-haze\">Violet Haze</a> preset fades in over two seconds for this reason. The grey toggle applies a perceptual EQ that pulls the top end down and makes violet noise considerably more comfortable.",
                     "If you want a sound with the sparkle of violet but more body, move the color slider up toward 0.8 or 1. As with every page here, the sleep timer, shareable URL, WAV export and installable app all apply. Keep sessions with pure violet noise short at first and let your ears tell you whether it is doing what you need; if it is not, blue or white will cover most of the same ground with far less sharpness."
                 ]
             }
@@ -420,7 +420,7 @@ export const landingPages = [
             },
             {
                 q: "Can I use violet noise for sleep?",
-                a: "Few people do. It contains none of the low frequencies that most sleepers find calming and its brightness tends to be alerting. If you need to cover a very high-pitched sound overnight, try it quietly with the grey EQ on, but for general sleep use the <a href=\"/noise-for-sleep.html\">sleep presets</a> are a better starting point."
+                a: "Few people do. It contains none of the low frequencies that most sleepers find calming and its brightness tends to be alerting. If you need to cover a very high-pitched sound overnight, try it quietly with the grey EQ on, but for general sleep use the <a href=\"/noise-for-sleep\">sleep presets</a> are a better starting point."
             }
         ],
         related: ["blue-noise", "tinnitus-masking", "white-noise"]
@@ -451,21 +451,21 @@ export const landingPages = [
                 heading: "The idea behind grey noise",
                 paragraphs: [
                     "Human hearing is not flat. Equal-loudness contours, first measured by Fletcher and Munson in the 1930s and refined in the ISO 226 standard, show that a 50 Hz tone needs roughly 30 dB more sound pressure than a 3 kHz tone to sound as loud. The ear is also less sensitive above about 10 kHz. White noise, being flat in power, therefore sounds midrange-heavy.",
-                    "Grey noise inverts one of these contours and applies it to white noise. Where the ear is insensitive, the noise gets a boost; where the ear is sensitive, it is cut. Unlike the other colors, grey noise is not a power law and cannot be described by a single dB-per-octave slope. It is defined by psychoacoustics rather than by mathematics, which is why it is a modifier rather than a point on the color slider. See <a href=\"/physics.html\">the physics page</a> for how it relates to the others."
+                    "Grey noise inverts one of these contours and applies it to white noise. Where the ear is insensitive, the noise gets a boost; where the ear is sensitive, it is cut. Unlike the other colors, grey noise is not a power law and cannot be described by a single dB-per-octave slope. It is defined by psychoacoustics rather than by mathematics, which is why it is a modifier rather than a point on the color slider. See <a href=\"/physics\">the physics page</a> for how it relates to the others."
                 ]
             },
             {
                 heading: "How this site generates grey noise",
                 paragraphs: [
                     "The generator first produces the base color you have selected, from violet to brown, using white noise and the appropriate integration, differentiation or Kellett filter. With the grey toggle on, that signal then passes through a fixed equalization stage that approximates the inverse of a mid-level equal-loudness contour: a bass shelf, a broad cut around 3 to 4 kHz, and a treble lift. The curve is applied in an audio worklet on every sample, so the output is continuous.",
-                    "Because it is a modifier, grey noise on this site is really a family. The <a href=\"/presets/grey-noise.html\">Grey Noise</a> preset applies the curve to white noise, which is the textbook definition. <a href=\"/presets/heavy-blanket.html\">Heavy Blanket</a> applies it to brown, and <a href=\"/presets/focus-zone.html\">Focus Zone</a> to pink-brown. Fifteen of the seventy-one presets use it, across the sleep, focus, mechanical and ambient categories."
+                    "Because it is a modifier, grey noise on this site is really a family. The <a href=\"/presets/grey-noise\">Grey Noise</a> preset applies the curve to white noise, which is the textbook definition. <a href=\"/presets/heavy-blanket\">Heavy Blanket</a> applies it to brown, and <a href=\"/presets/focus-zone\">Focus Zone</a> to pink-brown. Fifteen of the seventy-one presets use it, across the sleep, focus, mechanical and ambient categories."
                 ]
             },
             {
                 heading: "Who uses grey noise",
                 paragraphs: [
                     "People who find white noise harsh but pink noise too dull often settle on grey. It is well suited to masking at low volume, since its balance survives being turned down, and its broad coverage makes it a common choice for tinnitus masking where the ringing pitch is unknown or changes. Audio engineers use equal-loudness-weighted noise to judge the perceived balance of headphones and rooms.",
-                    "It is also the default EQ on many of this site's mechanical presets, such as <a href=\"/presets/airplane-cabin.html\">Airplane Cabin</a> and <a href=\"/presets/box-fan.html\">Box Fan</a>, because the real sounds they imitate are heard through the ear's own curve and the EQ brings the synthetic version closer to that impression. Without it, a synthesized fan sounds like a hiss; with it, it gains the low-frequency body of the real thing."
+                    "It is also the default EQ on many of this site's mechanical presets, such as <a href=\"/presets/airplane-cabin\">Airplane Cabin</a> and <a href=\"/presets/box-fan\">Box Fan</a>, because the real sounds they imitate are heard through the ear's own curve and the EQ brings the synthetic version closer to that impression. Without it, a synthesized fan sounds like a hiss; with it, it gains the low-frequency body of the real thing."
                 ]
             },
             {
@@ -527,7 +527,7 @@ export const landingPages = [
                 heading: "Which noise color is best for sleep",
                 paragraphs: [
                     "Brown noise is the most popular choice on this site for sleep and the one most people reach for first. Its power falls 6 dB per octave, so it is nearly all bass, and it sounds like distant surf or wind. Pink noise is a close second: it falls 3 dB per octave, sounds like steady rain, and has a little more presence in the range where voices and footsteps live, which makes it a slightly better masker in a noisy building. Grey noise applied to either adds fullness at low volume.",
-                    "White noise is the classic sound machine color and some people sleep well with it, but a majority who try the alternatives prefer something darker. Blue and violet noise are rarely used for sleep. The <a href=\"/white-vs-pink-vs-brown-noise.html\">comparison page</a> lays the three main colors out side by side, and the color slider on the generator lets you settle anywhere between them if none of the fixed points is quite right."
+                    "White noise is the classic sound machine color and some people sleep well with it, but a majority who try the alternatives prefer something darker. Blue and violet noise are rarely used for sleep. The <a href=\"/white-vs-pink-vs-brown-noise\">comparison page</a> lays the three main colors out side by side, and the color slider on the generator lets you settle anywhere between them if none of the fixed points is quite right."
                 ]
             },
             {
@@ -541,7 +541,7 @@ export const landingPages = [
                 heading: "Why the sleep presets fade in and swell",
                 paragraphs: [
                     "Every preset in the sleep category starts nearly silent and reaches full volume over fifteen to forty-five seconds, so there is no abrupt onset when you press play in the dark. Several also use a very slow pulse, between 0.04 and 0.12 Hz, which is a gentle rise and fall every eight to twenty-five seconds. It is well below the rate of breathing and closer to the rhythm of waves; it keeps the sound from feeling like a static wall without becoming a pattern you would count.",
-                    "<a href=\"/presets/deep-sleep.html\">Deep Sleep</a> combines near-pure brown with a slow swell. <a href=\"/presets/heavy-blanket.html\">Heavy Blanket</a> is static brown noise with grey EQ for people who prefer no movement at all. <a href=\"/presets/womb-sound.html\">Womb Sound</a> is the deepest and slowest of the set. All of them are built on brown or brown-leaning noise, and all keep the pulse shallow enough that the sound never drops to silence between swells."
+                    "<a href=\"/presets/deep-sleep\">Deep Sleep</a> combines near-pure brown with a slow swell. <a href=\"/presets/heavy-blanket\">Heavy Blanket</a> is static brown noise with grey EQ for people who prefer no movement at all. <a href=\"/presets/womb-sound\">Womb Sound</a> is the deepest and slowest of the set. All of them are built on brown or brown-leaning noise, and all keep the pulse shallow enough that the sound never drops to silence between swells."
                 ]
             },
             {
@@ -620,8 +620,8 @@ export const landingPages = [
             {
                 heading: "Which noise color is best for studying",
                 paragraphs: [
-                    "For a session of several hours, pink or pink-brown blends are the usual choice. They cover speech, which sits between roughly 300 Hz and 3 kHz, without the brightness that fatigues. <a href=\"/presets/focus-zone.html\">Focus Zone</a> and <a href=\"/presets/deep-work.html\">Deep Work</a> are both in this range with the grey EQ on, which keeps them balanced at low volume. If the room is already quiet and you simply want a settled feeling, deep brown noise works and is the subject of the <a href=\"/brown-noise-adhd.html\">ADHD page</a>.",
-                    "If your problem is specifically voices, a brighter color masks them more efficiently per decibel. <a href=\"/presets/study-hall.html\">Study Hall</a> uses a blue-white blend for this. <a href=\"/presets/concentration.html\">Concentration</a> sits between, with a uniform texture that some people find less monotonous. Whichever you start with, give it a full work block before judging; the first few minutes with any new sound are spent noticing it, and the useful effect only shows once you have stopped."
+                    "For a session of several hours, pink or pink-brown blends are the usual choice. They cover speech, which sits between roughly 300 Hz and 3 kHz, without the brightness that fatigues. <a href=\"/presets/focus-zone\">Focus Zone</a> and <a href=\"/presets/deep-work\">Deep Work</a> are both in this range with the grey EQ on, which keeps them balanced at low volume. If the room is already quiet and you simply want a settled feeling, deep brown noise works and is the subject of the <a href=\"/brown-noise-adhd\">ADHD page</a>.",
+                    "If your problem is specifically voices, a brighter color masks them more efficiently per decibel. <a href=\"/presets/study-hall\">Study Hall</a> uses a blue-white blend for this. <a href=\"/presets/concentration\">Concentration</a> sits between, with a uniform texture that some people find less monotonous. Whichever you start with, give it a full work block before judging; the first few minutes with any new sound are spent noticing it, and the useful effect only shows once you have stopped."
                 ]
             },
             {
@@ -711,13 +711,13 @@ export const landingPages = [
                 heading: "How it might work",
                 paragraphs: [
                     "Two explanations are usually offered and both may be partly true. The first is ordinary masking: a steady sound covers the environmental noises that would otherwise interrupt, and people with ADHD tend to be more easily pulled away by such interruptions. The second is the arousal idea from the Söderlund work, sometimes framed in terms of stochastic resonance, where a small amount of random input can improve the detection of a weak signal in a noisy system.",
-                    "Why brown rather than white? The honest answer is that nobody has tested it. A plausible guess is comfort: brown noise has almost no high-frequency content, so it can be played for hours without the fatigue that pure white noise causes, and a sound you can tolerate is a sound you will actually use. Its power falls 6 dB per octave, described further on <a href=\"/physics.html\">the physics page</a>."
+                    "Why brown rather than white? The honest answer is that nobody has tested it. A plausible guess is comfort: brown noise has almost no high-frequency content, so it can be played for hours without the fatigue that pure white noise causes, and a sound you can tolerate is a sound you will actually use. Its power falls 6 dB per octave, described further on <a href=\"/physics\">the physics page</a>."
                 ]
             },
             {
                 heading: "How to try it",
                 paragraphs: [
-                    "Press play to load <a href=\"/presets/deep-work.html\">Deep Work</a>, a brown-leaning blend with a perceptual EQ that keeps it balanced at low volume. Set the volume so that you could still hear someone speaking to you, then start a task and give it twenty minutes. If it feels too bright, try <a href=\"/presets/deep-brown.html\">Deep Brown</a> or <a href=\"/presets/heavy-blanket.html\">Heavy Blanket</a>, which are pure brown. If it feels too muffled, nudge the color slider down toward 3.5.",
+                    "Press play to load <a href=\"/presets/deep-work\">Deep Work</a>, a brown-leaning blend with a perceptual EQ that keeps it balanced at low volume. Set the volume so that you could still hear someone speaking to you, then start a task and give it twenty minutes. If it feels too bright, try <a href=\"/presets/deep-brown\">Deep Brown</a> or <a href=\"/presets/heavy-blanket\">Heavy Blanket</a>, which are pure brown. If it feels too muffled, nudge the color slider down toward 3.5.",
                     "The sleep timer works as a work timer, fading the sound out after a set period. Install the page as an app so it is one tap away, and keep the URL of a setting that works since it stores every parameter. Some people find that noise helps for certain tasks, such as reading, and not others; that is normal and worth noting for yourself."
                 ]
             },
@@ -788,8 +788,8 @@ export const landingPages = [
             {
                 heading: "Choosing a noise color to match your tinnitus",
                 paragraphs: [
-                    "Tinnitus is most often a high tone, somewhere between 4 and 8 kHz, and sometimes higher. Pink and brown noise have little energy up there, so they may need to be played uncomfortably loud to cover it. <a href=\"/blue-noise.html\">Blue noise</a>, white noise and, for very high tones, <a href=\"/violet-noise.html\">violet noise</a> put their energy in the right place and can sit under the tinnitus at a much lower level. The <a href=\"/presets/tinnitus-mask.html\">Tinnitus Mask</a> preset is a blue-white blend with a perceptual EQ for this common case.",
-                    "A smaller number of people have a low hum or roar, for which pink or brown noise are the better match. If you do not know your pitch, start with <a href=\"/presets/grey-noise.html\">Grey Noise</a>, which is spread evenly across the whole range as the ear hears it, then move the color slider toward violet or brown and listen for where the tinnitus becomes least distinct."
+                    "Tinnitus is most often a high tone, somewhere between 4 and 8 kHz, and sometimes higher. Pink and brown noise have little energy up there, so they may need to be played uncomfortably loud to cover it. <a href=\"/blue-noise\">Blue noise</a>, white noise and, for very high tones, <a href=\"/violet-noise\">violet noise</a> put their energy in the right place and can sit under the tinnitus at a much lower level. The <a href=\"/presets/tinnitus-mask\">Tinnitus Mask</a> preset is a blue-white blend with a perceptual EQ for this common case.",
+                    "A smaller number of people have a low hum or roar, for which pink or brown noise are the better match. If you do not know your pitch, start with <a href=\"/presets/grey-noise\">Grey Noise</a>, which is spread evenly across the whole range as the ear hears it, then move the color slider toward violet or brown and listen for where the tinnitus becomes least distinct."
                 ]
             },
             {
@@ -874,27 +874,27 @@ export const landingPages = [
                 heading: "One idea behind all three",
                 paragraphs: [
                     "Every noise color is described by a power spectral density of the form 1/f to some power alpha. White has alpha equal to 0, so the power is the same at every frequency. Pink has alpha equal to 1, so power halves each time frequency doubles, which is minus 3 dB per octave. Brown has alpha equal to 2, so power falls to a quarter per doubling, minus 6 dB per octave. Blue and violet continue the series in the other direction with negative alpha.",
-                    "The reason white noise sounds bright even though it is flat is that hearing is logarithmic. The octave from 5 to 10 kHz contains ten times as many hertz as the octave from 500 Hz to 1 kHz, so it collects ten times the power. Pink noise, with equal power per octave, is the one that sounds balanced. The full treatment with equations is on <a href=\"/physics.html\">the physics page</a>."
+                    "The reason white noise sounds bright even though it is flat is that hearing is logarithmic. The octave from 5 to 10 kHz contains ten times as many hertz as the octave from 500 Hz to 1 kHz, so it collects ten times the power. Pink noise, with equal power per octave, is the one that sounds balanced. The full treatment with equations is on <a href=\"/physics\">the physics page</a>."
                 ]
             },
             {
                 heading: "What they sound like side by side",
                 paragraphs: [
-                    "Start with <a href=\"/presets/pure-white.html\">Pure White</a>. It is a sharp, even hiss with a slightly metallic edge, and after a minute most people are aware of it as a presence in the upper midrange. Switch to <a href=\"/presets/standard-pink.html\">Standard Pink</a> and the hiss drops back, the sound gains body and it stops feeling like it is coming from one place; it is now rain. Switch to <a href=\"/presets/deep-brown.html\">Deep Brown</a> and the hiss is almost gone, leaving a low roll that is felt as much as heard.",
+                    "Start with <a href=\"/presets/pure-white\">Pure White</a>. It is a sharp, even hiss with a slightly metallic edge, and after a minute most people are aware of it as a presence in the upper midrange. Switch to <a href=\"/presets/standard-pink\">Standard Pink</a> and the hiss drops back, the sound gains body and it stops feeling like it is coming from one place; it is now rain. Switch to <a href=\"/presets/deep-brown\">Deep Brown</a> and the hiss is almost gone, leaving a low roll that is felt as much as heard.",
                     "A useful test is to turn the volume down until each is barely audible. White noise becomes a thin whisper. Pink noise stays recognizably rain-like. Brown noise turns into something like a room's air handling, felt more than heard. That is a preview of how each behaves at the low volume you will actually use at night."
                 ]
             },
             {
                 heading: "Which one to choose",
                 paragraphs: [
-                    "For sleep, brown or pink. Brown is deeper and covers low-frequency intrusions such as traffic and neighbors' bass; pink covers voices and footsteps a little better. Neither has been shown in controlled studies to produce better sleep than the other, so preference decides. The <a href=\"/noise-for-sleep.html\">sleep page</a> has presets built around both.",
+                    "For sleep, brown or pink. Brown is deeper and covers low-frequency intrusions such as traffic and neighbors' bass; pink covers voices and footsteps a little better. Neither has been shown in controlled studies to produce better sleep than the other, so preference decides. The <a href=\"/noise-for-sleep\">sleep page</a> has presets built around both.",
                     "For focus, pink or a pink-brown blend is the common choice, because it covers the speech range without fatiguing. White noise masks voices most efficiently per decibel but wears on many people after an hour. For tinnitus and other high-pitched sounds, white or the brighter blue is usually the better match. For a fan-like or machine-like sound at any hour, grey noise applied to any of the three keeps the balance even at low volume."
                 ]
             },
             {
                 heading: "The colors in between",
                 paragraphs: [
-                    "The three named colors are points on a line, not separate things, and the generator treats them that way. The color slider runs from 0 to 4: 0 is violet, 1 is blue, 2 is white, 3 is pink and 4 is brown. A value of 3.5 is halfway between pink and brown, with a slope of about minus 4.5 dB per octave, and it happens to be one of the most popular settings on the site; several focus and mechanical presets sit there. <a href=\"/presets/layered-depths.html\">Layered Depths</a> goes further and plays brown and blue at once for a two-layer sound.",
+                    "The three named colors are points on a line, not separate things, and the generator treats them that way. The color slider runs from 0 to 4: 0 is violet, 1 is blue, 2 is white, 3 is pink and 4 is brown. A value of 3.5 is halfway between pink and brown, with a slope of about minus 4.5 dB per octave, and it happens to be one of the most popular settings on the site; several focus and mechanical presets sit there. <a href=\"/presets/layered-depths\">Layered Depths</a> goes further and plays brown and blue at once for a two-layer sound.",
                     "Under the hood all of them begin as white noise. Pink is white passed through the Paul Kellett filter bank; brown is white integrated sample by sample with a leak to stop it drifting; blue and violet are white differentiated. Fractional slider positions crossfade between the neighboring algorithms. The result is continuous and non-repeating, and you can save any point on the line as a shareable URL or export it as a WAV."
                 ]
             }

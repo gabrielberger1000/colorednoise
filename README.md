@@ -6,7 +6,7 @@ A free, open-source noise generator that synthesizes white, pink, brown, blue an
 
 **Live site:** [colorednoise.app](https://colorednoise.app) · Installable as an app on phone and desktop, works offline.
 
-**Guides:** [Brown noise](https://colorednoise.app/brown-noise.html) · [Pink noise](https://colorednoise.app/pink-noise.html) · [White noise](https://colorednoise.app/white-noise.html) · [Noise for sleep](https://colorednoise.app/noise-for-sleep.html) · [Noise for focus](https://colorednoise.app/noise-for-focus.html) · [Brown noise & ADHD](https://colorednoise.app/brown-noise-adhd.html) · [Tinnitus masking](https://colorednoise.app/tinnitus-masking.html) · [White vs pink vs brown](https://colorednoise.app/white-vs-pink-vs-brown-noise.html)
+**Guides:** [Brown noise](https://colorednoise.app/brown-noise) · [Pink noise](https://colorednoise.app/pink-noise) · [White noise](https://colorednoise.app/white-noise) · [Noise for sleep](https://colorednoise.app/noise-for-sleep) · [Noise for focus](https://colorednoise.app/noise-for-focus) · [Brown noise & ADHD](https://colorednoise.app/brown-noise-adhd) · [Tinnitus masking](https://colorednoise.app/tinnitus-masking) · [White vs pink vs brown](https://colorednoise.app/white-vs-pink-vs-brown-noise)
 
 ## Features
 
@@ -65,9 +65,9 @@ Your listening habits are your own business.
 
 Unlike most noise generators that play looped audio files, Colored Noise synthesizes audio mathematically in real-time:
 
-- **[Physics of Noise](https://colorednoise.app/physics.html):** In-depth documentation on noise color theory, spectral density, and the mathematical algorithms used for generation (Paul Kellett's pink noise filter, Brownian integration, etc.)
+- **[Physics of Noise](https://colorednoise.app/physics):** In-depth documentation on noise color theory, spectral density, and the mathematical algorithms used for generation (Paul Kellett's pink noise filter, Brownian integration, etc.)
 
-- **[Composition Documentation](https://colorednoise.app/docs.html):** Full specification of the JSON composition format for creating programmatic, multi-voice soundscapes with ADSR envelopes and timed global effects
+- **[Composition Documentation](https://colorednoise.app/docs):** Full specification of the JSON composition format for creating programmatic, multi-voice soundscapes with ADSR envelopes and timed global effects
 
 - **[Preset Guide](https://colorednoise.app/presets/):** Detailed descriptions of all 71 presets, organized by use case (sleep, focus, nature, ambient, mechanical, experimental, textured)
 
