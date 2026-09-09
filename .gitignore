@@ -44,3 +44,5 @@ dist/
 
 # www contains symlinks for Capacitor
 www/
+# Rendered YouTube videos
+video/
