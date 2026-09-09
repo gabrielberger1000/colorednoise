@@ -1,0 +1,5 @@
+# Cloudflare Pages configuration (direct upload via wrangler).
+# Deploy with: npm run deploy
+name = "colorednoise"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-09-01"
