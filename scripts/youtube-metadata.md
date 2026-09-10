@@ -5,7 +5,7 @@ for options), then upload with the title, description and tags below. Use the
 matching `video/<slug>-thumbnail.png` as the custom thumbnail.
 
 Rendering takes roughly 2 minutes per hour of audio on an Apple Silicon Mac.
-An 8-hour video is about 450 MB.
+An 8-hour video is about 640 MB and a 10-hour one about 800 MB.
 
 ```bash
 node scripts/render-video.js --preset "Deep Brown" --hours 8 --title "Brown Noise"
@@ -15,6 +15,20 @@ node scripts/render-video.js --preset "Heavy Rain" --hours 8 --title "Rain Sound
 node scripts/render-video.js --preset "Box Fan" --hours 8 --title "Box Fan"
 node scripts/render-video.js --preset "Deep Sleep" --hours 10 --title "Brown Noise for Sleep"
 ```
+
+## Channel art
+
+Render the 2048x1152 channel banner with `scripts/make-banner.js`. It reuses
+the title-card palette, and keeps every readable element inside the 1235x338
+safe area that is the only part YouTube always shows.
+
+```bash
+node scripts/make-banner.js            # video/channel-banner.png
+node scripts/make-banner.js --guides   # same, with the crop boxes drawn on
+```
+
+Upload the plain render, not the `--guides` one. For the channel avatar, use
+the largest square in `icons/`.
 
 ## Shared description footer
 
