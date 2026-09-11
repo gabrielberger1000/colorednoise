@@ -160,7 +160,7 @@ ${JSON.stringify(jsonLd, null, 4).replace(/</g, '\\u003c')}
                 <button type="button" class="preview-btn" data-preview-preset="${primaryIdx}"><span class="preview-icon" aria-hidden="true"></span> <span class="preview-label">Preview ${page.primaryPreset}</span></button>
                 <a href="/?preset=${primaryIdx}" class="play-preset-btn">Open in Generator</a>
             </div>
-            <p class="cta-hint">Free, no ads, no signup. Runs entirely in your browser.</p>
+            <p class="cta-hint">Free, no ads, no signup. 71 presets, and every sound is <a href="/docs">programmable</a>.</p>
             <p class="preview-status" id="previewStatus" aria-live="polite"></p>
         </div>
 ${sectionsHtml}

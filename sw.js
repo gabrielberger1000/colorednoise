@@ -11,7 +11,7 @@
  * Bump CACHE_VERSION whenever a shell file changes so old caches are purged.
  */
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = `colorednoise-${CACHE_VERSION}`;
 
 const APP_SHELL = [

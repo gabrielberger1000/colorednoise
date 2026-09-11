@@ -1541,6 +1541,15 @@
             color: var(--text-dim);
         }
 
+        .cta-hint a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .cta-hint a:hover {
+            text-decoration: underline;
+        }
+
         .preset-details {
             margin: 2rem 0;
         }
