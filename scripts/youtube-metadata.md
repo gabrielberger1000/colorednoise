@@ -107,7 +107,9 @@ Run `caffeinate -d -i -m` in a terminal tab first, or the Mac sleeps
 mid-upload. Upload one file at a time — the browser uploader resumes, but not
 reliably enough to test on six 640 MB files at once.
 
-Identical for all six, on the Details page:
+Identical for all six, on the Details page. Tags, Category and Language are
+hidden until you scroll to the bottom and click **Show more** — the same is
+true when editing an already-uploaded video under Studio → Content:
 
 | Field | Value |
 | --- | --- |
