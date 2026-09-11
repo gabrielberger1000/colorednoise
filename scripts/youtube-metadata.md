@@ -38,8 +38,7 @@ node scripts/make-banner.js --guides   # same, with the crop boxes drawn on
 ```
 
 Upload the plain render, not the `--guides` one — that exists to check
-placement after editing the banner text. For the channel avatar, use the
-largest square in `icons/`.
+placement after editing the banner text.
 
 ## 1. Create the channel
 
@@ -84,7 +83,10 @@ ID is under Settings → Channel → Advanced settings.
 
 ## 3. Brand it
 
-- [ ] **Profile picture** — largest square in `icons/`. Minimum 98x98, under 4 MB.
+- [ ] **Profile picture** — `icons/icon-maskable-512.png`. Use the maskable
+      one, not `icon-512.png`: it has the dark ground baked in rather than a
+      transparent background, so it matches the banner on a light page too,
+      and its padding suits YouTube's circular crop.
 - [ ] **Banner** — `video/channel-banner.png`.
 - [ ] **Description** — the block below.
 - [ ] **Links** — `Colored Noise` → https://colorednoise.app (set to show on the
