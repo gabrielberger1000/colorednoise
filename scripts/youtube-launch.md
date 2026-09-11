@@ -17,38 +17,38 @@ Videos are in `video/`, which is gitignored. Six files, 4.1 GB total.
 - [ ] Name it **Colored Noise**. Try `@colorednoise`, fall back to
       `@colorednoiseapp`. Handles can only be changed twice per 14 days.
 
-## 2. Verify it
+## 2. Check verification
 
-This gates everything below. Until the new channel is phone-verified, YouTube
-caps uploads at 15 minutes and hides the custom thumbnail button. The shortest
-video here is 8 hours.
+Uploads over 15 minutes and custom thumbnails both need **Intermediate
+features** on the channel. The shortest video here is 8 hours, so nothing below
+works without it.
 
-**Studio opens on whichever channel was last active**, which is why
-studio.youtube.com shows the old one. Switch first, then bookmark the new
-channel's own Studio URL — `studio.youtube.com/channel/<CHANNEL_ID>`, with the
-ID under Settings → Channel → Advanced settings — so it stops happening.
+**Studio opens on whichever channel was last active**, so it will keep showing
+the old channel until you switch: avatar, top right → **Switch account** →
+Colored Noise, or pick it at <https://www.youtube.com/channel_switcher>. Worth
+bookmarking `studio.youtube.com/channel/<CHANNEL_ID>` for the new channel — the
+ID is under Settings → Channel → Advanced settings.
 
-- [ ] Switch channels: avatar, top right → **Switch account** → Colored Noise.
-      Or pick it at <https://www.youtube.com/channel_switcher>, which also sets
-      the active channel for Studio. If Colored Noise is not in that list it
-      does not exist yet — go back to section 1.
-- [ ] In Studio on the new channel: **Settings → Channel → Feature eligibility
-      → Intermediate features → Verify phone number**. That panel is the whole
-      flow; <https://www.youtube.com/verify> lands in the same place.
+- [ ] On the new channel, open **Settings → Channel → Feature eligibility**.
+      Three tiers are listed:
 
-      Your own number is used up, so this needs the family member's: about a
-      minute of their time, no Google account needed, and you never need the
-      number again. It consumes one of that number's ~2 slots per year. VoIP
-      numbers are rejected; a landline works with the call option.
-- [ ] Confirm **Intermediate features** now shows as enabled on that same
-      panel. Usually instant, occasionally up to 24 hours. Do not start
-      uploading until it does.
+      | Tier | Covers | Needed here |
+      | --- | --- | --- |
+      | Standard features | Uploads, playlists, collaborators | yes |
+      | Intermediate features | Videos over 15 minutes, custom thumbnails, live streaming | yes |
+      | Advanced features | Higher daily upload counts, monetization eligibility | no |
 
-The three tiers on that panel are **Default features**, **Intermediate
-features** (phone verification: long uploads, custom thumbnails — the two you
-need) and **Advanced features** (ID or video verification). Skip Advanced: it
-gates external links in cards and end screens, which also need Partner Program
-membership you will not have. Description links work without any of it.
+      If Intermediate reads **Enabled**, verification is already done and the
+      rest of this section is nothing to do. Advanced showing *Eligible* just
+      means you could apply; ignore it. It gates external links in cards and
+      end screens, which also need Partner Program membership — description
+      links work without any of it.
+- [ ] Only if Intermediate is not enabled: open it and click **Verify phone
+      number** (<https://www.youtube.com/verify> lands in the same place).
+      Your own number is used up, so this needs someone else's — about a minute
+      of their time, no Google account needed, and you never need the number
+      again. It consumes one of that number's ~2 slots per year. VoIP numbers
+      are rejected; a landline works with the call option.
 
 ## 3. Brand it
 
