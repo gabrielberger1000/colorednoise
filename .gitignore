@@ -46,3 +46,5 @@ dist/
 www/
 # Rendered YouTube videos
 video/
+# Site screenshots for directory listings
+screenshots/
