@@ -172,7 +172,7 @@ export const landingPages = [
                 a: "No. It is generated fresh on every sample by a filter running in your browser, so there is no file to loop and no seam. If you export a WAV, that file will loop wherever your player restarts it, but the sound from the generator itself is continuous for as long as you leave it running."
             }
         ],
-        related: ["brown-noise", "white-noise", "noise-for-sleep", "white-vs-pink-vs-brown-noise"]
+        related: ["brown-noise", "white-noise", "noise-for-sleep", "white-vs-pink-vs-brown-noise", "pink-noise-test-signal"]
     },
 
     // ------------------------------------------------------------------
@@ -259,7 +259,7 @@ export const landingPages = [
                 a: "Many people find that it does, mostly because it masks the sudden sounds that would otherwise wake them. Controlled studies are small and their results are mixed, so there is no strong evidence either way for the average sleeper. It is harmless to try at low volume, and pink or brown are worth comparing if pure white feels too bright."
             }
         ],
-        related: ["pink-noise", "grey-noise", "noise-for-focus", "white-vs-pink-vs-brown-noise"]
+        related: ["pink-noise", "grey-noise", "noise-for-focus", "white-vs-pink-vs-brown-noise", "pink-noise-test-signal"]
     },
 
     // ------------------------------------------------------------------
@@ -506,7 +506,7 @@ export const landingPages = [
                 a: "Yes, and that is how it is implemented here. Grey is a toggle that applies the loudness curve to whatever base color you have selected. Grey plus brown gives a deep, even sound that many people prefer for sleep, while grey plus pink is a good general masker for work. Several presets use these combinations."
             }
         ],
-        related: ["white-noise", "pink-noise", "tinnitus-masking"]
+        related: ["white-noise", "pink-noise", "tinnitus-masking", "pink-noise-test-signal"]
     },
 
     // ------------------------------------------------------------------
@@ -930,5 +930,90 @@ export const landingPages = [
             }
         ],
         related: ["brown-noise", "pink-noise", "white-noise", "noise-for-sleep"]
+    },
+    // ------------------------------------------------------------------
+    // 12. Pink noise test signal
+    // ------------------------------------------------------------------
+    {
+        slug: "pink-noise-test-signal",
+        title: "Pink Noise Test Signal - Free WAV Download for Speaker and Room Testing",
+        h1: "Pink Noise Test Signal",
+        metaDescription: "Generate a pink noise test signal and download it as a 44.1 kHz 16-bit stereo WAV, 5 seconds to 5 minutes. Free, no signup, no email, for speaker, room and RTA work.",
+        intro: [
+            "Pink noise is the usual broadband test signal for loudspeaker and room work. It has equal energy in every octave, which is what makes it read as a flat line on an octave or third-octave analyzer, and it puts far less energy into the top end than white noise does. That combination is why it turns up in room EQ, channel matching, SPL calibration and PA tuning.",
+            "This page generates pink noise in your browser and exports it as a WAV file. There is no signup, no email gate and no file to hunt down on a forum: the signal is synthesized on demand, so it has no loop seam and no codec artifacts from having been an MP3 at some point. Set the length you need, export, and load it into whatever you are using."
+        ],
+        primaryPreset: "Standard Pink",
+        sections: [
+            {
+                heading: "Why pink noise and not white noise",
+                paragraphs: [
+                    "White noise has equal energy per hertz. Pink noise has equal energy per octave. The difference matters because octave and third-octave analyzers use constant-percentage bandwidth: the 8 kHz band is literally twice as wide in hertz as the 4 kHz band, so it collects twice as much white noise energy and reads 3 dB higher. Feed white noise to an RTA and you get a line rising at 3 dB per octave, which you then have to correct for mentally. Feed it pink noise and a flat response reads flat.",
+                    "The second reason is thermal. White noise concentrates most of its power in the top few octaves, which is where the tweeter lives and where the tweeter has the least power handling. Sustained white noise at a useful measurement level is a good way to damage a high-frequency driver. Pink noise distributes power the way real program material roughly does, so you can run it for the length of an averaging pass without worrying."
+                ]
+            },
+            {
+                heading: "What this page exports",
+                paragraphs: [
+                    "Exports are 44.1 kHz, 16-bit stereo WAV, with a length you choose between 5 seconds and 5 minutes. The file is rendered offline in the browser rather than recorded from the live output, so there is no dropout risk and no need to leave the tab alone while it runs. Nothing is uploaded, and no server sees the file.",
+                    "One detail that matters for measurement: the two channels are generated independently and are therefore uncorrelated. That is the right thing for stereo listening and for checking both channels at once, but it means the left and right signals do not sum the way a mono source would. For anything that depends on correlation between channels, such as polarity checks or summing tests, feed one channel to the system rather than both, or use a dedicated mono test track."
+                ]
+            },
+            {
+                heading: "Setting the level",
+                paragraphs: [
+                    "The export follows the generator's own volume setting and is not calibrated to a stated level in dBFS. Treat the file as a source of correctly shaped noise, not as a reference of known amplitude: set your level at the amplifier or interface and verify it with your own meter. Measurement practice is usually to work well below clipping so the signal's peaks survive intact, since noise has a much higher crest factor than a sine tone at the same RMS.",
+                    "If you need a signal that conforms to a standard, this is not it. Standardized power-handling and thermal tests specify a particular crest factor and band-limiting, and audio precision work generally calls for a calibrated generator. What this is good for is the large category of everyday tasks where you need broadband noise of the right shape and nobody is going to audit the paperwork."
+                ]
+            },
+            {
+                heading: "Common uses",
+                paragraphs: [
+                    "The most common is room and system EQ: play pink noise, measure with an RTA or a measurement microphone, and adjust until the response is acceptably flat or matches a target curve. Close behind it are level matching between speakers, checking that a subwoofer crosses over sensibly with the mains, confirming that both channels of a system actually work at the same sensitivity, and verifying that a newly wired PA produces sound from every box.",
+                    "Pink noise is also used to check the noise floor of a room, to set masking levels in offices, and as a signal for testing microphones and recording chains where you want something broadband and repeatable. You will also see it recommended for speaker break-in; the evidence that break-in produces an audible change is weak, so if you do it, do it because it costs you nothing rather than because it is established."
+                ]
+            },
+            {
+                heading: "When you need a different signal",
+                paragraphs: [
+                    "Pink noise tells you about magnitude response averaged over time. It will not give you an impulse response, a decay time, or phase, and it is poor at revealing distortion because the noise masks the artifacts you are looking for. For those, a swept sine is the right tool, and free software such as Room EQ Wizard will generate and analyze one properly.",
+                    "For very low-frequency work, band-limited noise or a sine sweep is usually more useful than full-range pink, since most of the pink noise energy above the crossover is irrelevant to what you are trying to see. The generator can help here too: shifting the color control toward brown concentrates energy at the bottom, though the result is no longer a standard pink signal and should not be used where a specific spectrum is expected."
+                ]
+            }
+        ],
+        presets: [
+            { name: "Standard Pink", why: "The reference pink noise for this page: -3 dB per octave, no EQ, no modulation." },
+            { name: "Pure White", why: "Flat per hertz, for the cases where white is genuinely what you want." },
+            { name: "Deep Brown", why: "Energy concentrated at the bottom, useful for informal subwoofer checks." },
+            { name: "Blue Sky", why: "Rising spectrum, for listening to the top end of a tweeter." },
+            { name: "Grey Noise", why: "Perceptually flat rather than electrically flat. Good for listening, wrong for measurement." }
+        ],
+        faq: [
+            {
+                q: "Should I use pink noise or white noise to test speakers?",
+                a: "Pink, in almost every case. Octave-band analyzers read pink noise as a flat line, so a flat system measures flat without correction, and pink noise puts much less sustained power into the tweeter. White noise is mainly useful when you specifically want equal energy per hertz, which is unusual outside of electrical measurements."
+            },
+            {
+                q: "How long should the test signal be?",
+                a: "Thirty to sixty seconds is enough for most RTA averaging, and longer files mainly save you from restarting the clip. Noise measurements need averaging over time because the signal is random: a one-second sample will show ragged peaks and dips that are properties of that particular second, not of the system."
+            },
+            {
+                q: "What file format do I get?",
+                a: "A 44.1 kHz, 16-bit stereo WAV, between 5 seconds and 5 minutes long. It is rendered in your browser and downloaded directly; nothing is uploaded and there is no signup or email step."
+            },
+            {
+                q: "Is the signal calibrated to a specific level?",
+                a: "No. The export follows the generator's volume setting, so treat it as correctly shaped noise rather than a known amplitude, and set and verify your level with your own meter. For work that requires a conforming signal with a specified crest factor, use a calibrated generator."
+            },
+            {
+                q: "Are the left and right channels the same?",
+                a: "No, they are generated independently and are uncorrelated. That is fine for testing both channels at once, but it means they will not sum like a mono source. For polarity or summing tests, send a single channel to the system instead."
+            },
+            {
+                q: "Can I use this for room correction?",
+                a: "For setting levels and checking the broad shape of the response, yes. For a full correction with impulse response, decay and phase, you want a swept sine and software built for it, such as Room EQ Wizard. Pink noise gives you time-averaged magnitude and nothing else."
+            }
+        ],
+        related: ["pink-noise", "white-noise", "grey-noise", "tinnitus-masking"]
     }
 ];

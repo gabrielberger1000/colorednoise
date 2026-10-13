@@ -2,9 +2,13 @@
 
 [![Colored Noise](social-card.png)](https://colorednoise.app)
 
-A free, open-source noise generator that synthesizes white, pink, brown, blue and violet noise in real time in your browser. 71 presets, multi-voice polyrhythms, sleep timer, WAV export. No ads, no signup, no tracking.
+A free, open-source **programmable noise synthesizer** that runs entirely in your browser. Not a player with a handful of loops: every sound is generated sample by sample in an AudioWorklet, so nothing repeats and nothing is downloaded.
+
+Layer up to four voices with independent color, pan and ADSR envelopes; write compositions as plain JSON; export any result to WAV. White, pink, brown, blue, violet and grey noise, 71 presets, polyrhythmic modulation, sleep timer, offline PWA. No ads, no signup, no tracking.
 
 **Live site:** [colorednoise.app](https://colorednoise.app) · Installable as an app on phone and desktop, works offline.
+
+**Docs:** [JSON composition format](https://colorednoise.app/docs) · [The physics of noise colors](https://colorednoise.app/physics) · [Pink noise test signals](https://colorednoise.app/pink-noise-test-signal)
 
 **Guides:** [Brown noise](https://colorednoise.app/brown-noise) · [Pink noise](https://colorednoise.app/pink-noise) · [White noise](https://colorednoise.app/white-noise) · [Noise for sleep](https://colorednoise.app/noise-for-sleep) · [Noise for focus](https://colorednoise.app/noise-for-focus) · [Brown noise & ADHD](https://colorednoise.app/brown-noise-adhd) · [Tinnitus masking](https://colorednoise.app/tinnitus-masking) · [White vs pink vs brown](https://colorednoise.app/white-vs-pink-vs-brown-noise)
 
