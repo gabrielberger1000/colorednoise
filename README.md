@@ -273,4 +273,4 @@ Tested in Chrome, Firefox, Safari, and Edge.
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
