@@ -7,8 +7,8 @@ import {
     audioEngine, Voice, checkBrowserCompatibility, WORKLET_PATH,
     renderAudio, audioBufferToWav,
     validateComposition, buildCompositionSchedule
-} from '@colorednoise/engine';
-import { builtInPresets, categories, defaultSettings, loadCustomPresets, saveCustomPresets } from '@colorednoise/engine';
+} from 'colorednoise-engine';
+import { builtInPresets, categories, defaultSettings, loadCustomPresets, saveCustomPresets } from 'colorednoise-engine';
 
 // Pre-allocated arrays for visualizer to avoid GC pressure
 let frequencyDataArray = null;

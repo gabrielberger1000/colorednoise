@@ -7,8 +7,8 @@
  * initialized on the first click (browsers require a user gesture anyway).
  */
 
-import { audioEngine, checkBrowserCompatibility } from '@colorednoise/engine';
-import { builtInPresets } from '@colorednoise/engine';
+import { audioEngine, checkBrowserCompatibility } from 'colorednoise-engine';
+import { builtInPresets } from 'colorednoise-engine';
 
 const PREVIEW_VOLUME = 0.5;
 

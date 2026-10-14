@@ -1,4 +1,4 @@
-# @colorednoise/engine
+# colorednoise-engine
 
 Programmable colored noise synthesis for the browser. White, pink, brown, blue
 and violet noise generated sample by sample in an AudioWorklet — nothing is
@@ -7,13 +7,13 @@ fetched, decoded or looped, so the output never repeats and there is no seam.
 This is the engine behind [colorednoise.app](https://colorednoise.app).
 
 ```bash
-npm install @colorednoise/engine
+npm install colorednoise-engine
 ```
 
 ## Play
 
 ```js
-import { AudioEngine, defaultSettings } from '@colorednoise/engine';
+import { AudioEngine, defaultSettings } from 'colorednoise-engine';
 
 const engine = new AudioEngine();
 await engine.init();                          // AudioContext + worklet
@@ -55,7 +55,7 @@ Offline rendering rebuilds the same graph inside an `OfflineAudioContext`, so
 an export sounds like what you were listening to.
 
 ```js
-import { renderAudio, audioBufferToWav, WORKLET_PATH, defaultSettings } from '@colorednoise/engine';
+import { renderAudio, audioBufferToWav, WORKLET_PATH, defaultSettings } from 'colorednoise-engine';
 
 const sampleRate = 44100;
 const seconds = 30;
@@ -80,7 +80,7 @@ A composition is plain JSON: named voices holding sequences of timed events,
 plus global effect changes over time. Repeat blocks nest.
 
 ```js
-import { validateComposition, buildCompositionSchedule } from '@colorednoise/engine';
+import { validateComposition, buildCompositionSchedule } from 'colorednoise-engine';
 
 const comp = {
     voices: {
@@ -102,7 +102,7 @@ documented at [colorednoise.app/docs](https://colorednoise.app/docs).
 ## Presets
 
 ```js
-import { builtInPresets, categories } from '@colorednoise/engine';
+import { builtInPresets, categories } from 'colorednoise-engine';
 ```
 
 71 of them across sleep, focus, nature, ambient, mechanical, experimental and

@@ -1,5 +1,5 @@
 {
-  "name": "@colorednoise/engine",
+  "name": "colorednoise-engine",
   "version": "0.1.0",
   "description": "Programmable colored noise synthesis for the browser. White, pink, brown, blue and violet noise generated in an AudioWorklet, with multi-voice ADSR, JSON compositions and WAV export.",
   "type": "module",
