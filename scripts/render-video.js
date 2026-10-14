@@ -35,7 +35,7 @@ import { spawn, execFileSync } from 'child_process';
 import { mkdirSync, writeFileSync, existsSync } from 'fs';
 import { join, dirname, basename } from 'path';
 import { fileURLToPath } from 'url';
-import { builtInPresets } from '../js/presets.js';
+import { builtInPresets } from '../packages/engine/src/presets.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');

@@ -2,8 +2,10 @@
  * Service worker for Colored Noise.
  *
  * Strategy:
- *  - The app shell (HTML, CSS, JS, worklet, manifest, icons) is precached on
- *    install so the generator works fully offline once it has been opened once.
+ *  - The static shell (HTML, CSS, manifest, icons) is precached on install.
+ *    Bundled JS and the worklet carry content hashes in their filenames, so
+ *    they cannot be listed here; stale-while-revalidate below caches them on
+ *    first load, which is what makes the second visit work offline.
  *  - Same-origin GET requests use stale-while-revalidate: serve from cache
  *    immediately, refresh the cache in the background.
  *  - Cross-origin requests (Google Fonts) are passed through untouched.
@@ -11,18 +13,13 @@
  * Bump CACHE_VERSION whenever a shell file changes so old caches are purged.
  */
 
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const CACHE_NAME = `colorednoise-${CACHE_VERSION}`;
 
 const APP_SHELL = [
     '/',
     '/index.html',
     '/css/style.css',
-    '/js/main.js',
-    '/js/ui.js',
-    '/js/audio-engine.js',
-    '/js/presets.js',
-    '/worklet/noise-processor.js',
     '/manifest.webmanifest',
     '/favicon.svg',
     '/icons/icon-192.png',

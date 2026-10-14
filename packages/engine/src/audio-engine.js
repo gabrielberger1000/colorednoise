@@ -17,9 +17,9 @@
  */
 
 const MAX_VOICES = 4;
-// Resolved relative to this module so the engine also works from pages in
-// subdirectories (e.g. /presets/*.html previews), not only from the site root.
-const WORKLET_PATH = new URL('../worklet/noise-processor.js', import.meta.url).href;
+// Resolved relative to this module so the engine works from any page depth,
+// and so bundlers emit the worklet as its own chunk.
+const WORKLET_PATH = new URL('./noise-processor.js', import.meta.url).href;
 
 /**
  * Check browser compatibility for required Web Audio features

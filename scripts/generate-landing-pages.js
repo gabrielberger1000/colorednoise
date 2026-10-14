@@ -6,7 +6,7 @@
  * play/preview buttons are looked up from js/presets.js by name.
  */
 
-import { builtInPresets } from '../js/presets.js';
+import { builtInPresets } from '../packages/engine/src/presets.js';
 import { landingPages } from './landing-content.js';
 import { writeFileSync } from 'fs';
 import { join, dirname } from 'path';
@@ -138,7 +138,7 @@ function generateLandingPage(page) {
 ${JSON.stringify(jsonLd, null, 4).replace(/</g, '\\u003c')}
     </script>
 
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="content-page landing-page">

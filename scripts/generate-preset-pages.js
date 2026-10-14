@@ -7,7 +7,7 @@
  * here from js/presets.js.
  */
 
-import { builtInPresets, categories } from '../js/presets.js';
+import { builtInPresets, categories } from '../packages/engine/src/presets.js';
 import { presetContent } from './preset-content.js';
 import { landingPages } from './landing-content.js';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -208,7 +208,7 @@ function generatePresetPage(preset, index) {
     }
     </script>
 
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="content-page preset-page">

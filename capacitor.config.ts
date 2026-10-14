@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'app.colorednoise',
   appName: 'Colored Noise',
-  webDir: 'www',
+  webDir: 'dist',
   server: {
     // For development, you can use this to load from a dev server:
     // url: 'http://localhost:8000',

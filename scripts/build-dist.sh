@@ -1,24 +1,27 @@
 #!/bin/bash
-# Assemble the deployable static site into dist/ (only what the browser needs;
-# no Python composer, generator scripts, node_modules, or rendered videos).
-# Used by `npm run deploy` and the Cloudflare Pages GitHub Action.
+# Copy the static files Vite does not know about into dist/.
+#
+# `vite build` produces dist/ with the HTML, hashed JS/CSS and the worklet.
+# These files are never imported by a page, so nothing references them from
+# the module graph and Vite would leave them out: the service worker, the
+# manifest and its icons, and the crawler files.
+#
+# Run AFTER vite build — this adds to dist/, it does not create it.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIST="$ROOT/dist"
 
-rm -rf "$DIST"
-mkdir -p "$DIST"
+if [ ! -d "$DIST" ]; then
+    echo "dist/ does not exist — run 'vite build' first" >&2
+    exit 1
+fi
 
-# Root files
-for f in "$ROOT"/*.html "$ROOT"/manifest.webmanifest "$ROOT"/sw.js "$ROOT"/_headers "$ROOT"/_redirects \
+for f in "$ROOT"/manifest.webmanifest "$ROOT"/sw.js "$ROOT"/_headers "$ROOT"/_redirects \
          "$ROOT"/sitemap.xml "$ROOT"/robots.txt "$ROOT"/favicon.svg "$ROOT"/social-card.png; do
     [ -f "$f" ] && cp "$f" "$DIST/"
 done
 
-# Directories
-for d in css js worklet icons presets; do
-    cp -R "$ROOT/$d" "$DIST/$d"
-done
+cp -R "$ROOT/icons" "$DIST/icons"
 
 echo "dist/ ready: $(find "$DIST" -type f | wc -l | tr -d ' ') files"

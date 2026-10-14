@@ -1,0 +1,41 @@
+{
+  "name": "@colorednoise/engine",
+  "version": "0.1.0",
+  "description": "Programmable colored noise synthesis for the browser. White, pink, brown, blue and violet noise generated in an AudioWorklet, with multi-voice ADSR, JSON compositions and WAV export.",
+  "type": "module",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./noise-processor.js": "./src/noise-processor.js"
+  },
+  "files": [
+    "src"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "web-audio",
+    "audioworklet",
+    "noise",
+    "white-noise",
+    "pink-noise",
+    "brown-noise",
+    "synthesis",
+    "generative",
+    "wav"
+  ],
+  "homepage": "https://colorednoise.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielberger1000/colorednoise.git",
+    "directory": "packages/engine"
+  },
+  "bugs": {
+    "url": "https://github.com/gabrielberger1000/colorednoise/issues"
+  },
+  "author": "Gabriel Berger",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
