@@ -33,7 +33,9 @@ TODO.txt
 
 # Node
 node_modules/
-package-lock.json
+# package-lock.json is committed on purpose: CI installs and builds with
+# Vite, so without a lockfile a dependency release can change a deploy
+# with no commit of ours.
 
 # Capacitor native projects
 ios/

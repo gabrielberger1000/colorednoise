@@ -17,6 +17,13 @@
 
         <p>The Colored Noise composition engine allows you to programmatically create complex, evolving soundscapes using a JSON schema. Compositions support unlimited voices, timed events, repeat blocks, and dynamic global effects.</p>
 
+        <p>The engine that reads this format is also published on its own, so you
+        can use it in your own project without the site:
+        <a href="https://www.npmjs.com/package/colorednoise-engine" rel="noopener"><code>npm install colorednoise-engine</code></a>.
+        It is MIT licensed, has no dependencies, and ships the worklet, the
+        presets, offline WAV rendering and the validator for the format
+        documented below.</p>
+
         <h2>Basic Structure</h2>
 
         <p>A composition has two main sections: <code>voices</code> (named voice channels with event sequences) and <code>global</code> (master effects that change over time).</p>
