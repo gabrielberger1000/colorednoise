@@ -798,6 +798,15 @@ function drawVisualizer() {
 // === URL STATE ===
 
 /**
+ * Read an enum-valued URL parameter, falling back to the default for anything
+ * unrecognised. Links shared before the writer was fixed carry values like
+ * "undefined", and a stray value here would reach the audio graph.
+ */
+function enumParam(value, allowed, fallback) {
+    return allowed.includes(value) ? value : fallback;
+}
+
+/**
  * Encode current settings to URL for sharing
  */
 function updateURL() {
@@ -808,7 +817,7 @@ function updateURL() {
 
     // Global settings - only include non-default values to keep URL short
     if (currentSettings.pulse > 0) params.set('pulse', currentSettings.pulse);
-    if (currentSettings.pulseShape !== 'sine') params.set('ps', currentSettings.pulseShape);
+    if (currentSettings.pulseShape && currentSettings.pulseShape !== 'sine') params.set('ps', currentSettings.pulseShape);
     if (currentSettings.grey) params.set('grey', '1');
     if (currentSettings.dist > 0) params.set('dist', currentSettings.dist);
     if (currentSettings.panRate > 0) params.set('pr', currentSettings.panRate);
@@ -818,11 +827,11 @@ function updateURL() {
         params.set('cb', currentSettings.colorBlend);
     }
     if (currentSettings.saturation > 0) params.set('sat', currentSettings.saturation);
-    if (currentSettings.saturationMode !== 'soft') params.set('sm', currentSettings.saturationMode);
+    if (currentSettings.saturationMode && currentSettings.saturationMode !== 'soft') params.set('sm', currentSettings.saturationMode);
     if (currentSettings.bitDepth < 16) params.set('bd', currentSettings.bitDepth);
     if (currentSettings.sampleRateReduction > 1) params.set('srr', currentSettings.sampleRateReduction);
     if (currentSettings.reverbMix > 0) params.set('rm', currentSettings.reverbMix);
-    if (currentSettings.reverbSize !== 'medium') params.set('rs', currentSettings.reverbSize);
+    if (currentSettings.reverbSize && currentSettings.reverbSize !== 'medium') params.set('rs', currentSettings.reverbSize);
 
     // Encode voice settings (compact format)
     const voiceData = voiceSettings.map((v, i) => {
@@ -878,7 +887,7 @@ function loadFromURL() {
 
     // Global settings
     if (params.has('pulse')) currentSettings.pulse = parseFloat(params.get('pulse'));
-    if (params.has('ps')) currentSettings.pulseShape = params.get('ps');
+    if (params.has('ps')) currentSettings.pulseShape = enumParam(params.get('ps'), ['sine', 'triangle', 'square'], 'sine');
     if (params.has('grey')) currentSettings.grey = params.get('grey') === '1';
     if (params.has('dist')) currentSettings.dist = parseInt(params.get('dist'));
     if (params.has('pr')) currentSettings.panRate = parseFloat(params.get('pr'));
@@ -888,11 +897,11 @@ function loadFromURL() {
     }
     if (params.has('cb')) currentSettings.colorBlend = parseFloat(params.get('cb'));
     if (params.has('sat')) currentSettings.saturation = parseFloat(params.get('sat'));
-    if (params.has('sm')) currentSettings.saturationMode = params.get('sm');
+    if (params.has('sm')) currentSettings.saturationMode = enumParam(params.get('sm'), ['soft', 'hard', 'tube'], 'soft');
     if (params.has('bd')) currentSettings.bitDepth = parseInt(params.get('bd'));
     if (params.has('srr')) currentSettings.sampleRateReduction = parseInt(params.get('srr'));
     if (params.has('rm')) currentSettings.reverbMix = parseFloat(params.get('rm'));
-    if (params.has('rs')) currentSettings.reverbSize = params.get('rs');
+    if (params.has('rs')) currentSettings.reverbSize = enumParam(params.get('rs'), ['small', 'medium', 'large'], 'medium');
 
     // Decode voice settings
     if (params.has('voices')) {
